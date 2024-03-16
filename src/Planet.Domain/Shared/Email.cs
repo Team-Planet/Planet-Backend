@@ -1,4 +1,5 @@
 ﻿using Planet.Domain.SharedKernel;
+using Planet.Domain.Users;
 using System.Text.RegularExpressions;
 
 namespace Planet.Domain.Shared
@@ -16,9 +17,14 @@ namespace Planet.Domain.Shared
 
         public static Email Create(string email)
         {
-            if(!IsValidEmail(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
-                throw new DomainException("Email.NotValid", "Geçerli bir e-posta adresi giriniz!");
+                throw new DomainException("Email.NullOrWhiteSpace", "E-posta adresi boş olamaz!");
+            }
+
+            if (!IsValidEmail(email))
+            {
+                throw new DomainException("Email.NotValid", "E-posta adresi geçerli değil!");
             }
 
             if(IsInRange(email))
