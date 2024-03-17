@@ -1,9 +1,4 @@
 ﻿using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Domain.Cards
 {
@@ -11,7 +6,7 @@ namespace Planet.Domain.Cards
     {
         public Guid CardId { get; private set; }
         public DateTime StartDate { get; private set; }
-        public DateTime DeadDate { get; private set; }
+        public DateTime EndDate { get; private set; }
 
         private CardDates() : base(Guid.Empty)
         {
@@ -21,20 +16,20 @@ namespace Planet.Domain.Cards
             Guid id,
             Guid cardId,
             DateTime startDate,
-            DateTime deadDate) : base(id)
+            DateTime endDate) : base(id)
         {
             CardId = cardId;
             StartDate = startDate;
-            DeadDate = deadDate;
+            EndDate = endDate;
         }
 
         public static CardDates Create(
             Guid id,
             Guid cardId,
             DateTime startDate,
-            DateTime deadDate)
+            DateTime endDate)
         {
-            return new CardDates(id, cardId, startDate, deadDate);
+            return new CardDates(id, cardId, startDate, endDate);
         }
     }
 }

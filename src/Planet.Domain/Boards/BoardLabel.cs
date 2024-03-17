@@ -2,14 +2,14 @@
 using System.Drawing;
 namespace Planet.Domain.Boards
 {
-    public sealed class BoardLabels :Entity
+    public sealed class BoardLabel :Entity
     {
         public Guid BoardId { get; private set; }
         public Color Color { get; private set; }
         public BoardTitle Title { get; private set; }
         public bool IsActive { get; private set; }
-        private BoardLabels() : base(Guid.Empty) { }
-        private BoardLabels(
+        private BoardLabel() : base(Guid.Empty) { }
+        private BoardLabel(
             Guid id,
             Guid boardId,
             Color color,
@@ -21,13 +21,13 @@ namespace Planet.Domain.Boards
             Title = title;
             IsActive = isActive;
         }
-        public static BoardLabels Create(Guid id,
+        public static BoardLabel Create(Guid id,
             Guid boardId,
             Color color,
             BoardTitle title,
             bool isActive)
         {
-            return new BoardLabels(id,boardId, color, title, isActive);
+            return new BoardLabel(id,boardId, color, title, isActive);
         }
     }
 }

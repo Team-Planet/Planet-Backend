@@ -1,16 +1,11 @@
 ﻿using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Domain.Cards
 {
     public sealed class CardComments : Entity
     {
         public Guid UserId { get; private set; }
-        public CardCommentDescription Description { get; private set; }
+        public CardCommentContent Content { get; private set; }
         public Guid CardId { get; private set; }
 
         private CardComments() : base(Guid.Empty)
@@ -19,20 +14,20 @@ namespace Planet.Domain.Cards
         private CardComments(
           Guid id,
           Guid userId,
-          string description,
+          CardCommentContent content,
           Guid cardId) : base(id)
         {
             UserId = userId;
-            Description = description;
+            Content = content;
             CardId = cardId;
         }
         public static CardComments Create(
            Guid id,
            Guid userId,
-           string description,
+           CardCommentContent content,
            Guid cardId)
         {
-            return new CardComments(id, userId, description, cardId);
+            return new CardComments(id, userId, content, cardId);
         }
 
 

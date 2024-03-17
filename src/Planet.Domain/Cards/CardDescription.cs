@@ -1,21 +1,15 @@
 ﻿using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Domain.Cards
 {
     public record CardDescription
     {
-        public string value { get; init; }
+        public string Value { get; init; }
 
         private CardDescription() { }
         private CardDescription(string description)
         {
-            value = description;
+            Value = description;
         }
         public static CardDescription Create(string description)
         {

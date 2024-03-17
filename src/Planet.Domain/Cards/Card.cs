@@ -1,10 +1,4 @@
-﻿using Planet.Domain.Boards;
-using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Planet.Domain.SharedKernel;
 
 namespace Planet.Domain.Cards
 {
@@ -12,12 +6,18 @@ namespace Planet.Domain.Cards
     {
         public CardTitle Title { get; private set; }
         public CardDescription Description { get; private set; }
-        public Guid OwnerId { get; private set; }
         public Guid ListId { get; private set; }
+        public Guid OwnerId { get; private set; }
+        public Guid? AssignedToId { get; private set; } 
         public DateTime CreatedDate { get; private set; }
-        public Guid? AssignedId { get; private set; } 
         public int Order { get; private set; }
         public bool IsDeleted { get; private set; }
+
+        public IReadOnlyList<CardCheckList> CheckLists => _checkLists?.ToList();
+        public IReadOnlyList<CardLabel> Labels => _labels?.ToList();
+
+        private IList<CardCheckList> _checkLists = new List<CardCheckList>();
+        private IList<CardLabel> _labels = new List<CardLabel>();
 
         private Card() : base(Guid.Empty)
         {
@@ -30,7 +30,7 @@ namespace Planet.Domain.Cards
            Guid ownerId,
            Guid listId,
            DateTime createdDate,
-           Guid? assignedId,
+           Guid? assignedToId,
            int order,
            bool isDeleted) : base(id)
 
@@ -40,7 +40,7 @@ namespace Planet.Domain.Cards
             OwnerId = ownerId;
             ListId = listId;
             CreatedDate = createdDate;
-            AssignedId = assignedId;
+            AssignedToId = assignedToId;
             Order = order;
             IsDeleted = isDeleted;
         }
@@ -52,11 +52,11 @@ namespace Planet.Domain.Cards
             Guid ownerId,
             Guid listId,
             DateTime createdDate,
-            Guid? assignedId,
+            Guid? assignedToId,
             int order,
             bool isDeleted)
         {
-            return new Card(id, title, description, ownerId, listId, createdDate, assignedId, order, isDeleted);
+            return new Card(id, title, description, ownerId, listId, createdDate, assignedToId, order, isDeleted);
         }
 
     }

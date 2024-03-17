@@ -46,6 +46,6 @@ namespace Planet.Domain.Users
         public void ChangeActivity(bool activity)
         {
             IsActive = activity;
-        } 
+        }
     }
 }

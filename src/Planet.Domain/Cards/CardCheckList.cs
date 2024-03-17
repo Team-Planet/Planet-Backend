@@ -6,12 +6,13 @@ namespace Planet.Domain.Cards
     {
         public Guid CardId { get; private set; }
         public CardTitle CardTitle { get; private set; }
-        public IReadOnlyList<CardCheckListItem> Members => _items?.ToList();
+        public IReadOnlyList<CardCheckListItem> Items => _items?.ToList();
 
         private IList<CardCheckListItem> _items = new List<CardCheckListItem>();
+
         private CardCheckList(
             Guid id,
-            Guid cardId, 
+            Guid cardId,
             CardTitle cardTitle) : base(Guid.Empty)
         {
             CardId = cardId;
@@ -23,7 +24,7 @@ namespace Planet.Domain.Cards
             CardTitle cardTitle
             )
         {
-            return new CardCheckList( id, cardId, cardTitle );
+            return new CardCheckList(id, cardId, cardTitle);
         }
     }
 }
