@@ -19,6 +19,10 @@ namespace Planet.Domain.Boards
             {
                 throw new DomainException("BoardTitle.NullOrWhiteSpace", "Başlık boş olamaz!");
             }
+            if(title.Length > 100)
+            {
+                throw new DomainException("BoardTitle.NotInRange", "Başlık 100 karakterden fazla olamaz!");
+            }
 
             return new BoardTitle(title);
         }
