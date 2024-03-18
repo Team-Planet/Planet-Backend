@@ -19,6 +19,10 @@ namespace Planet.Domain.Cards
             {
                 throw new DomainException("CardTitle.NullOrWhiteSpace", "Başlık boş olamaz!");
             }
+            if (title.Length > 100)
+            {
+                throw new DomainException("CardTitle.NotInRange", "Başlık 100 karakterden fazla olamaz!");
+            }
 
             return new CardTitle(title);
         }
