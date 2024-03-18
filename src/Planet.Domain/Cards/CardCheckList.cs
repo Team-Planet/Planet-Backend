@@ -13,7 +13,7 @@ namespace Planet.Domain.Cards
         private CardCheckList(
             Guid id,
             Guid cardId,
-            CardTitle cardTitle) : base(Guid.Empty)
+            CardTitle cardTitle) : base(id)
         {
             CardId = cardId;
             CardTitle = cardTitle;

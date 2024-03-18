@@ -1,10 +1,4 @@
-﻿using Planet.Domain.Boards;
-using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Planet.Domain.SharedKernel;
 
 namespace Planet.Domain.Cards
 {

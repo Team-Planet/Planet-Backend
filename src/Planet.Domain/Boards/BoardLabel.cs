@@ -2,19 +2,19 @@
 using System.Drawing;
 namespace Planet.Domain.Boards
 {
-    public sealed class BoardLabel :Entity
+    public sealed class BoardLabel : Entity
     {
         public Guid BoardId { get; private set; }
-        public Color Color { get; private set; }
+        public BoardLabelColor Color { get; private set; }
         public BoardTitle Title { get; private set; }
         public bool IsActive { get; private set; }
         private BoardLabel() : base(Guid.Empty) { }
         private BoardLabel(
             Guid id,
             Guid boardId,
-            Color color,
+            BoardLabelColor color,
             BoardTitle title,
-            bool isActive):base(id)
+            bool isActive) : base(id)
         {
             BoardId = boardId;
             Color = color;
@@ -23,11 +23,11 @@ namespace Planet.Domain.Boards
         }
         public static BoardLabel Create(Guid id,
             Guid boardId,
-            Color color,
+            BoardLabelColor color,
             BoardTitle title,
             bool isActive)
         {
-            return new BoardLabel(id,boardId, color, title, isActive);
+            return new BoardLabel(id, boardId, color, title, isActive);
         }
     }
 }

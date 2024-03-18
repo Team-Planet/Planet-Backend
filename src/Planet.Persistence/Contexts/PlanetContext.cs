@@ -2,7 +2,7 @@
 using Planet.Domain.Boards;
 using Planet.Domain.Cards;
 using Planet.Domain.Users;
-using Planet.Persistence.Configurations;
+using Planet.Persistence.Configurations.Users;
 
 namespace Planet.Persistence.Contexts
 {

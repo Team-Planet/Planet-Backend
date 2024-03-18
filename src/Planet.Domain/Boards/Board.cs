@@ -11,8 +11,10 @@ namespace Planet.Domain.Boards
         public bool IsActive { get; private set; }
         public Guid OwnerId { get; private set; }
         public IReadOnlyList<BoardMember> Members => _members?.ToList();
+        public IReadOnlyList<BoardList> Lists => _lists?.ToList();
 
-        private IList<BoardMember> _members = new List<BoardMember>();
+        private HashSet<BoardMember> _members = new();
+        private HashSet<BoardList> _lists = new();
 
         private Board() : base(Guid.Empty)
         {
