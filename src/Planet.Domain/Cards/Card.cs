@@ -6,6 +6,7 @@ namespace Planet.Domain.Cards
     public sealed class Card : Entity , IAggregateRoot
     {
         public CardTitle Title { get; private set; }
+        public CardDates Dates { get; private set; }
         public CardDescription Description { get; private set; }
         public Guid ListId { get; private set; }
         public Guid OwnerId { get; private set; }

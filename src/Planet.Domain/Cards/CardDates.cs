@@ -5,6 +5,7 @@ namespace Planet.Domain.Cards
     public sealed class CardDates : Entity
     {
         public Guid CardId { get; private set; }
+        public Card Card { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
