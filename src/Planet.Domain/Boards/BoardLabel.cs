@@ -1,5 +1,4 @@
 ﻿using Planet.Domain.SharedKernel;
-using System.Drawing;
 namespace Planet.Domain.Boards
 {
     public sealed class BoardLabel : Entity

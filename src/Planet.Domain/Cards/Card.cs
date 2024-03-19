@@ -14,10 +14,6 @@ namespace Planet.Domain.Cards
         public int Order { get; private set; }
         public bool IsDeleted { get; private set; }
 
-        public IReadOnlyList<CardMember> Members => _members?.ToList();
-
-        private IList<CardMember> _members = new List<CardMember>();
-
         public IReadOnlyList<CardCheckList> CheckLists => _checkLists?.ToList();
         public IReadOnlyList<CardLabel> Labels => _labels?.ToList();
 

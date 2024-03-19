@@ -2,8 +2,8 @@
 {
     public sealed record CardLabel
     {
-        public Guid CardId { get; private set; }
-        public Guid BoardLabelId { get; private set; }
+        public Guid CardId { get; init; }
+        public Guid BoardLabelId { get; init; }
 
         private CardLabel()
         {
