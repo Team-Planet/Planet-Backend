@@ -1,5 +1,4 @@
-﻿using Planet.Domain.Boards;
-using Planet.Domain.SharedKernel;
+﻿using Planet.Domain.SharedKernel;
 
 namespace Planet.Domain.Cards
 {

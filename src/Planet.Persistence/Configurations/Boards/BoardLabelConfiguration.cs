@@ -8,6 +8,8 @@ namespace Planet.Persistence.Configurations.Boards
     {
         public void Configure(EntityTypeBuilder<BoardLabel> builder)
         {
+            builder.ToTable("BoardLabels");
+
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.Id)

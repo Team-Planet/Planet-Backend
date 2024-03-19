@@ -10,6 +10,8 @@ namespace Planet.Domain.Cards
 
         private IList<CardCheckListItem> _items = new List<CardCheckListItem>();
 
+        private CardCheckList() : base(Guid.Empty) { }
+
         private CardCheckList(
             Guid id,
             Guid cardId,

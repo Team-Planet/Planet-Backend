@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Planet.Domain.Cards;
 
 namespace Planet.Persistence.Configurations.Cards
 {
-    internal class CardCheckListConfiguration : IEntityTypeConfiguration<CardCheckListConfiguration>
+    internal class CardCheckListConfiguration : IEntityTypeConfiguration<CardCheckList>
     {
-        public void Configure(EntityTypeBuilder<CardCheckListConfiguration> builder)
+        public void Configure(EntityTypeBuilder<CardCheckList> builder)
         {
             builder.ToTable("CardCheckLists");
 
@@ -24,6 +24,11 @@ namespace Planet.Persistence.Configurations.Cards
                     .IsRequired();
             });
             builder.Navigation(c => c.CardTitle).IsRequired();
+
+            builder.HasMany(c => c.Items)
+                .WithOne()
+                .HasForeignKey(c => c.CheckListId)
+                .IsRequired();
         }
     }
 }

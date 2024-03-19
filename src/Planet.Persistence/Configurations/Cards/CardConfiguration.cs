@@ -10,6 +10,8 @@ namespace Planet.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Card> builder)
         {
+            builder.ToTable("Cards");
+
             builder.HasKey(c => c.Id);
 
             builder.Property(c => c.Id)
@@ -36,13 +38,24 @@ namespace Planet.Persistence.Configurations
 
             builder.OwnsMany(builder => builder.Labels, labelBuilder =>
             {
+                labelBuilder.ToTable("CardLabels");
                 labelBuilder.HasKey(l => new { l.BoardLabelId, l.CardId });
+            });
+
+            builder.OwnsOne(builder => builder.Dates, datesBuilder =>
+            {
+                datesBuilder.Property(d => d.StartDate)
+                    .HasColumnName("StartDate");
+
+                datesBuilder.Property(d => d.EndDate)
+                    .HasColumnName("EndDate");
             });
 
             builder.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(u => u.OwnerId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<User>()
                 .WithMany()
@@ -53,14 +66,14 @@ namespace Planet.Persistence.Configurations
                 .HasForeignKey(c => c.CardId)
                 .IsRequired();
 
-            builder.HasMany(c => c.Labels)
-                .WithOne()
-                .HasForeignKey(c => c.CardId)
-                .IsRequired();
-
             builder.HasOne<BoardList>()
                 .WithMany()
                 .HasForeignKey(b => b.ListId)
+                .IsRequired();
+
+            builder.HasMany(c => c.CheckLists)
+                .WithOne()
+                .HasForeignKey(c => c.CardId)
                 .IsRequired();
         }
     }

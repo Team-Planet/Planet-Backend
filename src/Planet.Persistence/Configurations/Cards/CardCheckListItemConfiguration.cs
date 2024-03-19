@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Planet.Domain.Cards;
-using Planet.Domain.Users;
 
 namespace Planet.Persistence.Configurations.Cards
 {
-    internal class CardCommentConfiguration : IEntityTypeConfiguration<CardComment>
+    internal class CardCheckListItemConfiguration : IEntityTypeConfiguration<CardCheckListItem>
     {
-        public void Configure(EntityTypeBuilder<CardComment> builder)
+        public void Configure(EntityTypeBuilder<CardCheckListItem> builder)
         {
-            builder.ToTable("CardComments");
+            builder.ToTable("CardCheckListItems");
 
             builder.HasKey(c => c.Id);
 
@@ -19,23 +18,12 @@ namespace Planet.Persistence.Configurations.Cards
 
             builder.OwnsOne(c => c.Content, contentBuilder =>
             {
-                contentBuilder.Property(co => co.Value)
+                contentBuilder.Property(cb => cb.Value)
                     .HasColumnName("Content")
                     .HasMaxLength(200)
                     .IsRequired();
             });
             builder.Navigation(c => c.Content).IsRequired();
-
-            builder.HasOne<User>()
-                .WithMany()
-                .HasForeignKey(c => c.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne<Card>()
-                .WithMany()
-                .HasForeignKey(c => c.CardId)
-                .IsRequired();
         }
     }
 }
