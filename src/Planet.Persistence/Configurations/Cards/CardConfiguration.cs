@@ -40,6 +40,10 @@ namespace Planet.Persistence.Configurations
             {
                 labelBuilder.ToTable("CardLabels");
                 labelBuilder.HasKey(l => new { l.BoardLabelId, l.CardId });
+                labelBuilder.HasOne<BoardLabel>()
+                    .WithOne()
+                    .HasForeignKey<CardLabel>(l => l.BoardLabelId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.OwnsOne(builder => builder.Dates, datesBuilder =>
