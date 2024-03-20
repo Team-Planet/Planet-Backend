@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Planet.Persistence.Contexts;
+using Planet.Persistence.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<PlanetContext>(options => options.UseSqlServer(bui
 
 var app = builder.Build();
 
+await app.SeedAsync(builder.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

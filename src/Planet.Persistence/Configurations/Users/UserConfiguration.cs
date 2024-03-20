@@ -20,7 +20,7 @@ namespace Planet.Persistence.Configurations.Users
             {
                 emailBuilder.Property(e => e.Value)
                     .HasColumnName("Email")
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsRequired();
             });
             builder.Navigation(u => u.Email).IsRequired();
@@ -47,7 +47,7 @@ namespace Planet.Persistence.Configurations.Users
                 .WithOne()
                 .HasForeignKey(m => m.UserId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -27,9 +27,9 @@ namespace Planet.Domain.Shared
                 throw new DomainException("Email.NotValid", "E-posta adresi geçerli değil!");
             }
 
-            if(IsInRange(email))
+            if(!IsInRange(email))
             {
-                throw new DomainException("Email.InvalidRange", "E-posta adresi 100 karakterden uzun olamaz!");
+                throw new DomainException("Email.InvalidRange", "E-posta adresi 250 karakterden uzun olamaz!");
             }
 
             return new Email(email);
@@ -37,7 +37,7 @@ namespace Planet.Domain.Shared
 
         private static bool IsInRange(string email)
         {
-            return email.Length <= 100;
+            return email.Length <= 250;
         }
 
         private static bool IsValidEmail(string email)

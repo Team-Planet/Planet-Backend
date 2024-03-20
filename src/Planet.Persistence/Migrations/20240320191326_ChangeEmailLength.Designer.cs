@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Planet.Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Planet.Persistence.Contexts;
 namespace Planet.Persistence.Migrations
 {
     [DbContext(typeof(PlanetContext))]
-    partial class PlanetContextModelSnapshot : ModelSnapshot
+    [Migration("20240320191326_ChangeEmailLength")]
+    partial class ChangeEmailLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,7 +370,7 @@ namespace Planet.Persistence.Migrations
                     b.HasOne("Planet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -387,7 +389,7 @@ namespace Planet.Persistence.Migrations
                     b.HasOne("Planet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.OwnsOne("Planet.Domain.Cards.CardTitle", "Title", b1 =>
@@ -469,7 +471,7 @@ namespace Planet.Persistence.Migrations
                             b1.HasOne("Planet.Domain.Boards.BoardLabel", null)
                                 .WithOne()
                                 .HasForeignKey("Planet.Domain.Cards.CardLabel", "BoardLabelId")
-                                .OnDelete(DeleteBehavior.NoAction)
+                                .OnDelete(DeleteBehavior.Restrict)
                                 .IsRequired();
 
                             b1.WithOwner()
@@ -560,7 +562,7 @@ namespace Planet.Persistence.Migrations
                     b.HasOne("Planet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.OwnsOne("Planet.Domain.Cards.CardCommentContent", "Content", b1 =>

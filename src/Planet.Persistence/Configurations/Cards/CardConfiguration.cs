@@ -43,7 +43,7 @@ namespace Planet.Persistence.Configurations
                 labelBuilder.HasOne<BoardLabel>()
                     .WithOne()
                     .HasForeignKey<CardLabel>(l => l.BoardLabelId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.OwnsOne(builder => builder.Dates, datesBuilder =>
@@ -59,7 +59,7 @@ namespace Planet.Persistence.Configurations
                 .WithMany()
                 .HasForeignKey(u => u.OwnerId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<User>()
                 .WithMany()
