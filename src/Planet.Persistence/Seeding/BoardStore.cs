@@ -1,4 +1,5 @@
-﻿using Planet.Domain.Boards;
+﻿using Bogus;
+using Planet.Domain.Boards;
 using System.Linq;
 
 namespace Planet.Persistence.Seeding
@@ -32,6 +33,19 @@ namespace Planet.Persistence.Seeding
             new Guid("c35fbe70-00ee-4b39-be90-f1f89ccb197a")
     };
 
+        private static List<BoardMember> GetMembers()
+        {
+            int index = 0;
+            var memberFaker = new PrivateFaker<BoardMember>(locale: "tr")
+                .UsePrivateConstructor()
+                .RuleFor(m => m.UserId, f => UserStore.userIds[index++])
+                .RuleFor(m => m.BoardId, f => boardIds[f.Random.Number(0, boardIds.Length - 1)])
+                .RuleFor(m => m.Permissions, f => (BoardPermissions)f.Random.Number(0, 15))
+                .RuleFor(m => m.JoinedDate, f => DateTime.Now)
+                .RuleFor(m => m.IsActive, f => f.Random.Bool(0.9f));
+            var members = memberFaker.Generate(UserStore.userIds.Length);
+            return members;
+        }
         private static List<BoardList> GetLists()
         {
             int index = 0, page = 0;
@@ -49,9 +63,11 @@ namespace Planet.Persistence.Seeding
         {
             int index = 0;
             var lists = GetLists();
+            var members = GetMembers();
             var boardFaker = new PrivateFaker<Board>(locale: "tr")
                 .UsePrivateConstructor()
                 .RuleFor("_lists", f => lists.Where(l => l.BoardId == boardIds[index]).ToHashSet())
+                .RuleFor("_members", f => members.Where(l => l.BoardId == boardIds[index]).ToHashSet())
                 .RuleFor(b => b.Id, f => boardIds[index++])
                 .RuleFor(b => b.Title, f => BoardTitle.Create(f.Lorem.Sentence(3)))
                 .RuleFor(b => b.Description, f => BoardDescription.Create(f.Lorem.Sentence(7)))

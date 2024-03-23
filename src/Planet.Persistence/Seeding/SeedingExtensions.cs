@@ -11,11 +11,18 @@ namespace Planet.Persistence.Seeding
         {
             using var serviceScope = builder.ApplicationServices.CreateScope();
             using var context = serviceScope.ServiceProvider.GetRequiredService<PlanetContext>();
-            BoardStore.GetBoards();
             if (!context.Users.Any())
             {
                 await context.Users.AddRangeAsync(UserStore.GetUsers());
             }
+            if (!context.Boards.Any())
+            {
+                await context.Boards.AddRangeAsync(BoardStore.GetBoards());
+            }
+            //if (!context.Cards.Any())
+            //{
+            //    await context.Cards.AddRangeAsync(CardStore.GetCards());
+            //}
             await context.SaveChangesAsync();
         }
     }
