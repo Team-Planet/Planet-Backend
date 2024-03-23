@@ -1,9 +1,5 @@
-﻿using Planet.Domain.Cards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Planet.Domain.Boards;
+using Planet.Domain.Cards;
 
 namespace Planet.Persistence.Seeding
 {
@@ -113,20 +109,38 @@ namespace Planet.Persistence.Seeding
         new Guid("5a76aef3-e763-11ee-a057-c7d96c4d17af"),
         };
 
-        public static List<Card> GetCards()
+        public static List<Card> GetCards(List<IGrouping<Guid, BoardMember>> memberGroups, List<IGrouping<Guid, BoardList>> listGroups)
         {
             int index = 0;
+            Guid boardId = Guid.Empty;
+
             var cardFaker = new PrivateFaker<Card>(locale: "tr")
                 .UsePrivateConstructor()
                 .RuleFor(c => c.Id, f => cardIds[index++])
-                .RuleFor(c => c.Title, f => CardTitle.Create(f.Lorem.Sentence()))
-                .RuleFor(c => c.Description, f => CardDescription.Create(f.Lorem.Paragraph()))
-                .RuleFor(c => c.OwnerId, f => f.Random.Guid())
-                .RuleFor(c => c.ListId, f => f.Random.Guid())
+                .RuleFor(c => c.Title, f => CardTitle.Create(f.Lorem.Sentence(3)))
+                .RuleFor(c => c.Description, f => CardDescription.Create(f.Lorem.Sentence(5)))
+                .RuleFor(c => c.ListId, f =>
+                {
+                    var listGroup = listGroups[f.Random.Number(0, listGroups.Count - 1)];
+                    boardId = listGroup.Key;
+                    return listGroup.ToList()[f.Random.Number(0, listGroup.Count() - 1)].Id;
+                })
+                .RuleFor(c => c.OwnerId, (f, c) =>
+                {
+                    var listGroup = listGroups.FirstOrDefault(g => g.Any(l => l.Id == c.ListId));
+                    var memberGroup = memberGroups.FirstOrDefault(g => g.Key == listGroup.First().BoardId);
+                    return memberGroup.ToList()[f.Random.Number(0, memberGroup.Count() - 1)].UserId;
+                })
                 .RuleFor(c => c.CreatedDate, f => DateTime.Now)
-                .RuleFor(c => c.AssignedToId, f => f.Random.Guid())
+                .RuleFor(c => c.AssignedToId, (f, c) =>
+                {
+                    var listGroup = listGroups.FirstOrDefault(g => g.Any(l => l.Id == c.ListId));
+                    var memberGroup = memberGroups.FirstOrDefault(g => g.Key == listGroup.First().BoardId);
+                    var memberId = memberGroup.ToList()[f.Random.Number(0, memberGroup.Count() - 1)].UserId;
+                    return f.Random.Bool(0.75f) ? memberId : null;
+                })
                 .RuleFor(c => c.Order, f => f.Random.Number(1, 100))
-                .RuleFor(c => c.IsDeleted, f => f.Random.Bool(0.1f));
+                .RuleFor(c => c.IsDeleted, f => f.Random.Bool(0.05f));
 
             var cards = cardFaker.Generate(cardIds.Length);
 
