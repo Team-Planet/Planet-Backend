@@ -1,10 +1,33 @@
 ﻿using Bogus;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using Binder = Bogus.Binder;
 
 namespace Planet.Persistence.Seeding
 {
+    public class PrivateBinder : Binder
+    {
+        public override Dictionary<string, MemberInfo> GetMembers(Type t)
+        {
+            var members = base.GetMembers(t);
+
+            var privateBindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var allPrivateMembers = t.GetMembers(privateBindingFlags)
+                                     .OfType<FieldInfo>()
+                                     .Where(fi => fi.IsPrivate)
+                                     .Where(fi => !fi.GetCustomAttributes(typeof(CompilerGeneratedAttribute)).Any())
+                                     .ToArray();
+
+            foreach (var privateField in allPrivateMembers)
+            {
+                members.Add(privateField.Name, privateField);
+            }
+            return members;
+        }
+    }
     internal class PrivateFaker<T> : Faker<T> where T : class
     {
-        public PrivateFaker(string locale) : base(locale)
+        public PrivateFaker(string locale) : base(locale, binder: new PrivateBinder())
         {
         }
 
@@ -19,5 +42,6 @@ namespace Planet.Persistence.Seeding
             base.RuleFor(propertyName, setter);
             return this;
         }
+        
     }
 }
