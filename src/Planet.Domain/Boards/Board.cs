@@ -12,8 +12,10 @@ namespace Planet.Domain.Boards
         public Guid OwnerId { get; private set; }
         public IReadOnlyCollection<BoardMember> Members => _members?.ToList();
         public IReadOnlyCollection<BoardList> Lists => _lists?.ToList();
+        public IReadOnlyCollection<BoardLabel> Labels => _labels?.ToList();
 
         private HashSet<BoardMember> _members = new();
+        private HashSet<BoardLabel> _labels = new();
         private HashSet<BoardList> _lists = new();
 
         private Board() : base(Guid.Empty)
@@ -42,7 +44,7 @@ namespace Planet.Domain.Boards
             BoardTitle title,
             BoardDescription description,
             BoardModules modules,
-            DateTime createdDate,   
+            DateTime createdDate,
             bool isActive,
             Guid ownerId)
         {

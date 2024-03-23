@@ -54,7 +54,7 @@ namespace Planet.Persistence.Configurations.Boards
                 .IsRequired();
 
             // BoardLabel configuration
-            builder.HasMany<BoardLabel>()
+            builder.HasMany(b => b.Labels)
                 .WithOne()
                 .HasForeignKey(b => b.BoardId);
         }
