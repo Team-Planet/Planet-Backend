@@ -6,7 +6,7 @@ namespace Planet.Persistence.Seeding
 {
     public class UserStore
     {
-        private static readonly Guid[] userIds = new Guid[]
+        public static readonly Guid[] userIds = new Guid[]
         {
             new Guid("82cf02f0-e6e8-11ee-bd57-9dd06c6c36a5"),
             new Guid("82cf02f1-e6e8-11ee-bd57-9dd06c6c36a5"),
@@ -113,7 +113,7 @@ namespace Planet.Persistence.Seeding
         public static List<User> GetUsers()
         {
             int index = 0;
-            var userFaker = new PrivateFaker<User>(locale: "tr-TR")
+            var userFaker = new PrivateFaker<User>(locale: "tr")
                 .UsePrivateConstructor()
                 .RuleFor(u => u.Id, f => userIds[index++])
                 .RuleFor(u => u.Password, f => f.Internet.Password())

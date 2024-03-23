@@ -25,10 +25,10 @@ namespace Planet.Domain.Users
                 throw new DomainException("FirstName.NotInRange", "İsim uzunluğu belirtilen aralıkta değil! ([2-50])");
             }
 
-            if (!firstName.All(c => char.IsLetter(c)))
-            {
-                throw new DomainException("FirstName.InvalidChar", "İsim uygunsuz karakterler içeriyor!");
-            }
+            //if (!firstName.All(c => char.IsLetter(c)))
+            //{
+            //    throw new DomainException("FirstName.InvalidChar", "İsim uygunsuz karakterler içeriyor!");
+            //}
 
             return new FirstName(firstName);
         }

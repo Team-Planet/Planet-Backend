@@ -42,7 +42,7 @@ namespace Planet.Domain.Boards
             BoardTitle title,
             BoardDescription description,
             BoardModules modules,
-            DateTime createdDate,
+            DateTime createdDate,   
             bool isActive,
             Guid ownerId)
         {
