@@ -82,36 +82,6 @@ namespace Planet.Persistence.Migrations
                     b.ToTable("BoardLists", (string)null);
                 });
 
-            modelBuilder.Entity("Planet.Domain.Boards.BoardMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BoardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("JoinedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<short>("Permissions")
-                        .HasColumnType("smallint");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("UserId", "BoardId")
-                        .IsUnique();
-
-                    b.ToTable("BoardMembers", (string)null);
-                });
-
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>
                 {
                     b.Property<Guid>("Id")
@@ -264,8 +234,43 @@ namespace Planet.Persistence.Migrations
                                 .HasForeignKey("BoardId");
                         });
 
+                    b.OwnsMany("Planet.Domain.Boards.BoardMember", "Members", b1 =>
+                        {
+                            b1.Property<Guid>("BoardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<bool>("IsActive")
+                                .HasColumnType("bit");
+
+                            b1.Property<DateTime>("JoinedDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<short>("Permissions")
+                                .HasColumnType("smallint");
+
+                            b1.HasKey("BoardId", "UserId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("BoardMembers", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("BoardId");
+
+                            b1.HasOne("Planet.Domain.Users.User", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
+                        });
+
                     b.Navigation("Description")
                         .IsRequired();
+
+                    b.Navigation("Members");
 
                     b.Navigation("Title")
                         .IsRequired();
@@ -354,21 +359,6 @@ namespace Planet.Persistence.Migrations
                         });
 
                     b.Navigation("Title")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Planet.Domain.Boards.BoardMember", b =>
-                {
-                    b.HasOne("Planet.Domain.Boards.Board", null)
-                        .WithMany("Members")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Planet.Domain.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -588,7 +578,7 @@ namespace Planet.Persistence.Migrations
 
             modelBuilder.Entity("Planet.Domain.Users.User", b =>
                 {
-                    b.OwnsOne("Planet.Domain.Shared.Email", "Email", b1 =>
+                    b.OwnsOne("Planet.Domain.Users.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -658,8 +648,6 @@ namespace Planet.Persistence.Migrations
             modelBuilder.Entity("Planet.Domain.Boards.Board", b =>
                 {
                     b.Navigation("Lists");
-
-                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>

@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using Planet.Domain.Shared;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Seeding

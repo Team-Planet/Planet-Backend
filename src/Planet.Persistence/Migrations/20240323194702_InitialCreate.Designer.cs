@@ -12,7 +12,7 @@ using Planet.Persistence.Contexts;
 namespace Planet.Persistence.Migrations
 {
     [DbContext(typeof(PlanetContext))]
-    [Migration("20240319194041_InitialCreate")]
+    [Migration("20240323194702_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,36 +82,6 @@ namespace Planet.Persistence.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("BoardLists", (string)null);
-                });
-
-            modelBuilder.Entity("Planet.Domain.Boards.BoardMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BoardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("JoinedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<short>("Permissions")
-                        .HasColumnType("smallint");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("UserId", "BoardId")
-                        .IsUnique();
-
-                    b.ToTable("BoardMembers", (string)null);
                 });
 
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>
@@ -266,8 +236,43 @@ namespace Planet.Persistence.Migrations
                                 .HasForeignKey("BoardId");
                         });
 
+                    b.OwnsMany("Planet.Domain.Boards.BoardMember", "Members", b1 =>
+                        {
+                            b1.Property<Guid>("BoardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<bool>("IsActive")
+                                .HasColumnType("bit");
+
+                            b1.Property<DateTime>("JoinedDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<short>("Permissions")
+                                .HasColumnType("smallint");
+
+                            b1.HasKey("BoardId", "UserId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("BoardMembers", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("BoardId");
+
+                            b1.HasOne("Planet.Domain.Users.User", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
+                        });
+
                     b.Navigation("Description")
                         .IsRequired();
+
+                    b.Navigation("Members");
 
                     b.Navigation("Title")
                         .IsRequired();
@@ -359,21 +364,6 @@ namespace Planet.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Planet.Domain.Boards.BoardMember", b =>
-                {
-                    b.HasOne("Planet.Domain.Boards.Board", null)
-                        .WithMany("Members")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Planet.Domain.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>
                 {
                     b.HasOne("Planet.Domain.Users.User", null)
@@ -389,7 +379,7 @@ namespace Planet.Persistence.Migrations
                     b.HasOne("Planet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.OwnsOne("Planet.Domain.Cards.CardTitle", "Title", b1 =>
@@ -454,7 +444,6 @@ namespace Planet.Persistence.Migrations
                     b.OwnsMany("Planet.Domain.Cards.CardLabel", "Labels", b1 =>
                         {
                             b1.Property<Guid>("BoardLabelId")
-                                .ValueGeneratedOnAdd()
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<Guid>("CardId")
@@ -462,9 +451,18 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("BoardLabelId", "CardId");
 
+                            b1.HasIndex("BoardLabelId")
+                                .IsUnique();
+
                             b1.HasIndex("CardId");
 
                             b1.ToTable("CardLabels", (string)null);
+
+                            b1.HasOne("Planet.Domain.Boards.BoardLabel", null)
+                                .WithOne()
+                                .HasForeignKey("Planet.Domain.Cards.CardLabel", "BoardLabelId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
                             b1.WithOwner()
                                 .HasForeignKey("CardId");
@@ -554,7 +552,7 @@ namespace Planet.Persistence.Migrations
                     b.HasOne("Planet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.OwnsOne("Planet.Domain.Cards.CardCommentContent", "Content", b1 =>
@@ -582,15 +580,15 @@ namespace Planet.Persistence.Migrations
 
             modelBuilder.Entity("Planet.Domain.Users.User", b =>
                 {
-                    b.OwnsOne("Planet.Domain.Shared.Email", "Email", b1 =>
+                    b.OwnsOne("Planet.Domain.Users.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
+                                .HasMaxLength(250)
+                                .HasColumnType("nvarchar(250)")
                                 .HasColumnName("Email");
 
                             b1.HasKey("UserId");
@@ -652,8 +650,6 @@ namespace Planet.Persistence.Migrations
             modelBuilder.Entity("Planet.Domain.Boards.Board", b =>
                 {
                     b.Navigation("Lists");
-
-                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>

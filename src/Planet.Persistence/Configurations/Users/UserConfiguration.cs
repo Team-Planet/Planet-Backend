@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Planet.Domain.Boards;
-using Planet.Domain.Shared;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Configurations.Users
@@ -42,12 +41,6 @@ namespace Planet.Persistence.Configurations.Users
                     .IsRequired();
             });
             builder.Navigation(u => u.LastName).IsRequired();
-
-            builder.HasMany<BoardMember>()
-                .WithOne()
-                .HasForeignKey(m => m.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
