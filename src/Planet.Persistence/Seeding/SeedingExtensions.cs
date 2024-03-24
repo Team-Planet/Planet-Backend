@@ -13,25 +13,31 @@ namespace Planet.Persistence.Seeding
             using var serviceScope = builder.ApplicationServices.CreateScope();
             using var context = serviceScope.ServiceProvider.GetRequiredService<PlanetContext>();
 
+            var users = UserStore.GetUsers();
+            var boards = BoardStore.GetBoards();
+
+            var lists = boards.SelectMany(b => b.Lists);
+            var members = boards.SelectMany(b => b.Members);
+            var labels = boards.SelectMany(b => b.Labels);
+            var listGroups = lists.GroupBy(l => l.BoardId).ToList();
+            var memberGroups = members.GroupBy(m => m.BoardId).ToList();
+            var labelGroups = labels.GroupBy(l => l.BoardId).ToList();
+
+            var cards = CardStore.GetCards(memberGroups, listGroups, labelGroups);
+
             if (!context.Users.Any())
             {
-                await context.Users.AddRangeAsync(UserStore.GetUsers());
+                await context.Users.AddRangeAsync(users);
             }
             if (!context.Boards.Any())
             {
-                await context.Boards.AddRangeAsync(BoardStore.GetBoards());
+                await context.Boards.AddRangeAsync(boards);
             }
-
-            var boards = await context.Boards.Include(b => b.Lists).ToListAsync();
-            var lists = boards.SelectMany(b => b.Lists);
-            var members = boards.SelectMany(b => b.Members);
-            var listGroups = lists.GroupBy(l => l.BoardId).ToList();
-            var memberGroups = members.GroupBy(m => m.BoardId).ToList();
-
             if (!context.Cards.Any())
             {
-                await context.Cards.AddRangeAsync(CardStore.GetCards(memberGroups, listGroups));
+                await context.Cards.AddRangeAsync(cards);
             }
+
             await context.SaveChangesAsync();
         }
     }

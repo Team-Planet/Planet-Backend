@@ -43,7 +43,7 @@ namespace Planet.Persistence.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Boards", (string)null);
+                    b.ToTable("Boards");
                 });
 
             modelBuilder.Entity("Planet.Domain.Boards.BoardLabel", b =>
@@ -185,7 +185,7 @@ namespace Planet.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Planet.Domain.Boards.Board", b =>
@@ -196,7 +196,26 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Boards.Board.Description#Planet.Domain.Boards.BoardDescription", "Description", b1 =>
+                    b.OwnsOne("Planet.Domain.Boards.BoardTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("BoardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("BoardId");
+
+                            b1.ToTable("Boards");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BoardId");
+                        });
+
+                    b.OwnsOne("Planet.Domain.Boards.BoardDescription", "Description", b1 =>
                         {
                             b1.Property<Guid>("BoardId")
                                 .HasColumnType("uniqueidentifier");
@@ -209,13 +228,13 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("BoardId");
 
-                            b1.ToTable("Boards", (string)null);
+                            b1.ToTable("Boards");
 
                             b1.WithOwner()
                                 .HasForeignKey("BoardId");
                         });
 
-                    b.OwnsMany("Planet.Domain.Boards.Board.Members#Planet.Domain.Boards.BoardMember", "Members", b1 =>
+                    b.OwnsMany("Planet.Domain.Boards.BoardMember", "Members", b1 =>
                         {
                             b1.Property<Guid>("BoardId")
                                 .HasColumnType("uniqueidentifier");
@@ -248,25 +267,6 @@ namespace Planet.Persistence.Migrations
                                 .IsRequired();
                         });
 
-                    b.OwnsOne("Planet.Domain.Boards.Board.Title#Planet.Domain.Boards.BoardTitle", "Title", b1 =>
-                        {
-                            b1.Property<Guid>("BoardId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("Title");
-
-                            b1.HasKey("BoardId");
-
-                            b1.ToTable("Boards", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("BoardId");
-                        });
-
                     b.Navigation("Description")
                         .IsRequired();
 
@@ -279,12 +279,31 @@ namespace Planet.Persistence.Migrations
             modelBuilder.Entity("Planet.Domain.Boards.BoardLabel", b =>
                 {
                     b.HasOne("Planet.Domain.Boards.Board", null)
-                        .WithMany()
+                        .WithMany("Labels")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Boards.BoardLabel.Color#Planet.Domain.Boards.BoardLabelColor", "Color", b1 =>
+                    b.OwnsOne("Planet.Domain.Boards.BoardTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("BoardLabelId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("BoardLabelId");
+
+                            b1.ToTable("BoardLabels");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BoardLabelId");
+                        });
+
+                    b.OwnsOne("Planet.Domain.Boards.BoardLabelColor", "Color", b1 =>
                         {
                             b1.Property<Guid>("BoardLabelId")
                                 .HasColumnType("uniqueidentifier");
@@ -299,26 +318,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("BoardLabelId");
 
-                            b1.ToTable("BoardLabels", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("BoardLabelId");
-                        });
-
-                    b.OwnsOne("Planet.Domain.Boards.BoardLabel.Title#Planet.Domain.Boards.BoardTitle", "Title", b1 =>
-                        {
-                            b1.Property<Guid>("BoardLabelId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("Title");
-
-                            b1.HasKey("BoardLabelId");
-
-                            b1.ToTable("BoardLabels", (string)null);
+                            b1.ToTable("BoardLabels");
 
                             b1.WithOwner()
                                 .HasForeignKey("BoardLabelId");
@@ -339,7 +339,7 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Boards.BoardList.Title#Planet.Domain.Boards.BoardTitle", "Title", b1 =>
+                    b.OwnsOne("Planet.Domain.Boards.BoardTitle", "Title", b1 =>
                         {
                             b1.Property<Guid>("BoardListId")
                                 .HasColumnType("uniqueidentifier");
@@ -352,7 +352,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("BoardListId");
 
-                            b1.ToTable("BoardLists", (string)null);
+                            b1.ToTable("BoardLists");
 
                             b1.WithOwner()
                                 .HasForeignKey("BoardListId");
@@ -380,7 +380,26 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Cards.Card.Dates#Planet.Domain.Cards.CardDates", "Dates", b1 =>
+                    b.OwnsOne("Planet.Domain.Cards.CardTitle", "Title", b1 =>
+                        {
+                            b1.Property<Guid>("CardId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("Title");
+
+                            b1.HasKey("CardId");
+
+                            b1.ToTable("Cards");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CardId");
+                        });
+
+                    b.OwnsOne("Planet.Domain.Cards.CardDates", "Dates", b1 =>
                         {
                             b1.Property<Guid>("CardId")
                                 .HasColumnType("uniqueidentifier");
@@ -395,13 +414,13 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("CardId");
 
-                            b1.ToTable("Cards", (string)null);
+                            b1.ToTable("Cards");
 
                             b1.WithOwner()
                                 .HasForeignKey("CardId");
                         });
 
-                    b.OwnsOne("Planet.Domain.Cards.Card.Description#Planet.Domain.Cards.CardDescription", "Description", b1 =>
+                    b.OwnsOne("Planet.Domain.Cards.CardDescription", "Description", b1 =>
                         {
                             b1.Property<Guid>("CardId")
                                 .HasColumnType("uniqueidentifier");
@@ -414,13 +433,13 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("CardId");
 
-                            b1.ToTable("Cards", (string)null);
+                            b1.ToTable("Cards");
 
                             b1.WithOwner()
                                 .HasForeignKey("CardId");
                         });
 
-                    b.OwnsMany("Planet.Domain.Cards.Card.Labels#Planet.Domain.Cards.CardLabel", "Labels", b1 =>
+                    b.OwnsMany("Planet.Domain.Cards.CardLabel", "Labels", b1 =>
                         {
                             b1.Property<Guid>("BoardLabelId")
                                 .HasColumnType("uniqueidentifier");
@@ -430,37 +449,15 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("BoardLabelId", "CardId");
 
-                            b1.HasIndex("BoardLabelId")
-                                .IsUnique();
-
                             b1.HasIndex("CardId");
 
                             b1.ToTable("CardLabels", (string)null);
 
                             b1.HasOne("Planet.Domain.Boards.BoardLabel", null)
-                                .WithOne()
-                                .HasForeignKey("Planet.Domain.Cards.Card.Labels#Planet.Domain.Cards.CardLabel", "BoardLabelId")
-                                .OnDelete(DeleteBehavior.NoAction)
+                                .WithMany()
+                                .HasForeignKey("BoardLabelId")
+                                .OnDelete(DeleteBehavior.Restrict)
                                 .IsRequired();
-
-                            b1.WithOwner()
-                                .HasForeignKey("CardId");
-                        });
-
-                    b.OwnsOne("Planet.Domain.Cards.Card.Title#Planet.Domain.Cards.CardTitle", "Title", b1 =>
-                        {
-                            b1.Property<Guid>("CardId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("Title");
-
-                            b1.HasKey("CardId");
-
-                            b1.ToTable("Cards", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CardId");
@@ -485,7 +482,7 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Cards.CardCheckList.CardTitle#Planet.Domain.Cards.CardTitle", "CardTitle", b1 =>
+                    b.OwnsOne("Planet.Domain.Cards.CardTitle", "CardTitle", b1 =>
                         {
                             b1.Property<Guid>("CardCheckListId")
                                 .HasColumnType("uniqueidentifier");
@@ -498,7 +495,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("CardCheckListId");
 
-                            b1.ToTable("CardCheckLists", (string)null);
+                            b1.ToTable("CardCheckLists");
 
                             b1.WithOwner()
                                 .HasForeignKey("CardCheckListId");
@@ -516,7 +513,7 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Cards.CardCheckListItem.Content#Planet.Domain.Cards.CardCheckListItemContent", "Content", b1 =>
+                    b.OwnsOne("Planet.Domain.Cards.CardCheckListItemContent", "Content", b1 =>
                         {
                             b1.Property<Guid>("CardCheckListItemId")
                                 .HasColumnType("uniqueidentifier");
@@ -529,7 +526,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("CardCheckListItemId");
 
-                            b1.ToTable("CardCheckListItems", (string)null);
+                            b1.ToTable("CardCheckListItems");
 
                             b1.WithOwner()
                                 .HasForeignKey("CardCheckListItemId");
@@ -542,7 +539,7 @@ namespace Planet.Persistence.Migrations
             modelBuilder.Entity("Planet.Domain.Cards.CardComment", b =>
                 {
                     b.HasOne("Planet.Domain.Cards.Card", null)
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -553,7 +550,7 @@ namespace Planet.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.OwnsOne("Planet.Domain.Cards.CardComment.Content#Planet.Domain.Cards.CardCommentContent", "Content", b1 =>
+                    b.OwnsOne("Planet.Domain.Cards.CardCommentContent", "Content", b1 =>
                         {
                             b1.Property<Guid>("CardCommentId")
                                 .HasColumnType("uniqueidentifier");
@@ -566,7 +563,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("CardCommentId");
 
-                            b1.ToTable("CardComments", (string)null);
+                            b1.ToTable("CardComments");
 
                             b1.WithOwner()
                                 .HasForeignKey("CardCommentId");
@@ -578,7 +575,7 @@ namespace Planet.Persistence.Migrations
 
             modelBuilder.Entity("Planet.Domain.Users.User", b =>
                 {
-                    b.OwnsOne("Planet.Domain.Users.User.Email#Planet.Domain.Users.Email", "Email", b1 =>
+                    b.OwnsOne("Planet.Domain.Users.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -591,13 +588,13 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users", (string)null);
+                            b1.ToTable("Users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
 
-                    b.OwnsOne("Planet.Domain.Users.User.FirstName#Planet.Domain.Users.FirstName", "FirstName", b1 =>
+                    b.OwnsOne("Planet.Domain.Users.FirstName", "FirstName", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -610,13 +607,13 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users", (string)null);
+                            b1.ToTable("Users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
 
-                    b.OwnsOne("Planet.Domain.Users.User.LastName#Planet.Domain.Users.LastName", "LastName", b1 =>
+                    b.OwnsOne("Planet.Domain.Users.LastName", "LastName", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -629,7 +626,7 @@ namespace Planet.Persistence.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users", (string)null);
+                            b1.ToTable("Users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -647,12 +644,16 @@ namespace Planet.Persistence.Migrations
 
             modelBuilder.Entity("Planet.Domain.Boards.Board", b =>
                 {
+                    b.Navigation("Labels");
+
                     b.Navigation("Lists");
                 });
 
             modelBuilder.Entity("Planet.Domain.Cards.Card", b =>
                 {
                     b.Navigation("CheckLists");
+
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("Planet.Domain.Cards.CardCheckList", b =>

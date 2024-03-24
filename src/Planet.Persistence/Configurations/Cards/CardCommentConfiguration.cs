@@ -33,7 +33,7 @@ namespace Planet.Persistence.Configurations.Cards
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<Card>()
-                .WithMany()
+                .WithMany(c => c.Comments)
                 .HasForeignKey(c => c.CardId)
                 .IsRequired();
         }
