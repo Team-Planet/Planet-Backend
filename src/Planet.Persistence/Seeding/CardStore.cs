@@ -1,5 +1,6 @@
 ﻿using Planet.Domain.Boards;
 using Planet.Domain.Cards;
+using System;
 
 namespace Planet.Persistence.Seeding
 {
@@ -108,6 +109,77 @@ namespace Planet.Persistence.Seeding
         new Guid("5a76aef2-e763-11ee-a057-c7d96c4d17af"),
         new Guid("5a76aef3-e763-11ee-a057-c7d96c4d17af"),
         };
+        private static readonly Guid[] commentIds = new Guid[]
+        {
+        new Guid("e8c8cf70-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf71-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf72-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf73-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf74-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf75-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf76-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf77-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf78-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf79-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7a-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7b-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7c-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7d-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7e-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf7f-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf80-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf81-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf82-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf83-e9de-11ee-976b-35cf0f185f86")
+    };
+        private static readonly Guid[] checkListIds = new Guid[]
+        {
+        new Guid("e8c8cf84-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf85-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf86-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf87-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf88-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf89-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8a-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8b-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8c-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8d-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8e-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf8f-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf90-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf91-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf92-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf93-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf94-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf95-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf96-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf97-e9de-11ee-976b-35cf0f185f86"),
+        new Guid("e8c8cf98-e9de-11ee-976b-35cf0f185f86")
+    }
+        private static readonly Guid[] checkListItemIds = new Guid[]
+        {
+         new Guid("f2421ff0-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff1-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff2-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff3-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff4-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff5-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff6-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff7-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff8-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ff9-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ffa-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ffb-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ffc-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ffd-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421ffe-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2421fff-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2422000-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2422001-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2422002-e9e0-11ee-976b-35cf0f185f86"),
+         new Guid("f2422003-e9e0-11ee-976b-35cf0f185f86")
+    };
+
 
         public static List<Card> GetCards(List<IGrouping<Guid, BoardMember>> memberGroups, List<IGrouping<Guid, BoardList>> listGroups)
         {
@@ -148,5 +220,56 @@ namespace Planet.Persistence.Seeding
 
 
         }
+
+        public static List<CardComment> GetComments(List<Card> cards, List<IGrouping<Guid, BoardMember>> memberGroups)
+        {
+            int index = 0;
+            var commentFaker = new PrivateFaker<CardComment>(locale: "tr")
+                .UsePrivateConstructor()
+                .RuleFor(c => c.Id, f => commentIds[index++])
+                //.RuleFor(c => c.CardId, f => cards[f.Random.Number(0, cards.Count - 1)].Id)
+                //.RuleFor(c => c.UserId, (f, c) =>
+                //{
+                //    var card = cards.FirstOrDefault(c => c.Id == c.CardId);
+                //    var memberGroup = memberGroups.FirstOrDefault(g => g.Key == card.OwnerId);
+                //    return memberGroup.ToList()[f.Random.Number(0, memberGroup.Count() - 1)].UserId;
+                //})
+                .RuleFor(c => c.Content, f => CardCommentContent.Create(f.Lorem.Sentence(5)));
+
+
+            var comments = commentFaker.Generate(commentIds.Length);
+
+            return comments;
+        }
+
+        public static List<CardCheckList> GetCheckLists(List<Card> cards)
+        {
+            int index = 0;
+            var checkListFaker = new PrivateFaker<CardCheckList>(locale: "tr")
+                .UsePrivateConstructor()
+                .RuleFor(c => c.Id, f => checkListIds[index++])
+                //.RuleFor(c => c.CardId, f => cards[f.Random.Number(0, cards.Count - 1)].Id)
+                .RuleFor(c => c.CardTitle, f => CardTitle.Create(f.Lorem.Sentence(3)));
+
+            var checkLists = checkListFaker.Generate(checkListIds.Length);
+
+            return checkLists;
+        }
+
+        public static List<CardCheckListItem> GetCheckListItems(List<CardCheckList> checkLists)
+        {
+            int index = 0;
+            var checkListItemFaker = new PrivateFaker<CardCheckListItem>(locale: "tr")
+                .UsePrivateConstructor()
+                .RuleFor(c => c.Id, f => checkListItemIds[index++])
+                //.RuleFor(c => c.CheckListId, f => checkLists[f.Random.Number(0, checkLists.Count - 1)].Id)
+                .RuleFor(c => c.Content, f => CardCheckListItemContent.Create(f.Lorem.Sentence(3)))
+                .RuleFor(c => c.IsChecked, f => f.Random.Bool(0.7f));
+
+            var checkListItems = checkListItemFaker.Generate(checkListItemIds.Length);
+
+            return checkListItems;
+        }
+
     }
 }
