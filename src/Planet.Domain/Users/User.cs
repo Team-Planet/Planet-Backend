@@ -1,5 +1,4 @@
-﻿using Planet.Domain.Shared;
-using Planet.Domain.SharedKernel;
+﻿using Planet.Domain.SharedKernel;
 
 namespace Planet.Domain.Users
 {

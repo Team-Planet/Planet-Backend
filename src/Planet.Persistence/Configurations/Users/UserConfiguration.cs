@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Planet.Domain.Boards;
-using Planet.Domain.Shared;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Configurations.Users
@@ -20,7 +19,7 @@ namespace Planet.Persistence.Configurations.Users
             {
                 emailBuilder.Property(e => e.Value)
                     .HasColumnName("Email")
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsRequired();
             });
             builder.Navigation(u => u.Email).IsRequired();
@@ -42,12 +41,6 @@ namespace Planet.Persistence.Configurations.Users
                     .IsRequired();
             });
             builder.Navigation(u => u.LastName).IsRequired();
-
-            builder.HasMany<BoardMember>()
-                .WithOne()
-                .HasForeignKey(m => m.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

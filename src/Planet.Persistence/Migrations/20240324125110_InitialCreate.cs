@@ -14,7 +14,7 @@ namespace Planet.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -94,7 +94,6 @@ namespace Planet.Persistence.Migrations
                 name: "BoardMembers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Permissions = table.Column<short>(type: "smallint", nullable: false),
@@ -103,7 +102,7 @@ namespace Planet.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BoardMembers", x => x.Id);
+                    table.PrimaryKey("PK_BoardMembers", x => new { x.BoardId, x.UserId });
                     table.ForeignKey(
                         name: "FK_BoardMembers_Boards_BoardId",
                         column: x => x.BoardId,
@@ -114,8 +113,7 @@ namespace Planet.Persistence.Migrations
                         name: "FK_BoardMembers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -152,8 +150,7 @@ namespace Planet.Persistence.Migrations
                         name: "FK_Cards_Users_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -197,8 +194,7 @@ namespace Planet.Persistence.Migrations
                         name: "FK_CardComments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -211,6 +207,12 @@ namespace Planet.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardLabels", x => new { x.BoardLabelId, x.CardId });
+                    table.ForeignKey(
+                        name: "FK_CardLabels_BoardLabels_BoardLabelId",
+                        column: x => x.BoardLabelId,
+                        principalTable: "BoardLabels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CardLabels_Cards_CardId",
                         column: x => x.CardId,
@@ -250,15 +252,9 @@ namespace Planet.Persistence.Migrations
                 column: "BoardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BoardMembers_BoardId",
+                name: "IX_BoardMembers_UserId",
                 table: "BoardMembers",
-                column: "BoardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BoardMembers_UserId_BoardId",
-                table: "BoardMembers",
-                columns: new[] { "UserId", "BoardId" },
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Boards_OwnerId",
@@ -309,9 +305,6 @@ namespace Planet.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BoardLabels");
-
-            migrationBuilder.DropTable(
                 name: "BoardMembers");
 
             migrationBuilder.DropTable(
@@ -325,6 +318,9 @@ namespace Planet.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "CardCheckLists");
+
+            migrationBuilder.DropTable(
+                name: "BoardLabels");
 
             migrationBuilder.DropTable(
                 name: "Cards");

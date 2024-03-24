@@ -1,24 +1,21 @@
-﻿using Planet.Domain.SharedKernel;
-
-namespace Planet.Domain.Boards
+﻿namespace Planet.Domain.Boards
 {
-    public sealed class BoardMember : Entity
+    public record BoardMember
     {
-        public Guid UserId { get; private set; }
-        public Guid BoardId { get; private set; }
-        public BoardPermissions Permissions { get; private set; }
-        public DateTime JoinedDate { get; private set; }
-        public bool IsActive { get; private set; }
+        public Guid UserId { get; init; }
+        public Guid BoardId { get; init; }
+        public BoardPermissions Permissions { get; init; }
+        public DateTime JoinedDate { get; init; }
+        public bool IsActive { get; init; }
 
-        private BoardMember() : base(Guid.Empty) { }
+        private BoardMember() { }
 
         private BoardMember(
-            Guid id,
             Guid userId,
             Guid boardId,
             BoardPermissions permissions,
             DateTime joinedDate,
-            bool isActive) : base(id)
+            bool isActive)
         {
             UserId = userId;
             BoardId = boardId;
@@ -28,14 +25,13 @@ namespace Planet.Domain.Boards
         }
 
         public static BoardMember Create(
-            Guid id,
             Guid userId,
             Guid boardId,
             BoardPermissions permissions,
             DateTime joinedDate,
             bool isActive)
         {
-            return new BoardMember(id, userId, boardId, permissions, joinedDate, isActive);
+            return new BoardMember(userId, boardId, permissions, joinedDate, isActive);
         }
     }
 }

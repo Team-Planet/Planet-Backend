@@ -30,10 +30,10 @@ namespace Planet.Persistence.Configurations.Cards
                 .WithMany()
                 .HasForeignKey(c => c.UserId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<Card>()
-                .WithMany()
+                .WithMany(c => c.Comments)
                 .HasForeignKey(c => c.CardId)
                 .IsRequired();
         }

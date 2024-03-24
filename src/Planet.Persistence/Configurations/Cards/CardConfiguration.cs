@@ -39,11 +39,12 @@ namespace Planet.Persistence.Configurations
             builder.OwnsMany(builder => builder.Labels, labelBuilder =>
             {
                 labelBuilder.ToTable("CardLabels");
-                labelBuilder.HasKey(l => new { l.BoardLabelId, l.CardId });
+                labelBuilder.WithOwner().HasForeignKey(l => l.CardId);
                 labelBuilder.HasOne<BoardLabel>()
-                    .WithOne()
-                    .HasForeignKey<CardLabel>(l => l.BoardLabelId)
+                    .WithMany()
+                    .HasForeignKey(b => b.BoardLabelId)
                     .OnDelete(DeleteBehavior.Restrict);
+                labelBuilder.HasKey(l => new { l.BoardLabelId, l.CardId });
             });
 
             builder.OwnsOne(builder => builder.Dates, datesBuilder =>
@@ -59,7 +60,7 @@ namespace Planet.Persistence.Configurations
                 .WithMany()
                 .HasForeignKey(u => u.OwnerId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<User>()
                 .WithMany()

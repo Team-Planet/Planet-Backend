@@ -10,10 +10,12 @@ namespace Planet.Domain.Boards
         public DateTime CreatedDate { get; private set; }
         public bool IsActive { get; private set; }
         public Guid OwnerId { get; private set; }
-        public IReadOnlyList<BoardMember> Members => _members?.ToList();
-        public IReadOnlyList<BoardList> Lists => _lists?.ToList();
+        public IReadOnlyCollection<BoardMember> Members => _members?.ToList();
+        public IReadOnlyCollection<BoardList> Lists => _lists?.ToList();
+        public IReadOnlyCollection<BoardLabel> Labels => _labels?.ToList();
 
         private HashSet<BoardMember> _members = new();
+        private HashSet<BoardLabel> _labels = new();
         private HashSet<BoardList> _lists = new();
 
         private Board() : base(Guid.Empty)

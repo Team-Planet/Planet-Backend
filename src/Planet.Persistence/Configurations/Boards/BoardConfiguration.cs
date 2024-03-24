@@ -33,16 +33,19 @@ namespace Planet.Persistence.Configurations.Boards
             });
             builder.Navigation(b => b.Description).IsRequired();
 
+            builder.OwnsMany(b => b.Members, boardBuilder =>
+            {
+                boardBuilder.ToTable("BoardMembers");
+                boardBuilder.WithOwner().HasForeignKey(m => m.BoardId);
+                boardBuilder.HasOne<User>().WithMany().HasForeignKey(m => m.UserId).OnDelete(DeleteBehavior.NoAction);
+                boardBuilder.HasKey(m => new { m.BoardId, m.UserId });
+            });
+
             // OwnerId configuration
             builder.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(b => b.OwnerId)
                 .IsRequired();
-
-            // Members configuration
-            builder.HasMany(b => b.Members)
-                .WithOne()
-                .HasForeignKey(b => b.BoardId);
 
             // BoardList configuration
             builder.HasMany(b => b.Lists)
@@ -51,7 +54,7 @@ namespace Planet.Persistence.Configurations.Boards
                 .IsRequired();
 
             // BoardLabel configuration
-            builder.HasMany<BoardLabel>()
+            builder.HasMany(b => b.Labels)
                 .WithOne()
                 .HasForeignKey(b => b.BoardId);
         }
