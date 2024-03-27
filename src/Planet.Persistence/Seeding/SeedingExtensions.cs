@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Planet.Application.Services.Cryptography;
 using Planet.Persistence.Contexts;
 
 namespace Planet.Persistence.Seeding
@@ -12,8 +13,9 @@ namespace Planet.Persistence.Seeding
         {
             using var serviceScope = builder.ApplicationServices.CreateScope();
             using var context = serviceScope.ServiceProvider.GetRequiredService<PlanetContext>();
+            var cryptographyService = serviceScope.ServiceProvider.GetRequiredService<ICryptographyService>();
 
-            var users = UserStore.GetUsers();
+            var users = UserStore.GetUsers(cryptographyService);
             var boards = BoardStore.GetBoards();
 
             var lists = boards.SelectMany(b => b.Lists);

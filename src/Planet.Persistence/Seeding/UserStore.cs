@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Planet.Application.Services.Cryptography;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Seeding
@@ -109,13 +110,21 @@ namespace Planet.Persistence.Seeding
             new Guid("82cf0353-e6e8-11ee-bd57-9dd06c6c36a5")
         };
 
-        public static List<User> GetUsers()
+        public static List<User> GetUsers(ICryptographyService cryptographyService)
         {
+            const string password = "burkay123";
+            string globalSalt = string.Empty;
+
             int index = 0;
             var userFaker = new PrivateFaker<User>(locale: "tr")
                 .UsePrivateConstructor()
                 .RuleFor(u => u.Id, f => userIds[index++])
-                .RuleFor(u => u.Password, f => f.Internet.Password())
+                .RuleFor(u => u.Password, f =>
+                {
+                    (string hash, globalSalt) = cryptographyService.HashPassword(password);
+                    return hash;
+                })
+                .RuleFor(u => u.Salt, f => globalSalt)
                 .RuleFor(u => u.FirstName, f => FirstName.Create(f.Name.FirstName()))
                 .RuleFor(u => u.LastName, f => LastName.Create(f.Name.LastName()))
                 .RuleFor(u => u.Email, (f,u) => Email.Create(f.Internet.Email(u.FirstName.Value, u.LastName.Value).ToLower()))

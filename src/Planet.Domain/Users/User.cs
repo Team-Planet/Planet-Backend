@@ -6,6 +6,7 @@ namespace Planet.Domain.Users
     {
         public Email Email { get; private set; }
         public string Password { get; private set; }
+        public string Salt { get; set; }
         public FirstName FirstName { get; private set; }
         public LastName LastName { get; private set; }
         public DateTime CreatedDate { get; private set; }

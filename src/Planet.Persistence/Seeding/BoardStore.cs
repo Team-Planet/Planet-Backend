@@ -1,7 +1,4 @@
-﻿using Bogus;
-using Planet.Domain.Boards;
-using System;
-using System.Linq;
+﻿using Planet.Domain.Boards;
 
 namespace Planet.Persistence.Seeding
 {
