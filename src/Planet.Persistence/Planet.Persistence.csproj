@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Planet.Application\Planet.Application.csproj" />
     <ProjectReference Include="..\Planet.Domain\Planet.Domain.csproj" />
   </ItemGroup>
 

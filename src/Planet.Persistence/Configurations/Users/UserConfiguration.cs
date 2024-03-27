@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Planet.Domain.Boards;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Configurations.Users
@@ -15,8 +14,18 @@ namespace Planet.Persistence.Configurations.Users
                 .ValueGeneratedNever()
                 .IsRequired();
 
+            builder.Property(u => u.Password)
+                .HasMaxLength(45)
+                .IsRequired();
+
+            builder.Property(u => u.Salt)
+                .HasMaxLength(25)
+                .IsRequired();
+
             builder.OwnsOne(u => u.Email, emailBuilder =>
             {
+                emailBuilder.HasIndex(e => e.Value).IsUnique();
+
                 emailBuilder.Property(e => e.Value)
                     .HasColumnName("Email")
                     .HasMaxLength(250)

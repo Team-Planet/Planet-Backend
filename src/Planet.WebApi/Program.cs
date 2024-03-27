@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Planet.Infrastructure;
 using Planet.Persistence.Contexts;
 using Planet.Persistence.Seeding;
 
@@ -11,10 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PlanetContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-
+builder.Services.AddInfrastructureServices();
 var app = builder.Build();
 
-await app.SeedAsync(builder.Configuration);
+if (bool.Parse(app.Configuration.GetSection("Seeding")["IsActive"]))
+{
+    await app.SeedAsync(builder.Configuration);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
