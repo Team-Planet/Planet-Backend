@@ -1,8 +1,14 @@
 ﻿using IdentityModel;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Planet.Application.Features.Users.CreateUser;
+using Planet.Application.Features.Users.SignIn;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
+using Planet.Application.Services.Repositories;
+using Planet.Domain.SharedKernel;
+using Planet.Infrastructure.Services.Cryptography;
 using System.Security.Claims;
 
 namespace Planet.WebApi.Controllers
@@ -12,29 +18,29 @@ namespace Planet.WebApi.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        private readonly ICryptographyService _cryptographyService;
-        private readonly IAuthenticationTokenService _authenticationTokenService;
+        private readonly IMediator _mediator;
 
-        public UsersController(ICryptographyService cryptographyService, IAuthenticationTokenService authenticationTokenService)
+        public UsersController(IMediator mediator)
         {
-            _cryptographyService = cryptographyService;
-            _authenticationTokenService = authenticationTokenService;
+            _mediator = mediator;
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         [AllowAnonymous]
-        public IActionResult SignIn()
+        public async Task<IActionResult> SignIn(SignInCommand command, CancellationToken cancellationToken)
         {
-            // Veritabanından bilgiler çekiliyor
-            var claims = new List<Claim>()
-            {
-                new Claim(JwtClaimTypes.Subject, Guid.NewGuid().ToString()),
-                new Claim(JwtClaimTypes.Name, "Emre Özgenç"),
-                new Claim(JwtClaimTypes.PhoneNumber, "05312165238"),
-                new Claim(JwtClaimTypes.Email, "emreozgenc@hotmail.com.tr")
-            };
+            var response = await _mediator.Send(command, cancellationToken);
 
-            return Ok(_authenticationTokenService.GetToken(claims));
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp(CreateUserCommand command, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
         }
 
 

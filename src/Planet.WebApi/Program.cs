@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Planet.Infrastructure;
-using Planet.Persistence.Contexts;
-using Planet.Persistence.Seeding;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Planet.Application;
+using Planet.Infrastructure;
+using Planet.Persistence;
+using Planet.Persistence.Seeding;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +14,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<PlanetContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddInfrastructureServices();
+builder.Services.AddSwaggerGen(setup =>
+{
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        BearerFormat = "Jwt",
+        Name = "Jwt Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {jwtSecurityScheme, Array.Empty<string>()}
+    });
+});
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,7 +55,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Secret"])),
         ValidateIssuerSigningKey = true,
-        ValidateLifetime = true
+        ValidateLifetime = true,
+        ValidateAudience = false
     };
 });
 var app = builder.Build();
@@ -39,7 +65,6 @@ if (bool.Parse(app.Configuration.GetSection("Seeding")["IsActive"]))
 {
     await app.SeedAsync(builder.Configuration);
 }
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

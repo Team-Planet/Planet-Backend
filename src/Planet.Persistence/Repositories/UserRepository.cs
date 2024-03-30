@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Planet.Application.Services.Repositories;
-using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
 
@@ -27,7 +26,7 @@ namespace Planet.Persistence.Repositories
 
         public Task<User> FindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.SingleOrDefaultAsync(u => u.Email.Value == email);
         }
     }
 }

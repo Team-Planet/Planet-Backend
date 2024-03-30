@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Planet.Domain.Boards;
 using Planet.Domain.Cards;
+using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 using Planet.Persistence.Configurations.Users;
 
 namespace Planet.Persistence.Contexts
 {
-    public sealed class PlanetContext : DbContext
+    public sealed class PlanetContext : DbContext, IUnitOfWork
     {
 
         public DbSet<Board> Boards { get; set; }
