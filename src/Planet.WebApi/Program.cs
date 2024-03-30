@@ -5,6 +5,8 @@ using Planet.Persistence.Contexts;
 using Planet.Persistence.Seeding;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Planet.Persistence.Repositories;
+using Planet.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PlanetContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddInfrastructureServices();
+builder.Services.AddPersistenceServices();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -39,7 +42,6 @@ if (bool.Parse(app.Configuration.GetSection("Seeding")["IsActive"]))
 {
     await app.SeedAsync(builder.Configuration);
 }
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

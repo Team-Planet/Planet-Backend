@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
+using Planet.Application.Services.Repositories;
 using Planet.Infrastructure.Services.Authentication;
 using Planet.Infrastructure.Services.Cryptography;
 
@@ -12,7 +13,6 @@ namespace Planet.Infrastructure
         {
             services.AddSingleton<ICryptographyService, CryptographyManager>();
             services.AddSingleton<IAuthenticationTokenService, JwtTokenManager>();
-
             return services;
         }
     }

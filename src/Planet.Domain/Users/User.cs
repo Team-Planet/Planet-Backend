@@ -6,10 +6,12 @@ namespace Planet.Domain.Users
     {
         public Email Email { get; private set; }
         public string Password { get; private set; }
-        public string Salt { get; set; }
+        public string Salt { get; private set; }
         public FirstName FirstName { get; private set; }
         public LastName LastName { get; private set; }
         public DateTime CreatedDate { get; private set; }
+        public string refreshToken { get; private set; }
+        public DateTime tokenExpireDate { get; private set; }
         public bool IsActive { get; private set; }
 
         private User() : base(Guid.Empty) { }
@@ -46,6 +48,14 @@ namespace Planet.Domain.Users
         public void ChangeActivity(bool activity)
         {
             IsActive = activity;
+        }
+        public void UpdateRefreshToken(string refreshtoken)
+        {
+            refreshToken = refreshtoken;
+        }
+        public void UpdateTokenExpireDate(DateTime expiredate)
+        {
+            tokenExpireDate = expiredate;
         }
     }
 }
