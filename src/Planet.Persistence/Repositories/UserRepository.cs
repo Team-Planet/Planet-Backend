@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Planet.Application.Services.Cryptography;
+﻿using Microsoft.EntityFrameworkCore;
 using Planet.Application.Services.Repositories;
-using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
-using Planet.Persistence.Seeding;
 
 namespace Planet.Persistence.Repositories
 {
@@ -23,12 +18,7 @@ namespace Planet.Persistence.Repositories
         {
             await _context.Users.AddAsync(user);
         }
-        public async Task UpdateAsync(User user)
-        {
-            var userToUpdate = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
-            _context.SaveChanges();
-            
-        }
+
         public Task<User> FindAsync(Guid id)
         {
             return _context.Users.SingleOrDefaultAsync(u => u.Id == id);

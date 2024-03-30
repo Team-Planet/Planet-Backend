@@ -185,15 +185,16 @@ namespace Planet.Persistence.Migrations
                         .HasMaxLength(45)
                         .HasColumnType("nvarchar(45)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
-                    b.Property<string>("refreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("tokenExpireDate")
+                    b.Property<DateTime?>("TokenExpireDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

@@ -22,6 +22,9 @@ namespace Planet.Persistence.Configurations.Users
                 .HasMaxLength(25)
                 .IsRequired();
 
+            builder.Property(u => u.RefreshToken)
+                .HasMaxLength(25);
+
             builder.OwnsOne(u => u.Email, emailBuilder =>
             {
                 emailBuilder.HasIndex(e => e.Value).IsUnique();

@@ -5,22 +5,32 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Planet.Persistence.Migrations
 {
-    public partial class TokenExpireDate : Migration
+    public partial class UserRefreshToken : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "RefreshToken",
+                table: "Users",
+                type: "nvarchar(25)",
+                maxLength: 25,
+                nullable: true);
+
             migrationBuilder.AddColumn<DateTime>(
-                name: "tokenExpireDate",
+                name: "TokenExpireDate",
                 table: "Users",
                 type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "tokenExpireDate",
+                name: "RefreshToken",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "TokenExpireDate",
                 table: "Users");
         }
     }

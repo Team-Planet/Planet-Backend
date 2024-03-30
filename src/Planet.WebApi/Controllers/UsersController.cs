@@ -1,9 +1,13 @@
 ﻿using IdentityModel;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Planet.Application.Features.Users.CreateUser;
+using Planet.Application.Features.Users.SignIn;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
+using Planet.Domain.SharedKernel;
 using Planet.Infrastructure.Services.Cryptography;
 using System.Security.Claims;
 
@@ -14,49 +18,31 @@ namespace Planet.WebApi.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        private readonly ICryptographyService _cryptographyService;
-        private readonly IAuthenticationTokenService _authenticationTokenService;
-        private readonly IUserRepository _userRepository;
+        private readonly IMediator _mediator;
 
-        public UsersController(ICryptographyService cryptographyService, IAuthenticationTokenService authenticationTokenService, IUserRepository userRepository)
+        public UsersController(IMediator mediator)
         {
-            _cryptographyService = cryptographyService;
-            _authenticationTokenService = authenticationTokenService;
-            _userRepository = userRepository;
+            _mediator = mediator;
         }
 
-        //[HttpGet("[action]")]
-        //[AllowAnonymous]
-        //public IActionResult /*SignIn*/()
-        //{
-        //    // Veritabanından bilgiler çekiliyor
-        //    var claims = new List<Claim>()
-        //    {
-        //        new Claim(JwtClaimTypes.Subject, Guid.NewGuid().ToString()),
-        //        new Claim(JwtClaimTypes.Name, "Emre Özgenç"),
-        //        new Claim(JwtClaimTypes.PhoneNumber, "05312165238"),
-        //        new Claim(JwtClaimTypes.Email, "emreozgenc@hotmail.com.tr")
-        //    };
-
-        //    return Ok(_authenticationTokenService.GetToken(claims));
-        //}
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(string email,string password)
+        public async Task<IActionResult> SignIn(SignInCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.FindByEmailAsync(email);
-            bool isVerified = _cryptographyService.VerifyPassword(password, user.Salt, user.Password); //Password: burkay123
-            var claims = new List<Claim>
-            {
-                new Claim(JwtClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(JwtClaimTypes.Email, user.Email.Value),
-            };
-            var token_model = _authenticationTokenService.GetToken(claims);
-            user.UpdateRefreshToken(token_model.RefreshToken);
-            user.UpdateTokenExpireDate(token_model.RefreshTokenExpireDate);
-            await _userRepository.UpdateAsync(user);
-            return Ok(token_model);
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
         }
-        
+
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp(CreateUserCommand command, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+
     }
 }
