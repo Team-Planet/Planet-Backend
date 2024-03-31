@@ -5,6 +5,7 @@ namespace Planet.Application.Services.Authentication
 {
     public interface IAuthenticationTokenService
     {
-        TokenModel GetToken(IEnumerable<Claim> claims);
+        TokenModel GenerateToken(IEnumerable<Claim> claims);
+        IEnumerable<Claim> GetClaimsFromToken(string token);
     }
 }
