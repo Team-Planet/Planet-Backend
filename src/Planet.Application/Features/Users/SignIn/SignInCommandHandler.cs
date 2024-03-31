@@ -34,7 +34,7 @@ namespace Planet.Application.Features.Users.SignIn
                 throw new Exception("Yanlış kullanıcı adı veya şifre!");
             }
 
-            var tokenModel = _authenticationTokenService.GetToken(GetClaims(user));
+            var tokenModel = _authenticationTokenService.GenerateToken(GetClaims(user));
             user.SignIn(tokenModel.RefreshToken, tokenModel.RefreshTokenExpireDate);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -18,7 +18,7 @@ namespace Planet.Infrastructure.Services.Authentication
             _configuration = configuration;
         }
 
-        public TokenModel GetToken(IEnumerable<Claim> claims)
+        public TokenModel GenerateToken(IEnumerable<Claim> claims)
         {
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]));
 
@@ -44,6 +44,22 @@ namespace Planet.Infrastructure.Services.Authentication
                 GetRefreshToken(),
                 refreshExpireDate
                 );
+        }
+
+        public IEnumerable<Claim> GetClaimsFromToken(string token)
+        {
+            try
+            {
+                var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]));
+                var jwtHandler = new JwtSecurityTokenHandler();
+                var jwt = jwtHandler.ReadJwtToken(token);
+
+                return jwt.Claims;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private string GetRefreshToken()
