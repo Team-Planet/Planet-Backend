@@ -24,23 +24,27 @@ namespace Planet.Application.Features.Users.SignInRefresh
 
         public async Task<SignInRefreshResponse> Handle(SignInRefreshCommand request, CancellationToken cancellationToken)
         {
-            var X = _authenticationTokenService.GetClaimsFromToken(request.AccessToken);
-            var userId = _authenticationTokenService.GetClaimsFromToken(request.AccessToken).ToList().First(a => a.Type == JwtClaimTypes.Subject).Value;
-            var user = await _userRepository.FindAsync(Guid.Parse(userId)); 
-            DateTime userRefreshTokenExpireDate = DateTime.Parse(user.TokenExpireDate.ToString());
-            DateTime now = DateTime.Now;
-            var result = DateTime.Compare(userRefreshTokenExpireDate, now);
-            if(result == -1 || result == 0)
+            var userId = _authenticationTokenService.GetClaimsFromToken(request.AccessToken).First(a => a.Type == JwtClaimTypes.Subject).Value;
+            var user = await _userRepository.FindAsync(Guid.Parse(userId));
+
+            if (!user.TokenExpireDate.HasValue || user.TokenExpireDate < DateTime.Now)
             {
-                var tokenModel = _authenticationTokenService.GenerateToken(GetClaims(user));
-                user.SignIn(tokenModel.RefreshToken, tokenModel.RefreshTokenExpireDate);
-
-                await _unitOfWork.SaveChangesAsync();
-
-                return new SignInRefreshResponse(tokenModel);
+                throw new Exception("RefreshToken süresi dolmuş.");
             }
-            throw new NotImplementedException();
+
+            if(request.RefreshToken != user.RefreshToken)
+            {
+                throw new Exception("RefreshToken geçerli değil.");
+            }
+
+            var tokenModel = _authenticationTokenService.GenerateToken(GetClaims(user));
+            user.SignIn(tokenModel.RefreshToken, tokenModel.RefreshTokenExpireDate);
+
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return new SignInRefreshResponse(tokenModel);
         }
+
         private List<Claim> GetClaims(User user)
         {
             var claims = new List<Claim>
