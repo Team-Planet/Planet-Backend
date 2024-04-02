@@ -14,6 +14,8 @@ namespace Planet.Infrastructure
             services.AddSingleton<ICryptographyService, CryptographyManager>();
             services.AddSingleton<IAuthenticationTokenService, JwtTokenManager>();
 
+            services.AddScoped<IUserService, UserManager>();
+
             return services;
         }
     }

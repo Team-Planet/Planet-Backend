@@ -47,16 +47,31 @@ namespace Planet.Domain.SharedKernel
 
         public bool Equals(Entity other)
         {
+            if(other is null)
+            {
+                return false;
+            }
+
             return other.Id == Id;
         }
 
         public static bool operator==(Entity a, Entity b)
         {
+            if(a is null || b is null)
+            {
+                return false;
+            }
+
             return a.Id == b.Id;
         }
 
         public static bool operator!=(Entity a, Entity b)
         {
+            if (a is null || b is null)
+            {
+                return true;
+            }
+
             return a.Id != b.Id;
         }
 
