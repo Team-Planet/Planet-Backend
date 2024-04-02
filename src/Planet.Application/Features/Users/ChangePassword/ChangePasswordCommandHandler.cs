@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.SharedKernel;
@@ -15,17 +16,21 @@ namespace Planet.Application.Features.Users.ChangePassword
         private readonly IUserRepository _userRepository;
         private readonly ICryptographyService _cryptographyService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserService _userService;
 
-        public ChangePasswordCommandHandler(IUserRepository userRepository, ICryptographyService cryptographyService , IUnitOfWork unitOfWork)
+        public ChangePasswordCommandHandler(IUserRepository userRepository, ICryptographyService cryptographyService, IUnitOfWork unitOfWork, IUserService userService)
         {
             _userRepository = userRepository;
             _cryptographyService = cryptographyService;
             _unitOfWork = unitOfWork;
+            _userService = userService;
         }
 
         public async Task<ChangePasswordResponse> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.FindByEmailAsync(request.Email);
+            var userId = _userService.GetUserId();
+            var user = await _userRepository.FindAsync(userId);
+
             if (user == null)
             {
                 throw new Exception("Kullanıcı bulunamadı.");
@@ -38,7 +43,7 @@ namespace Planet.Application.Features.Users.ChangePassword
 
             
             (string newPasswordHash, string newSalt) = _cryptographyService.HashPassword(request.NewPassword);
-            user.UpdatePassword(newPasswordHash, newSalt);
+            user.ChangePassword(newPasswordHash, newSalt);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

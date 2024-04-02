@@ -38,6 +38,7 @@ builder.Services.AddSwaggerGen(setup =>
         {jwtSecurityScheme, Array.Empty<string>()}
     });
 });
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -58,6 +59,7 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateAudience = false
     };
+    options.MapInboundClaims = false;
 });
 var app = builder.Build();
 
