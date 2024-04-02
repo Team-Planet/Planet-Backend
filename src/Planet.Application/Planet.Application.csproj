@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Planet.Domain\Planet.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Boards\" />
+  </ItemGroup>
+
 </Project>
