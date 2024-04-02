@@ -85,5 +85,13 @@ namespace Planet.Domain.Users
             RefreshToken = refreshToken;
             TokenExpireDate = tokenExpireDate;
         }
+
+        public void UpdatePassword(string newPasswordHash, string newSalt)
+        {
+            Password = newPasswordHash;
+            Salt = newSalt;
+        }
+
+
     }
 }
