@@ -2,7 +2,7 @@
 
 namespace Planet.Domain.Boards
 {
-    public sealed class BoardList : Entity
+    public sealed class BoardList : Entity, IAggregateRoot
     {
         public Guid BoardId { get; private set; }
         public BoardTitle Title { get; private set; }

@@ -38,7 +38,20 @@ namespace Planet.Domain.Boards
             OwnerId = ownerId;
         }
 
-
+        private Board(Guid id,
+            BoardTitle title,
+            BoardDescription description,
+            BoardModules modules,
+            DateTime createdDate,
+            Guid ownerId) : base(id)
+        {
+            Title = title;
+            Description = description;
+            Modules = modules;
+            CreatedDate = createdDate;
+            IsActive = true;
+            OwnerId = ownerId;
+        }
 
         public static Board Create(Guid id,
             BoardTitle title,
@@ -51,6 +64,16 @@ namespace Planet.Domain.Boards
             return new Board(id, title, description, modules, createdDate, isActive, ownerId);
         }
 
+        public static Board Create(Guid id,
+            BoardTitle title,
+            BoardDescription description,
+            BoardModules modules,
+            DateTime createdDate,
+            Guid ownerId)
+        {
+            return new Board(id, title, description, modules, createdDate, ownerId);
+        }
+
         public void ChangeBoardTitle(BoardTitle title)
         {
             Title = title;
@@ -59,6 +82,16 @@ namespace Planet.Domain.Boards
         public void AddMember(BoardMember member)
         {
             _members.Add(member);
+        }
+
+        public void AddList(BoardList list)
+        {
+            _lists.Add(list);
+        }
+
+        public void RemoveList(BoardList boardList)
+        {
+            _lists.Remove(boardList);
         }
     }
 }

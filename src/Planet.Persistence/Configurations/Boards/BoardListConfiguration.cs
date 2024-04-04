@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Planet.Domain.Boards;
+using Planet.Domain.Users;
 
 namespace Planet.Persistence.Configurations.Boards
 {
@@ -24,6 +25,11 @@ namespace Planet.Persistence.Configurations.Boards
                 .IsRequired();
             });
             builder.Navigation(l => l.Title).IsRequired();
+
+            builder.HasOne<Board>()
+                .WithMany()
+                .HasForeignKey(b => b.BoardId)
+                .IsRequired();
 
         }
     }

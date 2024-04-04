@@ -15,6 +15,7 @@ namespace Planet.Persistence
             services.AddDbContext<PlanetContext>(options => options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBoardRepository, BoardRepository>();
 
             return services;
         }

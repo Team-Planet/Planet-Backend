@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Planet.Application.Features.Boards.AddList;
+using Planet.Application.Features.Boards.CreateBoard;
+using Planet.Application.Features.Boards.RemoveList;
 
 namespace Planet.WebApi.Controllers
 {
@@ -16,40 +19,46 @@ namespace Planet.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Create(CreateBoardCommand command, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(Ok(""));
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Edit()
         {
             return await Task.FromResult(Ok(""));
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> AddMember()
         {
             return await Task.FromResult(Ok(""));
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> RemoveMember()
         {
             return await Task.FromResult(Ok(""));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddList()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddList(AddListCommand command, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(Ok(""));
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveList()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RemoveList(RemoveListCommand command, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(Ok(""));
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
         }
     }
 }

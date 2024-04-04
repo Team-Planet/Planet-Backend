@@ -1,0 +1,31 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Planet.Application.Services.Repositories;
+using Planet.Domain.Boards;
+using Planet.Domain.Users;
+using Planet.Persistence.Contexts;
+
+namespace Planet.Persistence.Repositories
+{
+    public sealed class BoardRepository : IBoardRepository
+    {
+        private readonly PlanetContext _context;
+
+        public BoardRepository(PlanetContext context)
+        {
+            _context = context;
+        }
+        public async Task CreateAsync(Board board)
+        {
+            await _context.Boards.AddAsync(board);
+        }
+        public Task<Board> FindAsync(Guid id)
+        {
+            return _context.Boards.SingleOrDefaultAsync(b => b.Id == id);
+        }
+        public async Task<List<BoardList>> GetListsForBoardAsync(Guid boardId)
+        {
+            var board = await _context.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
+            return board?.Lists.ToList();
+        }
+    }
+}
