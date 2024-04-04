@@ -24,10 +24,5 @@ namespace Planet.Persistence.Repositories
                 .Include(b => b.Labels)
                 .SingleOrDefaultAsync(b => b.Id == id);
         }
-        public async Task<List<BoardList>> GetListsForBoardAsync(Guid boardId)
-        {
-            var board = await _context.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
-            return board?.Lists.ToList();
-        }
     }
 }
