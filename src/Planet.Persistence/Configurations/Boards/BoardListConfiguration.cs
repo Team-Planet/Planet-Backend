@@ -26,11 +26,6 @@ namespace Planet.Persistence.Configurations.Boards
             });
             builder.Navigation(l => l.Title).IsRequired();
 
-            builder.HasOne<Board>()
-                .WithMany()
-                .HasForeignKey(b => b.BoardId)
-                .IsRequired();
-
         }
     }
 }

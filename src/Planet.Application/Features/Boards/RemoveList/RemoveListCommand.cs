@@ -4,7 +4,7 @@ using Planet.Domain.Boards;
 namespace Planet.Application.Features.Boards.RemoveList
 {
     public record RemoveListCommand(
-        Guid boardId,
-        Guid boardListId
+        Guid BoardId,
+        Guid BoardListId
         ) : IRequest<RemoveListResponse>;
 }

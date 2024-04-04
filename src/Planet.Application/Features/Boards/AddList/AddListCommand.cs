@@ -3,8 +3,8 @@
 namespace Planet.Application.Features.Boards.AddList
 {
     public record AddListCommand(
-        Guid boardId,
-        string title,
-        int order
+        Guid BoardId,
+        string Title,
+        int Order
         ) :IRequest<AddListResponse>;
 }

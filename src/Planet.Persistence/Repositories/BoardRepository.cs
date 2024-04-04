@@ -20,7 +20,9 @@ namespace Planet.Persistence.Repositories
         }
         public Task<Board> FindAsync(Guid id)
         {
-            return _context.Boards.SingleOrDefaultAsync(b => b.Id == id);
+            return _context.Boards.Include(b => b.Lists)
+                .Include(b => b.Labels)
+                .SingleOrDefaultAsync(b => b.Id == id);
         }
         public async Task<List<BoardList>> GetListsForBoardAsync(Guid boardId)
         {

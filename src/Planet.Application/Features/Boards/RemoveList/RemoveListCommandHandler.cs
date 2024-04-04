@@ -18,11 +18,13 @@ namespace Planet.Application.Features.Boards.RemoveList
 
         public async Task<RemoveListResponse> Handle(RemoveListCommand request, CancellationToken cancellationToken)
         {
-            var board = await _boardRepository.FindAsync(request.boardId);
-            var boardList = await _boardRepository.GetListsForBoardAsync(request.boardId);
-            //board.RemoveList(boardList);
+            var board = await _boardRepository.FindAsync(request.BoardId);
+            var boardList = board.Lists.FirstOrDefault(l => l.Id == request.BoardListId);
+            board.RemoveList(boardList);
+
+
             await _unitOfWork.SaveChangesAsync();
-            return new RemoveListResponse(request.boardListId);
+            return new RemoveListResponse(request.BoardListId);
         }
     }
 }

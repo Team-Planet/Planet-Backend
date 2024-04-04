@@ -26,13 +26,13 @@ namespace Planet.Application.Features.Boards.AddList
 
         public async Task<AddListResponse> Handle(AddListCommand request, CancellationToken cancellationToken)
         {
-            var boardId = request.boardId;
-            var title = BoardTitle.Create(request.title);
-            var order = request.order;
+            var boardId = request.BoardId;
+            var title = BoardTitle.Create(request.Title);
+            var order = request.Order;
             var listId = Guid.NewGuid();
+            var board = await _boardRepository.FindAsync(boardId);
 
             var boardList = BoardList.Create(listId, boardId, title, order);
-            var board = await _boardRepository.FindAsync(boardId);
             board.AddList(boardList);
             await _unitOfWork.SaveChangesAsync();
 
