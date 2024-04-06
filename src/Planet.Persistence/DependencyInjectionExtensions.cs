@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Planet.Application.Services.Repositories;
+using Planet.Application.Services.SqlConnection;
 using Planet.Domain.SharedKernel;
 using Planet.Persistence.Contexts;
 using Planet.Persistence.Repositories;
+using Planet.Persistence.SqlConnection;
 
 namespace Planet.Persistence
 {
@@ -12,6 +14,8 @@ namespace Planet.Persistence
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<ISqlConnectionFactory, SqlServerConnectionFactory>();
+
             services.AddDbContext<PlanetContext>(options => options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();

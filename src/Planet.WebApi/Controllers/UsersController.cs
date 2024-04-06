@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Planet.Application.Features.Users.CreateUser;
-using Planet.Application.Features.Users.SignIn;
-using Planet.Application.Features.Users.SignInRefresh;
-using Planet.Application.Features.Users.ChangePassword;
+using Planet.Application.Features.Users.Commands.ChangePassword;
+using Planet.Application.Features.Users.Commands.CreateUser;
+using Planet.Application.Features.Users.Commands.SignInRefresh;
+using Planet.Application.Features.Users.Commands.SignIn;
 
 namespace Planet.WebApi.Controllers
 {

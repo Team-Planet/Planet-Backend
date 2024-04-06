@@ -7,6 +7,7 @@
         ChangeSpecs = 1,
         InviteMember = 2,
         EditCard = 4,
-        EditList = 8
+        EditList = 8,
+        All = View | ChangeSpecs | InviteMember | EditCard | EditList
     }
 }
