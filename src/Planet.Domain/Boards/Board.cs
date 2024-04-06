@@ -78,6 +78,10 @@ namespace Planet.Domain.Boards
         {
             Title = title;
         }
+        public void ChangeBoardDescription(BoardDescription description)
+        {
+            Description = description;
+        }
 
         public void AddMember(BoardMember member)
         {
@@ -92,6 +96,11 @@ namespace Planet.Domain.Boards
         public void RemoveList(BoardList boardList)
         {
             _lists.Remove(boardList);
+        }
+
+        public void RemoveMember(BoardMember member)
+        {
+            _members.Remove(member);
         }
     }
 }
