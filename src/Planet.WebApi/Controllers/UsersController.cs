@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Users.Commands.ChangePassword;
-using Planet.Application.Features.Users.Commands.CreateUser;
 using Planet.Application.Features.Users.Commands.SignInRefresh;
 using Planet.Application.Features.Users.Commands.SignIn;
+using Planet.Application.Features.Users.Commands.SignUp;
 
 namespace Planet.WebApi.Controllers
 {
@@ -31,7 +31,7 @@ namespace Planet.WebApi.Controllers
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignUp(CreateUserCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> SignUp(SignUpCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
 

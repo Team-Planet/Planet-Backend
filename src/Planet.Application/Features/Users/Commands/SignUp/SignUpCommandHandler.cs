@@ -4,22 +4,22 @@ using Planet.Application.Services.Repositories;
 using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 
-namespace Planet.Application.Features.Users.Commands.CreateUser
+namespace Planet.Application.Features.Users.Commands.SignUp
 {
-    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    internal class SignUpCommandHandler : IRequestHandler<SignUpCommand, SignUpResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly ICryptographyService _cryptographyService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateUserCommandHandler(IUserRepository userRepository, ICryptographyService cryptographyService, IUnitOfWork unitOfWork)
+        public SignUpCommandHandler(IUserRepository userRepository, ICryptographyService cryptographyService, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
             _cryptographyService = cryptographyService;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<SignUpResponse> Handle(SignUpCommand request, CancellationToken cancellationToken)
         {
             if (request.Password != request.PasswordConfirmation)
             {
@@ -39,7 +39,7 @@ namespace Planet.Application.Features.Users.Commands.CreateUser
             await _userRepository.CreateAsync(user);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new CreateUserResponse(user.Id, user.Email.Value, user.CreatedDate);
+            return new SignUpResponse(user.Id, user.Email.Value, user.CreatedDate);
 
         }
     }

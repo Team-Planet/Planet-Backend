@@ -13,7 +13,6 @@ namespace Planet.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMemoryCache();
             services.AddSingleton<ICryptographyService, CryptographyManager>();
             services.AddSingleton<IAuthenticationTokenService, JwtTokenManager>();
             services.AddSingleton<ICacheService, InMemoryCacheManager>();

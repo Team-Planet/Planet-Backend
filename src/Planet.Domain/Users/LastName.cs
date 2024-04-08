@@ -4,6 +4,8 @@ namespace Planet.Domain.Users
 {
     public record LastName
     {
+        public const int MaxLength = 50;
+        public const int MinLength = 2;
         public string Value { get; init; }
 
         private LastName() { }

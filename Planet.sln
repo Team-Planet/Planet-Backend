@@ -5,15 +5,15 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B350A8AA-FF24-49C6-9DC6-14F67F601292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planet.WebApi", "src\Planet.WebApi\Planet.WebApi.csproj", "{490F4990-BFC2-4F4A-BEF3-E735AE552AD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planet.WebApi", "src\Planet.WebApi\Planet.WebApi.csproj", "{490F4990-BFC2-4F4A-BEF3-E735AE552AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planet.Domain", "src\Planet.Domain\Planet.Domain.csproj", "{BD3AD5C8-D032-4A32-82F9-5942067D6402}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planet.Domain", "src\Planet.Domain\Planet.Domain.csproj", "{BD3AD5C8-D032-4A32-82F9-5942067D6402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planet.Application", "src\Planet.Application\Planet.Application.csproj", "{131571AE-FF95-47B5-A870-1B4E4DB2D69C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planet.Application", "src\Planet.Application\Planet.Application.csproj", "{131571AE-FF95-47B5-A870-1B4E4DB2D69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planet.Infrastructure", "src\Planet.Infrastructure\Planet.Infrastructure.csproj", "{25E67AAF-D138-4012-89C3-BF73154759B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planet.Infrastructure", "src\Planet.Infrastructure\Planet.Infrastructure.csproj", "{25E67AAF-D138-4012-89C3-BF73154759B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planet.Persistence", "src\Planet.Persistence\Planet.Persistence.csproj", "{4AB2C0DB-2A70-49F0-A429-7229D5FEB7CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planet.Persistence", "src\Planet.Persistence\Planet.Persistence.csproj", "{4AB2C0DB-2A70-49F0-A429-7229D5FEB7CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

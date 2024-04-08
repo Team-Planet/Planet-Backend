@@ -1,10 +1,15 @@
-﻿using Planet.Domain.SharedKernel;
+﻿using Planet.Domain.Resources;
+using Planet.Domain.Resources.ValidationResources;
+using Planet.Domain.SharedKernel;
 using System.Text.RegularExpressions;
 
 namespace Planet.Domain.Users
 {
     public record Email
     {
+        public const int MaxLength = 250;
+        public const int MinLength = 5;
+
         public string Value { get; init; }
 
         private Email(string email)
@@ -18,17 +23,18 @@ namespace Planet.Domain.Users
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new DomainException("Email.NullOrWhiteSpace", "E-posta adresi boş olamaz!");
+                throw new DomainException(ValidationCodes.Email_NullOrWhiteSpace, ValidationMessages.Email_NullOrWhiteSpace);
             }
 
             if (!IsValidEmail(email))
             {
-                throw new DomainException("Email.NotValid", "E-posta adresi geçerli değil!");
+                throw new DomainException(ValidationCodes.Email_Invalid, ValidationMessages.Email_Invalid);
             }
 
             if (!IsInRange(email))
             {
-                throw new DomainException("Email.InvalidRange", "E-posta adresi 250 karakterden uzun olamaz!");
+                throw new DomainException(ValidationCodes.Email_InvalidLength, 
+                    string.Format(ValidationMessages.Email_InvalidLength, MinLength, MaxLength));
             }
 
             return new Email(email);
@@ -36,7 +42,7 @@ namespace Planet.Domain.Users
 
         private static bool IsInRange(string email)
         {
-            return email.Length <= 250;
+            return email.Length <= MaxLength && email.Length >= MinLength;
         }
 
         private static bool IsValidEmail(string email)
