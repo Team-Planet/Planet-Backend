@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Behaviors
 {
-    public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : RequestBase<TResponse>
+        where TResponse : ResponseBase
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -21,7 +24,12 @@ namespace Planet.Application.Behaviors
 
             if (errors.Any())
             {
-                throw new ValidationException(errors);
+                var response = (TResponse)Activator.CreateInstance(typeof(TResponse));
+                response.Header ??= new Header();
+                response.Header.IsSuccess = false;
+                response.Header.ValidationMessages = errors.Select(e => new ValidationMessage { Code = e.ErrorCode, Message = e.ErrorMessage }).ToList();
+
+                return response;
             }
 
             return await next();

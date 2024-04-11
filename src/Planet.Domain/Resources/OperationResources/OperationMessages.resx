@@ -117,31 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email_Invalid" xml:space="preserve">
-    <value>E-Posta adresi geçerli değildir.</value>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Belirtilen e-posta adresi daha önce kullanılmış.</value>
   </data>
-  <data name="Email_InvalidLength" xml:space="preserve">
-    <value>E-Posta uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1})</value>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>Belirtilen e-posta adresine kayıtlı bir kullanıcı bulunamadı.</value>
   </data>
-  <data name="Email_NullOrWhiteSpace" xml:space="preserve">
-    <value>E-Posta adresi boş olamaz.</value>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Parolanız başarılı bir şekilde değiştirildi.</value>
   </data>
-  <data name="FirstName_InvalidLength" xml:space="preserve">
-    <value>İsim uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1})</value>
+  <data name="RefreshTokenExpired" xml:space="preserve">
+    <value>Oturum yenileme işleminin süresi doldu. Lütfen tekrar giriş yapınız.</value>
   </data>
-  <data name="FirstName_NullOrWhiteSpace" xml:space="preserve">
-    <value>İsim boş olamaz.</value>
+  <data name="RefreshTokenInvalid" xml:space="preserve">
+    <value>Oturum yenileme anahtarı geçerli değil. Lütfen tekrar giriş yapınız.</value>
   </data>
-  <data name="LastName_InvalidLength" xml:space="preserve">
-    <value>Soyisim uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1})</value>
+  <data name="SignedInSuccessfully" xml:space="preserve">
+    <value>Başarılı bir şekilde giriş yaptınız.</value>
   </data>
-  <data name="LastName_NullOrWhiteSpace" xml:space="preserve">
-    <value>Soyisim boş olamaz.</value>
+  <data name="SignedInWithRefreshTokenSuccessfully" xml:space="preserve">
+    <value>Oturumunuz başarılı bir şekilde yenilendi.</value>
   </data>
-  <data name="Password_NotMatch" xml:space="preserve">
-    <value>Şifreler eşleşmiyor.</value>
+  <data name="SignedUpSuccessfully" xml:space="preserve">
+    <value>Kullanıcı kaydınız başarılı bir şekilde yapıldı. Belirlediğiniz e-posta adresi ve şifreniz ile giriş yapabilirsiniz.</value>
   </data>
-  <data name="Password_NullOrWhiteSpace" xml:space="preserve">
-    <value>Şifre boş olamaz.</value>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı.</value>
+  </data>
+  <data name="WrongEmailOrPassword" xml:space="preserve">
+    <value>Yanlış kullanıcı adı veya şifre!</value>
+  </data>
+  <data name="WrongOldPassword" xml:space="preserve">
+    <value>Eski şifre yanlış.</value>
   </data>
 </root>

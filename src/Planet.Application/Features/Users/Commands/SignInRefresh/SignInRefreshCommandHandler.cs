@@ -1,14 +1,16 @@
 ﻿using IdentityModel;
 using MediatR;
+using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
+using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 using System.Security.Claims;
 
 namespace Planet.Application.Features.Users.Commands.SignInRefresh
 {
-    internal class SignInRefreshCommandHandler : IRequestHandler<SignInRefreshCommand, SignInRefreshResponse>
+    internal class SignInRefreshCommandHandler : RequestHandlerBase<SignInRefreshCommand, SignInRefreshResponse>
     {
         private readonly IAuthenticationTokenService _authenticationTokenService;
         private readonly IUserRepository _userRepository;
@@ -20,19 +22,19 @@ namespace Planet.Application.Features.Users.Commands.SignInRefresh
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<SignInRefreshResponse> Handle(SignInRefreshCommand request, CancellationToken cancellationToken)
+        public override async Task<SignInRefreshResponse> Handle(SignInRefreshCommand request, CancellationToken cancellationToken)
         {
             var userId = _authenticationTokenService.GetClaimsFromToken(request.AccessToken).First(a => a.Type == JwtClaimTypes.Subject).Value;
             var user = await _userRepository.FindAsync(Guid.Parse(userId));
 
-            if (!user.TokenExpireDate.HasValue || user.TokenExpireDate < DateTime.Now)
+            if (IsTokenExpired(user))
             {
-                throw new Exception("RefreshToken süresi dolmuş.");
+                return Response.Failure<SignInRefreshResponse>(OperationMessages.RefreshTokenExpired);
             }
 
             if (request.RefreshToken != user.RefreshToken)
             {
-                throw new Exception("RefreshToken geçerli değil.");
+                return Response.Failure<SignInRefreshResponse>(OperationMessages.RefreshTokenInvalid);
             }
 
             var tokenModel = _authenticationTokenService.GenerateToken(GetClaims(user));
@@ -40,7 +42,7 @@ namespace Planet.Application.Features.Users.Commands.SignInRefresh
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new SignInRefreshResponse(tokenModel);
+            return Response.SuccessWithBody<SignInRefreshResponse>(tokenModel, OperationMessages.SignedInWithRefreshTokenSuccessfully);
         }
 
         private List<Claim> GetClaims(User user)
@@ -53,6 +55,11 @@ namespace Planet.Application.Features.Users.Commands.SignInRefresh
             };
 
             return claims;
+        }
+
+        private bool IsTokenExpired(User user)
+        {
+            return !user.TokenExpireDate.HasValue || user.TokenExpireDate < DateTime.Now;
         }
     }
 }

@@ -90,9 +90,9 @@ namespace Planet.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserBoards(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserBoards([FromQuery] GetUserBoardsQuery query, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new GetUserBoardsQuery(), cancellationToken);
+            var response = await _mediator.Send(query, cancellationToken);
 
             return Ok(response);
         }

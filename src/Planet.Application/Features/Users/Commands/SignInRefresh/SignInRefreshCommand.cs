@@ -1,6 +1,11 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.SignInRefresh
 {
-    public record SignInRefreshCommand(string AccessToken, string RefreshToken) : IRequest<SignInRefreshResponse>;
+    public class SignInRefreshCommand : CommandBase<SignInRefreshResponse>
+    {
+        public string AccessToken { get; init; }
+        public string RefreshToken { get; init; }
+    }
 }

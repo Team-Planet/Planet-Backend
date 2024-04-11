@@ -1,6 +1,11 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.SignIn
 {
-    public record SignInCommand(string Email, string Password) : IRequest<SignInResponse>;
+    public class SignInCommand : CommandBase<SignInResponse>
+    {
+        public string Email { get; init; }
+        public string Password { get; init; }
+    }
 }

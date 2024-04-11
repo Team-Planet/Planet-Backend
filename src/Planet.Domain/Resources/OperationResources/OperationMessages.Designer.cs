@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Planet.Domain.Resources.ValidationResources {
+namespace Planet.Domain.Resources.OperationResources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Planet.Domain.Resources.ValidationResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ValidationMessages {
+    public class OperationMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ValidationMessages() {
+        internal OperationMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Planet.Domain.Resources.ValidationResources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Planet.Domain.Resources.ValidationResources.ValidationMessages", typeof(ValidationMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Planet.Domain.Resources.OperationResources.OperationMessages", typeof(OperationMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,101 @@ namespace Planet.Domain.Resources.ValidationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-Posta adresi geçerli değildir..
+        ///   Looks up a localized string similar to Belirtilen e-posta adresi daha önce kullanılmış..
         /// </summary>
-        public static string Email_Invalid {
+        public static string EmailAlreadyExists {
             get {
-                return ResourceManager.GetString("Email_Invalid", resourceCulture);
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-Posta uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1}).
+        ///   Looks up a localized string similar to Belirtilen e-posta adresine kayıtlı bir kullanıcı bulunamadı..
         /// </summary>
-        public static string Email_InvalidLength {
+        public static string EmailNotFound {
             get {
-                return ResourceManager.GetString("Email_InvalidLength", resourceCulture);
+                return ResourceManager.GetString("EmailNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-Posta adresi boş olamaz..
+        ///   Looks up a localized string similar to Parolanız başarılı bir şekilde değiştirildi..
         /// </summary>
-        public static string Email_NullOrWhiteSpace {
+        public static string PasswordChangedSuccessfully {
             get {
-                return ResourceManager.GetString("Email_NullOrWhiteSpace", resourceCulture);
+                return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to İsim uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1}).
+        ///   Looks up a localized string similar to Oturum yenileme işleminin süresi doldu. Lütfen tekrar giriş yapınız..
         /// </summary>
-        public static string FirstName_InvalidLength {
+        public static string RefreshTokenExpired {
             get {
-                return ResourceManager.GetString("FirstName_InvalidLength", resourceCulture);
+                return ResourceManager.GetString("RefreshTokenExpired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to İsim boş olamaz..
+        ///   Looks up a localized string similar to Oturum yenileme anahtarı geçerli değil. Lütfen tekrar giriş yapınız..
         /// </summary>
-        public static string FirstName_NullOrWhiteSpace {
+        public static string RefreshTokenInvalid {
             get {
-                return ResourceManager.GetString("FirstName_NullOrWhiteSpace", resourceCulture);
+                return ResourceManager.GetString("RefreshTokenInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Soyisim uzunluğu belirtilen aralıkta değil. (Minimum: {0}, Maksimum: {1}).
+        ///   Looks up a localized string similar to Başarılı bir şekilde giriş yaptınız..
         /// </summary>
-        public static string LastName_InvalidLength {
+        public static string SignedInSuccessfully {
             get {
-                return ResourceManager.GetString("LastName_InvalidLength", resourceCulture);
+                return ResourceManager.GetString("SignedInSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Soyisim boş olamaz..
+        ///   Looks up a localized string similar to Oturumunuz başarılı bir şekilde yenilendi..
         /// </summary>
-        public static string LastName_NullOrWhiteSpace {
+        public static string SignedInWithRefreshTokenSuccessfully {
             get {
-                return ResourceManager.GetString("LastName_NullOrWhiteSpace", resourceCulture);
+                return ResourceManager.GetString("SignedInWithRefreshTokenSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Şifreler eşleşmiyor..
+        ///   Looks up a localized string similar to Kullanıcı kaydınız başarılı bir şekilde yapıldı. Belirlediğiniz e-posta adresi ve şifreniz ile giriş yapabilirsiniz..
         /// </summary>
-        public static string Password_NotMatch {
+        public static string SignedUpSuccessfully {
             get {
-                return ResourceManager.GetString("Password_NotMatch", resourceCulture);
+                return ResourceManager.GetString("SignedUpSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Şifre boş olamaz..
+        ///   Looks up a localized string similar to Kullanıcı bulunamadı..
         /// </summary>
-        public static string Password_NullOrWhiteSpace {
+        public static string UserNotFound {
             get {
-                return ResourceManager.GetString("Password_NullOrWhiteSpace", resourceCulture);
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yanlış kullanıcı adı veya şifre!.
+        /// </summary>
+        public static string WrongEmailOrPassword {
+            get {
+                return ResourceManager.GetString("WrongEmailOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eski şifre yanlış..
+        /// </summary>
+        public static string WrongOldPassword {
+            get {
+                return ResourceManager.GetString("WrongOldPassword", resourceCulture);
             }
         }
     }

@@ -1,7 +1,13 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.ChangePassword
 {
-    public record ChangePasswordCommand(string OldPassword, string NewPassword) : IRequest<ChangePasswordResponse>;
+    public class ChangePasswordCommand : CommandBase<ChangePasswordResponse>
+    {
+        public string OldPassword { get; init; }
+        public string Password { get; init; }
+        public string PasswordConfirmation { get; init; }
+    }
 
 }

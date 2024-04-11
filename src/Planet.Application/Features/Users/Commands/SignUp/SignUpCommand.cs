@@ -1,11 +1,14 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.SignUp
 {
-    public record SignUpCommand(
-        string Email,
-        string Password,
-        string PasswordConfirmation,
-        string FirstName,
-        string LastName) : IRequest<SignUpResponse>;
+    public sealed class SignUpCommand : CommandBase<SignUpResponse>
+    {
+        public string Email { get; init; }
+        public string Password { get; init; }
+        public string PasswordConfirmation { get; init; }
+        public string FirstName { get; init; }
+        public string LastName { get; init; }
+    }
 }

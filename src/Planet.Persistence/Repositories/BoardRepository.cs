@@ -1,5 +1,8 @@
 ﻿using Dapper;
+using IdentityModel.Client;
 using Microsoft.EntityFrameworkCore;
+using Planet.Application.Common;
+using Planet.Application.Features.Boards.Queries.GetUserBoards;
 using Planet.Application.Models.Boards;
 using Planet.Application.Services.Repositories;
 using Planet.Application.Services.SqlConnection;
@@ -29,17 +32,38 @@ namespace Planet.Persistence.Repositories
                 .SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<List<UserBoardModel>> GetUserBoardsAsync(Guid userId)
+        public async Task<Pagination<UserBoardModel>> GetUserBoardsAsync(GetUserBoardsQuery query, Guid userId)
         {
+            var parameters = new DynamicParameters();
+            parameters.AddDynamicParams(query);
+            parameters.Add("@UserId", userId);
+
             string sql = @"
+            SELECT COUNT(*) FROM BoardMembers bm
+            INNER JOIN Boards b ON b.Id = bm.BoardId
+            WHERE bm.UserId = @UserId AND b.IsActive = 1 AND bm.IsActive = 1
+
             SELECT b.Id, b.Title FROM BoardMembers bm
             INNER JOIN Boards b ON b.Id = bm.BoardId
             WHERE bm.UserId = @UserId AND b.IsActive = 1 AND bm.IsActive = 1
+            ORDER BY b.Title ASC
+            OFFSET @PageSize * (@CurrentPage - 1) ROWS
+            FETCH NEXT @PageSize ROWS ONLY
             ";
 
             using var connection = _sqlConnectionFactory.GetConnection();
+            var gridReader = await connection.QueryMultipleAsync(sql, parameters);
 
-            return (await connection.QueryAsync<UserBoardModel>(sql, new { UserId = userId })).ToList();
+            int recordCount = await gridReader.ReadFirstOrDefaultAsync<int>();
+            var items = await gridReader.ReadAsync<UserBoardModel>();
+
+            return new Pagination<UserBoardModel>
+            {
+                CurrentPage = query.CurrentPage,
+                PageSize = query.PageSize,
+                RecordCount = recordCount,
+                Items = items.ToList()
+            };
 
         }
     }

@@ -1,6 +1,6 @@
-﻿using Planet.Application.Models.Authentication;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.SignInRefresh
 {
-    public record SignInRefreshResponse(TokenModel TokenInfo);
+    public class SignInRefreshResponse : ResponseBase { }
 }
