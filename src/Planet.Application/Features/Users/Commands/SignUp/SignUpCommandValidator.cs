@@ -25,7 +25,8 @@ namespace Planet.Application.Features.Users.Commands.SignUp
 
             RuleFor(x => x.Password)
                 .Must((x, y) => y == x.PasswordConfirmation)
-                .WithMessage(ValidationMessages.Password_NotMatch);
+                .WithMessage(ValidationMessages.Password_NotMatch)
+                .WithErrorCode(ValidationCodes.Password_NotMatch);
 
             RuleFor(x => x.FirstName)
                 .Must(x => !string.IsNullOrWhiteSpace(x))

@@ -1,6 +1,7 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Queries.GetUserBoards
 {
-    public record GetUserBoardsQuery() : IRequest<GetUserBoardsResponse>;
+    public sealed class GetUserBoardsQuery : PaginationQuery<GetUserBoardsResponse> { }
 }

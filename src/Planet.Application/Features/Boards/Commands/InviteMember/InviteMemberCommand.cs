@@ -1,6 +1,10 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.InviteMember
 {
-    public record InviteMemberCommand(Guid BoardId) : IRequest<InviteMemberResponse>;
+    public sealed class InviteMemberCommand : CommandBase<InviteMemberResponse>
+    {
+        public Guid BoardId { get; init; }
+    }
 }

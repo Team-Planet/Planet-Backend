@@ -1,13 +1,6 @@
-﻿using Planet.Domain.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.EditBoard
 {
-    public record EditBoardResponse(Guid BoardId,
-            BoardTitle title,
-            BoardDescription description);
+    public sealed class EditBoardResponse : ResponseBase { }
 }

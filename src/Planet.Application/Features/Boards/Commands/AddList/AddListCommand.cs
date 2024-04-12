@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.AddList
 {
-    public record AddListCommand(
-        Guid BoardId,
-        string Title,
-        int Order
-        ) : IRequest<AddListResponse>;
+    public sealed class AddListCommand : CommandBase<AddListResponse>
+    {
+        public Guid BoardId { get; init; }
+        public string Title { get; init; }
+        public int Order { get; init; }
+    }
 }

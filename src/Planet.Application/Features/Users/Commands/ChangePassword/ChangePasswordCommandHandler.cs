@@ -1,13 +1,10 @@
 ﻿using MediatR;
+using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
+using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Application.Features.Users.Commands.ChangePassword
 {
@@ -31,23 +28,22 @@ namespace Planet.Application.Features.Users.Commands.ChangePassword
             var userId = _userService.GetUserId();
             var user = await _userRepository.FindAsync(userId);
 
-            if (user == null)
+            if (user is null)
             {
-                throw new Exception("Kullanıcı bulunamadı.");
+                return Response.Failure<ChangePasswordResponse>(OperationMessages.UserNotFound);
             }
 
             if (!_cryptographyService.VerifyPassword(request.OldPassword, user.Salt, user.Password))
             {
-                throw new Exception("Eski şifre yanlış.");
+                return Response.Failure<ChangePasswordResponse>(OperationMessages.WrongOldPassword);
             }
 
-
-            (string newPasswordHash, string newSalt) = _cryptographyService.HashPassword(request.NewPassword);
+            (string newPasswordHash, string newSalt) = _cryptographyService.HashPassword(request.Password);
             user.ChangePassword(newPasswordHash, newSalt);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new ChangePasswordResponse(user.Id);
+            return Response.SuccessWithMessage<ChangePasswordResponse>(OperationMessages.PasswordChangedSuccessfully);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Planet.Application.Features.Users.Commands.SignUp
+﻿using Planet.Application.Common;
+
+namespace Planet.Application.Features.Users.Commands.SignUp
 {
-    public record SignUpResponse(Guid UserId, string Email, DateTime CreatedDate);
+    public sealed class SignUpResponse : ResponseBase { }
 }

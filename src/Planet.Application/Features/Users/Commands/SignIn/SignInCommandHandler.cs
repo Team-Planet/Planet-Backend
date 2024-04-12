@@ -1,15 +1,16 @@
 ﻿using IdentityModel;
-using MediatR;
+using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
+using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 using Planet.Domain.Users;
 using System.Security.Claims;
 
 namespace Planet.Application.Features.Users.Commands.SignIn
 {
-    internal class SignInCommandHandler : IRequestHandler<SignInCommand, SignInResponse>
+    internal class SignInCommandHandler : RequestHandlerBase<SignInCommand, SignInResponse>
     {
         private readonly ICryptographyService _cryptographyService;
         private readonly IAuthenticationTokenService _authenticationTokenService;
@@ -24,14 +25,20 @@ namespace Planet.Application.Features.Users.Commands.SignIn
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
-        {
+        public override async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
+           {
             var user = await _userRepository.FindByEmailAsync(request.Email);
+
+            if (user is null)
+            {
+                return Response.Failure<SignInResponse>(OperationMessages.EmailNotFound);
+            }
+
             bool isVerified = _cryptographyService.VerifyPassword(request.Password, user.Salt, user.Password);
 
             if (!isVerified)
             {
-                throw new Exception("Yanlış kullanıcı adı veya şifre!");
+                return Response.Failure<SignInResponse>(OperationMessages.WrongEmailOrPassword);
             }
 
             var tokenModel = _authenticationTokenService.GenerateToken(GetClaims(user));
@@ -39,7 +46,7 @@ namespace Planet.Application.Features.Users.Commands.SignIn
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new SignInResponse(tokenModel);
+            return Response.SuccessWithBody<SignInResponse>(tokenModel, OperationMessages.SignedInSuccessfully);
         }
 
         private List<Claim> GetClaims(User user)

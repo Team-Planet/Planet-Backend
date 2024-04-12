@@ -1,12 +1,12 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.RemoveMember
 {
-    public record RemoveMemberCommand(Guid UserId, Guid BoardId) : IRequest<RemoveMemberResponse>;
+    public sealed class RemoveMemberCommand : CommandBase<RemoveMemberResponse>
+    {
+        public Guid BoardId { get; init; }
+        public Guid UserId { get; init; }
+    }
 
 }

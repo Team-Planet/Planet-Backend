@@ -1,4 +1,6 @@
-﻿namespace Planet.Application.Features.Boards.Commands.InviteMember
+﻿using Planet.Application.Common;
+
+namespace Planet.Application.Features.Boards.Commands.InviteMember
 {
-    public record InviteMemberResponse(string InvitationUrl);
+    public sealed class InviteMemberResponse : ResponseBase { }
 }

@@ -1,6 +1,6 @@
-﻿using Planet.Domain.Boards;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.RemoveList
 {
-    public record RemoveListResponse(Guid boardListId);
+    public sealed class RemoveListResponse : ResponseBase { }
 }

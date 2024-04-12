@@ -131,5 +131,14 @@ namespace Planet.Domain.Resources.ValidationResources {
                 return ResourceManager.GetString("Password_NotMatch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Şifre boş olamaz..
+        /// </summary>
+        public static string Password_NullOrWhiteSpace {
+            get {
+                return ResourceManager.GetString("Password_NullOrWhiteSpace", resourceCulture);
+            }
+        }
     }
 }

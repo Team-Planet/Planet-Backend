@@ -1,6 +1,6 @@
-﻿using Planet.Application.Models.Boards;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Queries.GetUserBoards
 {
-    public record GetUserBoardsResponse(List<UserBoardModel> Boards);
+    public sealed class GetUserBoardsResponse : ResponseBase { }
 }

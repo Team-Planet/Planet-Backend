@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
 {
-    public record AcceptInvitationCommand(string InvitationKey) : IRequest<AcceptInvitationResponse>;
+    public sealed class AcceptInvitationCommand : CommandBase<AcceptInvitationResponse>
+    {
+        public string InvitationKey { get; init; }
+    }
 }

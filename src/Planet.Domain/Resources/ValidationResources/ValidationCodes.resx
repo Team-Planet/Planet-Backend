@@ -141,4 +141,7 @@
   <data name="Password_NotMatch" xml:space="preserve">
     <value>Password.NotMatch</value>
   </data>
+  <data name="Password_NullOrWhiteSpace" xml:space="preserve">
+    <value>Password.NullOrWhiteSpace</value>
+  </data>
 </root>
