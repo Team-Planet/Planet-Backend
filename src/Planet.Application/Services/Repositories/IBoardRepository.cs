@@ -8,5 +8,8 @@ namespace Planet.Application.Services.Repositories
     public interface IBoardRepository : IBoardDomainRepository
     {
         Task<Pagination<UserBoardModel>> GetUserBoardsAsync(GetUserBoardsQuery query, Guid userId);
+        Task<bool> HasPermission(BoardPermissions permission, Guid boardId, Guid userId);
+        Task<BoardModel> GetBoardAsync(Guid boardId);
+        Task<bool> HasBoardListAnyCard(Guid listId);
     }
 }

@@ -2,15 +2,17 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Caching;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
+using Planet.Domain.Resources.OperationResources;
 
 namespace Planet.Application.Features.Boards.Commands.InviteMember
 {
-    public class InviteMemberCommandHandler : IRequestHandler<InviteMemberCommand, InviteMemberResponse>
+    public class InviteMemberCommandHandler : RequestHandlerBase<InviteMemberCommand, InviteMemberResponse>
     {
         private readonly IBoardRepository _boardRepository;
         private readonly IUserService _userService;
@@ -29,15 +31,21 @@ namespace Planet.Application.Features.Boards.Commands.InviteMember
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<InviteMemberResponse> Handle(InviteMemberCommand request, CancellationToken cancellationToken)
+        public override async Task<InviteMemberResponse> Handle(InviteMemberCommand request, CancellationToken cancellationToken)
         {
             var inviterId = _userService.GetUserId();
             var board = await _boardRepository.FindAsync(request.BoardId);
+
+            if(board is null)
+            {
+                return Response.Failure<InviteMemberResponse>(OperationMessages.BoardNotFound);
+            }
+
             bool canInvite = board.Members.FirstOrDefault(m => m.UserId == inviterId)?.Permissions.HasFlag(BoardPermissions.InviteMember) ?? false;
 
             if (!canInvite)
             {
-                throw new Exception("Belirtilen pano için üye davet yetkiniz bulunmamaktadır.");
+                return Response.Failure<InviteMemberResponse>(OperationMessages.DoNotHavePermissionForBoardInviting);
             }
 
             int expireInMinutes = int.Parse(_configuration["Invitation:ExpireInMinutes"]);
@@ -48,9 +56,9 @@ namespace Planet.Application.Features.Boards.Commands.InviteMember
             string host = _httpContextAccessor.HttpContext.Request.Host.Value;
             string scheme = _httpContextAccessor.HttpContext.Request.Scheme;
 
-            string url = $"{scheme}://{host}/Boards/AcceptInvitation/{invitationKey}";
+            string url = $"{scheme}://{host}/Boards/Members/Invitation/{invitationKey}";
 
-            return new InviteMemberResponse(url);
+            return Response.SuccessWithBody<InviteMemberResponse>(new { InvitationUrl = url }, OperationMessages.BoardInvitationUrlCreatedSuccessfully);
         }
     }
 }

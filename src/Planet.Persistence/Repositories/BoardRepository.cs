@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using IdentityModel.Client;
 using Microsoft.EntityFrameworkCore;
 using Planet.Application.Common;
 using Planet.Application.Features.Boards.Queries.GetUserBoards;
@@ -25,11 +24,40 @@ namespace Planet.Persistence.Repositories
         {
             await _context.Boards.AddAsync(board);
         }
+
         public Task<Board> FindAsync(Guid id)
         {
             return _context.Boards.Include(b => b.Lists)
                 .Include(b => b.Labels)
                 .SingleOrDefaultAsync(b => b.Id == id);
+        }
+
+        public async Task<BoardModel> GetBoardAsync(Guid boardId)
+        {
+            string sql = @"
+            SELECT b.Id, b.Title, b.Description FROM Boards b
+            WHERE b.Id = @BoardId
+
+            SELECT u.Id, u.FirstName, u.LastName, u.Email FROM BoardMembers bm
+            INNER JOIN Users u ON u.Id = bm.UserId
+            WHERE bm.BoardId = @BoardId
+            
+            SELECT bla.Id, bla.Title, bla.ColorCode FROM BoardLabels bla
+            WHERE bla.BoardId = @BoardId
+            
+            SELECT bli.Id, bli.Title, bli.[Order] FROM BoardLists bli
+            WHERE bli.BoardId = @BoardId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+
+            var gridReader = await connection.QueryMultipleAsync(sql, new { BoardId = boardId });
+            var boardModel = await gridReader.ReadFirstOrDefaultAsync<BoardModel>();
+            boardModel.Members = (await gridReader.ReadAsync<BoardMemberModel>()).ToList();
+            boardModel.Labels = (await gridReader.ReadAsync<BoardLabelModel>()).ToList();
+            boardModel.Lists = (await gridReader.ReadAsync<BoardListModel>()).ToList();
+
+            return boardModel;
         }
 
         public async Task<Pagination<UserBoardModel>> GetUserBoardsAsync(GetUserBoardsQuery query, Guid userId)
@@ -65,6 +93,31 @@ namespace Planet.Persistence.Repositories
                 Items = items.ToList()
             };
 
+        }
+
+        public async Task<bool> HasBoardListAnyCard(Guid listId)
+        {
+            string sql = @"
+            SELECT COUNT(*) FROM Cards c
+            WHERE c.ListId = @ListId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+
+            return (await connection.QueryFirstOrDefaultAsync<int>(sql, new { ListId = listId })) > 0;
+        }
+
+        public async Task<bool> HasPermission(BoardPermissions permission, Guid boardId, Guid userId)
+        {
+            string sql = @"
+            SELECT TOP(1) Permissions FROM BoardMembers bm
+            WHERE bm.IsActive = 1 AND bm.BoardId = @BoardId AND bm.UserId = @UserId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+            var permissions = await connection.QueryFirstOrDefaultAsync<BoardPermissions?>(sql, new { UserId = userId, BoardId = boardId });
+
+            return permissions?.HasFlag(permissions) ?? false;
         }
     }
 }

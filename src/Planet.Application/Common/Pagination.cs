@@ -3,9 +3,9 @@
     public sealed class Pagination<T>
     {
         public int RecordCount { get; init; }
-        public int PageSize { get; set; }
-        public int CurrentPage { get; set; }
-        public int PageCount => (int)Math.Ceiling((decimal)RecordCount / PageSize);
+        public int PageSize { get; init; }
+        public int CurrentPage { get; init; }
+        public int PageCount => (int)Math.Ceiling((decimal)(RecordCount == 0 ? RecordCount + 1 : RecordCount) / PageSize);
         public List<T> Items { get; init; }
     }
 }

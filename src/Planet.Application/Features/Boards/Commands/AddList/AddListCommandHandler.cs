@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
+using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 
 namespace Planet.Application.Features.Boards.Commands.AddList
 {
-    internal class AddListCommandHandler : IRequestHandler<AddListCommand, AddListResponse>
+    internal class AddListCommandHandler : RequestHandlerBase<AddListCommand, AddListResponse>
     {
         private readonly IBoardRepository _boardRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -16,7 +17,7 @@ namespace Planet.Application.Features.Boards.Commands.AddList
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AddListResponse> Handle(AddListCommand request, CancellationToken cancellationToken)
+        public override async Task<AddListResponse> Handle(AddListCommand request, CancellationToken cancellationToken)
         {
             var boardId = request.BoardId;
             var title = BoardTitle.Create(request.Title);
@@ -28,7 +29,7 @@ namespace Planet.Application.Features.Boards.Commands.AddList
             board.AddList(boardList);
             await _unitOfWork.SaveChangesAsync();
 
-            return new AddListResponse(boardList);
+            return Response.SuccessWithMessage<AddListResponse>(OperationMessages.AddedListSuccessfully);
         }
 
     }

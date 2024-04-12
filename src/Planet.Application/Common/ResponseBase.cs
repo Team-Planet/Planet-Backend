@@ -34,16 +34,16 @@
 
         public static T SuccessWithMessage<T>(string message) where T : ResponseBase, new()
         {
-            var response = (T)Activator.CreateInstance(typeof(T));
-            response.Header.IsSuccess = true;
+            var response = Success<T>();
             response.Header.Message = message;
 
             return response;
         }
 
-        public static T Success<T>()
+        public static T Success<T>() where T : ResponseBase, new()
         {
             var response = (T)Activator.CreateInstance(typeof(T));
+            response.Header.IsSuccess = true;
 
             return response;
         }

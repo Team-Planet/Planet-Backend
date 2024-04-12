@@ -117,11 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddedListSuccessfully" xml:space="preserve">
+    <value>{0} listesi başarılı bir şekilde oluşturuldu.</value>
+  </data>
+  <data name="BoardInvitationUrlCreatedSuccessfully" xml:space="preserve">
+    <value>Pano davet bağlantısı oluşturuldu. Bağlantıyı paylaşarak panonuza üyeleri davet edebilirsiniz.</value>
+  </data>
+  <data name="BoardListNotFound" xml:space="preserve">
+    <value>Pano listesi bulunamadı.</value>
+  </data>
+  <data name="BoardNotFound" xml:space="preserve">
+    <value>Pano bulunamadı.</value>
+  </data>
+  <data name="CanNotRemoveBoardListThatContainsCard" xml:space="preserve">
+    <value>Herhangi bir karta sahip bir pano listesi silinemez.</value>
+  </data>
+  <data name="CanNotRemoveBoardOwner" xml:space="preserve">
+    <value>Pano sahibi üyelikten çıkarılamaz.</value>
+  </data>
+  <data name="CreatedBoardSuccessfully" xml:space="preserve">
+    <value>{0} panosu başarılı bir şekilde oluşturuldu.</value>
+  </data>
+  <data name="DoNotHavePermissionForBoardInviting" xml:space="preserve">
+    <value>{0} panosu için üye davet yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForEditingBoard" xml:space="preserve">
+    <value>Pano özelliklerini değiştirmek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForManagingBoardLists" xml:space="preserve">
+    <value>Pano listelerini düzenlemek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForManagingBoardMembers" xml:space="preserve">
+    <value>Pano üyelerini yönetmek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForViewingBoard" xml:space="preserve">
+    <value>Panoyu görüntülemek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="EditedBoardSuccessfully" xml:space="preserve">
+    <value>Pano özellikleri başarılı bir şekilde değiştirildi.</value>
+  </data>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Belirtilen e-posta adresi daha önce kullanılmış.</value>
   </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>Belirtilen e-posta adresine kayıtlı bir kullanıcı bulunamadı.</value>
+  </data>
+  <data name="ExpiredInvitationKey" xml:space="preserve">
+    <value>Davet bağlantısı artık geçerli değil.</value>
+  </data>
+  <data name="JoinedBoardSuccessfully" xml:space="preserve">
+    <value>{0} panosuna başarılı bir şekilde katıldınız.</value>
   </data>
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Parolanız başarılı bir şekilde değiştirildi.</value>
@@ -131,6 +176,12 @@
   </data>
   <data name="RefreshTokenInvalid" xml:space="preserve">
     <value>Oturum yenileme anahtarı geçerli değil. Lütfen tekrar giriş yapınız.</value>
+  </data>
+  <data name="RemovedBoardListSuccessfully" xml:space="preserve">
+    <value>Pano listesi başarılı bir şekilde kaldırıldı.</value>
+  </data>
+  <data name="RemovedBoardMemberSuccessfully" xml:space="preserve">
+    <value>Pano üyesi başarılı bir şekilde panodan kaldırıldı.</value>
   </data>
   <data name="SignedInSuccessfully" xml:space="preserve">
     <value>Başarılı bir şekilde giriş yaptınız.</value>

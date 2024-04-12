@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Boards.Commands.AcceptInvitation;
 using Planet.Application.Features.Boards.Commands.AddList;
-using Planet.Application.Features.Boards.Commands.AddMember;
 using Planet.Application.Features.Boards.Commands.CreateBoard;
 using Planet.Application.Features.Boards.Commands.EditBoard;
 using Planet.Application.Features.Boards.Commands.InviteMember;
 using Planet.Application.Features.Boards.Commands.RemoveList;
 using Planet.Application.Features.Boards.Commands.RemoveMember;
+using Planet.Application.Features.Boards.Queries.GetBoard;
 using Planet.Application.Features.Boards.Queries.GetUserBoards;
 
 namespace Planet.WebApi.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class BoardsController : ControllerBase
@@ -25,7 +25,7 @@ namespace Planet.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Create(CreateBoardCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -33,23 +33,15 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(EditBoardCommand command,CancellationToken cancellationToken)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Edit(EditBoardCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
 
             return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddMember(AddMemberCommand command, CancellationToken cancellationToken)
-        {
-            var response = await _mediator.Send(command, cancellationToken);
-
-            return Ok(response);
-        }
-
-        [HttpPost]
+        [HttpPost("Members/Remove")]
         public async Task<IActionResult> RemoveMember(RemoveMemberCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -57,7 +49,7 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("Lists/Add")]
         public async Task<IActionResult> AddList(AddListCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -65,7 +57,7 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("Lists/Remove")]
         public async Task<IActionResult> RemoveList(RemoveListCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -73,7 +65,7 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("Members/Invite")]
         public async Task<IActionResult> InviteMember(InviteMemberCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -81,18 +73,26 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{invitationKey}")]
+        [HttpGet("Members/Invitation/{invitationKey}")]
         public async Task<IActionResult> AcceptInvitation(string invitationKey, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new AcceptInvitationCommand(invitationKey), cancellationToken);
+            var response = await _mediator.Send(new AcceptInvitationCommand { InvitationKey = invitationKey }, cancellationToken);
 
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpGet("UserBoards")]
         public async Task<IActionResult> GetUserBoards([FromQuery] GetUserBoardsQuery query, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(query, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpGet("{boardId}")]
+        public async Task<IActionResult> GetBoard(Guid boardId, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(new GetBoardQuery { BoardId = boardId }, cancellationToken);
 
             return Ok(response);
         }

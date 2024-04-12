@@ -1,16 +1,17 @@
 ﻿using IdentityModel;
-using MediatR;
 using Microsoft.Extensions.Configuration;
+using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Cryptography;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
+using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 using System.Text;
 
 namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
 {
-    public class AcceptInvitationCommandHandler : IRequestHandler<AcceptInvitationCommand, AcceptInvitationResponse>
+    public class AcceptInvitationCommandHandler : RequestHandlerBase<AcceptInvitationCommand, AcceptInvitationResponse>
     {
         private readonly ICryptographyService _cryptographyService;
         private readonly IBoardRepository _boardRepository;
@@ -27,7 +28,7 @@ namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AcceptInvitationResponse> Handle(AcceptInvitationCommand request, CancellationToken cancellationToken)
+        public override async Task<AcceptInvitationResponse> Handle(AcceptInvitationCommand request, CancellationToken cancellationToken)
         {
             byte[] cipher = Base64Url.Decode(request.InvitationKey);
             byte[] decrypted = _cryptographyService.Decrypt(_configuration["Invitation:Key"], cipher);
@@ -40,14 +41,14 @@ namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
 
             if (DateTime.Now > expireDate)
             {
-                throw new Exception("Davet bağlantısının süresi dolmuş!");
+                return Response.Failure<AcceptInvitationResponse>(OperationMessages.ExpiredInvitationKey);
             }
 
             var board = await _boardRepository.FindAsync(boardId);
 
             if (board is null)
             {
-                throw new Exception("Board bulunamadı!");
+                return Response.Failure<AcceptInvitationResponse>(OperationMessages.BoardNotFound);
             }
 
             var boardMember = BoardMember.Create(userId, board.Id, BoardPermissions.View, DateTime.Now, true);
@@ -56,7 +57,7 @@ namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new AcceptInvitationResponse();
+            return Response.SuccessWithMessage<AcceptInvitationResponse>(string.Format(OperationMessages.JoinedBoardSuccessfully, board.Title.Value));
         }
     }
 }

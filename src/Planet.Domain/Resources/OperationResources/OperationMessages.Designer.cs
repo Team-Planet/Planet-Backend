@@ -61,6 +61,123 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} listesi başarılı bir şekilde oluşturuldu..
+        /// </summary>
+        public static string AddedListSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedListSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano davet bağlantısı oluşturuldu. Bağlantıyı paylaşarak panonuza üyeleri davet edebilirsiniz..
+        /// </summary>
+        public static string BoardInvitationUrlCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("BoardInvitationUrlCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano listesi bulunamadı..
+        /// </summary>
+        public static string BoardListNotFound {
+            get {
+                return ResourceManager.GetString("BoardListNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano bulunamadı..
+        /// </summary>
+        public static string BoardNotFound {
+            get {
+                return ResourceManager.GetString("BoardNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Herhangi bir karta sahip bir pano listesi silinemez..
+        /// </summary>
+        public static string CanNotRemoveBoardListThatContainsCard {
+            get {
+                return ResourceManager.GetString("CanNotRemoveBoardListThatContainsCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano sahibi üyelikten çıkarılamaz..
+        /// </summary>
+        public static string CanNotRemoveBoardOwner {
+            get {
+                return ResourceManager.GetString("CanNotRemoveBoardOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} panosu başarılı bir şekilde oluşturuldu..
+        /// </summary>
+        public static string CreatedBoardSuccessfully {
+            get {
+                return ResourceManager.GetString("CreatedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} panosu için üye davet yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForBoardInviting {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForBoardInviting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano özelliklerini değiştirmek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForEditingBoard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForEditingBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano listelerini düzenlemek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForManagingBoardLists {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForManagingBoardLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano üyelerini yönetmek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForManagingBoardMembers {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForManagingBoardMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panoyu görüntülemek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForViewingBoard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForViewingBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano özellikleri başarılı bir şekilde değiştirildi..
+        /// </summary>
+        public static string EditedBoardSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Belirtilen e-posta adresi daha önce kullanılmış..
         /// </summary>
         public static string EmailAlreadyExists {
@@ -75,6 +192,24 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string EmailNotFound {
             get {
                 return ResourceManager.GetString("EmailNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Davet bağlantısı artık geçerli değil..
+        /// </summary>
+        public static string ExpiredInvitationKey {
+            get {
+                return ResourceManager.GetString("ExpiredInvitationKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} panosuna başarılı bir şekilde katıldınız..
+        /// </summary>
+        public static string JoinedBoardSuccessfully {
+            get {
+                return ResourceManager.GetString("JoinedBoardSuccessfully", resourceCulture);
             }
         }
         
@@ -102,6 +237,24 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string RefreshTokenInvalid {
             get {
                 return ResourceManager.GetString("RefreshTokenInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano listesi başarılı bir şekilde kaldırıldı..
+        /// </summary>
+        public static string RemovedBoardListSuccessfully {
+            get {
+                return ResourceManager.GetString("RemovedBoardListSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano üyesi başarılı bir şekilde panodan kaldırıldı..
+        /// </summary>
+        public static string RemovedBoardMemberSuccessfully {
+            get {
+                return ResourceManager.GetString("RemovedBoardMemberSuccessfully", resourceCulture);
             }
         }
         

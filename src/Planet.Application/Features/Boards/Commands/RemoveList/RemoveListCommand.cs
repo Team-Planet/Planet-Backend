@@ -1,10 +1,10 @@
-﻿using MediatR;
-using Planet.Domain.Boards;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.RemoveList
 {
-    public record RemoveListCommand(
-        Guid BoardId,
-        Guid BoardListId
-        ) : IRequest<RemoveListResponse>;
+    public sealed class RemoveListCommand : CommandBase<RemoveListResponse>
+    {
+        public Guid BoardId { get; init; }
+        public Guid ListId { get; init; }
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
+﻿using Planet.Application.Common;
+
+namespace Planet.Application.Features.Boards.Commands.AcceptInvitation
 {
-    public record AcceptInvitationResponse();
+    public class AcceptInvitationResponse : ResponseBase { }
 }

@@ -1,6 +1,6 @@
-﻿using Planet.Domain.Boards;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.AddList
 {
-    public record AddListResponse(BoardList boardList);
+    public sealed class AddListResponse : ResponseBase { }
 }

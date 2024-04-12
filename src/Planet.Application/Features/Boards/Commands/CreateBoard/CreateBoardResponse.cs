@@ -1,6 +1,6 @@
-﻿using Planet.Domain.Boards;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Boards.Commands.CreateBoard
 {
-    public record CreateBoardResponse(Board board);
+    public sealed class CreateBoardResponse : ResponseBase { }
 }
