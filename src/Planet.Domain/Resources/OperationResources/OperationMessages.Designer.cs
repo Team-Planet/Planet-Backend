@@ -124,11 +124,29 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kart başarılı bir şekilde oluşturuldu..
+        /// </summary>
+        public static string CreatedCardSuccessfully {
+            get {
+                return ResourceManager.GetString("CreatedCardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} panosu için üye davet yetkiniz bulunmamaktadır..
         /// </summary>
         public static string DoNotHavePermissionForBoardInviting {
             get {
                 return ResourceManager.GetString("DoNotHavePermissionForBoardInviting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano için kart oluşturma yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForCreatingCard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForCreatingCard", resourceCulture);
             }
         }
         

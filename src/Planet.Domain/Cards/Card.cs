@@ -1,4 +1,5 @@
 ﻿using Planet.Domain.SharedKernel;
+using System.Collections.Generic;
 
 namespace Planet.Domain.Cards
 {
@@ -44,6 +45,20 @@ namespace Planet.Domain.Cards
             AssignedToId = assignedToId;
             Order = order;
             IsDeleted = isDeleted;
+        }
+
+        private Card(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate) : base(id)
+        {
+            Title = title;
+            OwnerId = ownerId;
+            ListId = listId;
+            CreatedDate = createdDate;
+            Description = CardDescription.Create(string.Empty);
+        }
+
+        public static Card Create(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate)
+        {
+            return new Card(id, listId, title, ownerId, createdDate);
         }
 
         public static Card Create(

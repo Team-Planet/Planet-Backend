@@ -107,7 +107,7 @@ namespace Planet.Persistence.Repositories
             return (await connection.QueryFirstOrDefaultAsync<int>(sql, new { ListId = listId })) > 0;
         }
 
-        public async Task<bool> HasPermission(BoardPermissions permission, Guid boardId, Guid userId)
+        public async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid boardId, Guid userId)
         {
             string sql = @"
             SELECT TOP(1) Permissions FROM BoardMembers bm
@@ -116,6 +116,20 @@ namespace Planet.Persistence.Repositories
 
             using var connection = _sqlConnectionFactory.GetConnection();
             var permissions = await connection.QueryFirstOrDefaultAsync<BoardPermissions?>(sql, new { UserId = userId, BoardId = boardId });
+
+            return permissions?.HasFlag(permissions) ?? false;
+        }
+
+        public async Task<bool> HasPermissionForListAsync(BoardPermissions permission, Guid listId, Guid userId)
+        {
+            string sql = @"
+            SELECT TOP(1) Permissions FROM BoardMembers bm
+            INNER JOIN BoardLists bl ON bl.BoardId = bm.BoardId
+            WHERE bl.Id = @ListId AND bm.UserId = @UserId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+            var permissions = await connection.QueryFirstOrDefaultAsync<BoardPermissions?>(sql, new { UserId = userId, ListId = listId });
 
             return permissions?.HasFlag(permissions) ?? false;
         }

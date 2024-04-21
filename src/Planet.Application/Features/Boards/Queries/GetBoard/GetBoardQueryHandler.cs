@@ -20,7 +20,7 @@ namespace Planet.Application.Features.Boards.Queries.GetBoard
         public async override Task<GetBoardResponse> Handle(GetBoardQuery request, CancellationToken cancellationToken)
         {
             var userId = _userService.GetUserId();
-            bool hasPermission = await _boardRepository.HasPermission(BoardPermissions.View, request.BoardId, userId);
+            bool hasPermission = await _boardRepository.HasPermissionAsync(BoardPermissions.View, request.BoardId, userId);
 
             if(!hasPermission)
             {

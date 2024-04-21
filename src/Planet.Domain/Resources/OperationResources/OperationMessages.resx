@@ -138,8 +138,14 @@
   <data name="CreatedBoardSuccessfully" xml:space="preserve">
     <value>{0} panosu başarılı bir şekilde oluşturuldu.</value>
   </data>
+  <data name="CreatedCardSuccessfully" xml:space="preserve">
+    <value>Kart başarılı bir şekilde oluşturuldu.</value>
+  </data>
   <data name="DoNotHavePermissionForBoardInviting" xml:space="preserve">
     <value>{0} panosu için üye davet yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForCreatingCard" xml:space="preserve">
+    <value>Pano için kart oluşturma yetkiniz bulunmamaktadır.</value>
   </data>
   <data name="DoNotHavePermissionForEditingBoard" xml:space="preserve">
     <value>Pano özelliklerini değiştirmek için yetkiniz bulunmamaktadır.</value>
