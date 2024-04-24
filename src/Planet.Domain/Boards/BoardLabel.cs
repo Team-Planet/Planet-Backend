@@ -28,5 +28,12 @@ namespace Planet.Domain.Boards
         {
             return new BoardLabel(id, boardId, color, title, isActive);
         }
+        public static BoardLabel Create(Guid id,
+            Guid boardId,
+            BoardLabelColor color,
+            BoardTitle title)
+        {
+            return new BoardLabel(id, boardId, color, title, true);
+        }
     }
 }

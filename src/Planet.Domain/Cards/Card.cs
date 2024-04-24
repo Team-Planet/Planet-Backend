@@ -75,5 +75,17 @@ namespace Planet.Domain.Cards
             return new Card(id, title, description, ownerId, listId, createdDate, assignedToId, order, isDeleted);
         }
 
+        public void ChangeCardDescription (CardDescription description)
+        {
+            Description = description;
+        }
+        public void AddLabel(CardLabel label)
+        {
+            _labels.Add(label);
+        }
+        public void ChangeDate(CardDates date)
+        {
+            Dates = date;
+        }
     }
 }

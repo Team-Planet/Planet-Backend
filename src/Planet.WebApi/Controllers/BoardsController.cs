@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Boards.Commands.AcceptInvitation;
 using Planet.Application.Features.Boards.Commands.AddList;
 using Planet.Application.Features.Boards.Commands.CreateBoard;
+using Planet.Application.Features.Boards.Commands.CreateLabel;
 using Planet.Application.Features.Boards.Commands.EditBoard;
 using Planet.Application.Features.Boards.Commands.InviteMember;
 using Planet.Application.Features.Boards.Commands.RemoveList;
@@ -93,6 +94,14 @@ namespace Planet.WebApi.Controllers
         public async Task<IActionResult> GetBoard(Guid boardId, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new GetBoardQuery { BoardId = boardId }, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("Labels/Add")]
+        public async Task<IActionResult> AddLabel(AddLabelCommand command, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
 
             return Ok(response);
         }

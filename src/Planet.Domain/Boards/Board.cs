@@ -107,5 +107,10 @@ namespace Planet.Domain.Boards
         {
             _members.Remove(member);
         }
+
+        public void AddLabel(BoardLabel label)
+        {
+            _labels.Add(label);
+        }
     }
 }

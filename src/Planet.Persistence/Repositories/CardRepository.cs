@@ -23,5 +23,10 @@ namespace Planet.Persistence.Repositories
         {
             return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
         }
+
+        public Task<Card> FindListIdByCardAsync(Guid id)
+        {
+            return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
+        }
     }
 }
