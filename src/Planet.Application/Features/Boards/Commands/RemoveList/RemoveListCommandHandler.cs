@@ -24,21 +24,21 @@ namespace Planet.Application.Features.Boards.Commands.RemoveList
         {
             var board = await _boardRepository.FindAsync(request.BoardId);
 
-            if(!HasPermissionToRemoveList(board))
+            if (!HasPermissionToRemoveList(board))
             {
                 return Response.Failure<RemoveListResponse>(OperationMessages.DoNotHavePermissionForManagingBoardLists);
             }
 
             bool hasAnyCard = await _boardRepository.HasBoardListAnyCard(request.ListId);
 
-            if(hasAnyCard)
+            if (hasAnyCard)
             {
                 return Response.Failure<RemoveListResponse>(OperationMessages.CanNotRemoveBoardListThatContainsCard);
             }
 
             var boardList = board.Lists.FirstOrDefault(l => l.Id == request.ListId);
 
-            if(boardList is null)
+            if (boardList is null)
             {
                 return Response.Failure<RemoveListResponse>(OperationMessages.BoardListNotFound);
             }

@@ -16,7 +16,7 @@ namespace Planet.Persistence.SqlConnection
 
         public DbConnection GetConnection()
         {
-            
+
             return new Microsoft.Data.SqlClient.SqlConnection(_configuration.GetConnectionString("SqlServer"));
         }
     }

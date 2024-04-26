@@ -1,5 +1,4 @@
 ﻿using IdentityModel;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Planet.Application.Common;
@@ -36,7 +35,7 @@ namespace Planet.Application.Features.Boards.Commands.InviteMember
             var inviterId = _userService.GetUserId();
             var board = await _boardRepository.FindAsync(request.BoardId);
 
-            if(board is null)
+            if (board is null)
             {
                 return Response.Failure<InviteMemberResponse>(OperationMessages.BoardNotFound);
             }

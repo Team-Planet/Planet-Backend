@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
@@ -39,7 +38,7 @@ namespace Planet.Application.Features.Boards.Commands.CreateBoard
             await _boardRepository.CreateAsync(board);
             await _unitOfWork.SaveChangesAsync();
 
-            return Response.SuccessWithBody<CreateBoardResponse>(new { BoardId = board.Id }, 
+            return Response.SuccessWithBody<CreateBoardResponse>(new { BoardId = board.Id },
                 string.Format(OperationMessages.CreatedBoardSuccessfully, board.Title.Value));
         }
     }

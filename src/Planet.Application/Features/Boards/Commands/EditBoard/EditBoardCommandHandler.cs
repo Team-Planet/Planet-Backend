@@ -32,7 +32,7 @@ namespace Planet.Application.Features.Boards.Commands.EditBoard
                 return Response.Failure<EditBoardResponse>(OperationMessages.BoardNotFound);
             }
 
-            if(!HasPermissionToEditBoard(board))
+            if (!HasPermissionToEditBoard(board))
             {
                 return Response.Failure<EditBoardResponse>(OperationMessages.DoNotHavePermissionForEditingBoard);
             }

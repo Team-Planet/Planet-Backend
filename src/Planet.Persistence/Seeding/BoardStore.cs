@@ -52,13 +52,13 @@ namespace Planet.Persistence.Seeding
 
         private static List<BoardLabel> GetLabels()
         {
-            int index = 0 , page=0;
+            int index = 0, page = 0;
             var labelFaker = new PrivateFaker<BoardLabel>(locale: "tr")
                 .UsePrivateConstructor()
                 .RuleFor(l => l.Id, f => labelIds[index++])
                 .RuleFor(l => l.BoardId, f => boardIds[(page++) % boardIds.Length])
                 .RuleFor(l => l.Title, f => BoardTitle.Create(f.Lorem.Sentence(3)))
-                .RuleFor(l => l.Color, f => BoardLabelColor.Create(f.Random.Hexadecimal(6,string.Empty)))
+                .RuleFor(l => l.Color, f => BoardLabelColor.Create(f.Random.Hexadecimal(6, string.Empty)))
                 .RuleFor(l => l.IsActive, f => f.Random.Bool(0.9f));
 
             var labels = labelFaker.Generate(labelIds.Length);
@@ -108,7 +108,7 @@ namespace Planet.Persistence.Seeding
                 .RuleFor(b => b.CreatedDate, f => DateTime.Now)
                 .RuleFor(b => b.IsActive, f => f.Random.Bool(0.9f))
                 .RuleFor(b => b.OwnerId, f => UserStore.userIds[f.Random.Int(0, UserStore.userIds.Length - 1)]);
-                
+
 
             var boards = boardFaker.Generate(boardIds.Length);
             return boards;

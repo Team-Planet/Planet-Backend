@@ -13,14 +13,14 @@
         EditAssignedCard = 64,
         EditNotOwnedCard = 128,
 
-        All = View 
-            | ChangeSpecs 
-            | InviteMember 
-            | ManageMembers 
-            | ManageLists 
-            | CreateAndEditCard 
-            | AssignCard 
-            | EditAssignedCard 
+        All = View
+            | ChangeSpecs
+            | InviteMember
+            | ManageMembers
+            | ManageLists
+            | CreateAndEditCard
+            | AssignCard
+            | EditAssignedCard
             | EditNotOwnedCard
     }
 }

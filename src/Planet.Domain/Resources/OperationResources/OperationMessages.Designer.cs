@@ -61,6 +61,42 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrol listesi başarılı bir şekilde eklendi..
+        /// </summary>
+        public static string AddedCheckListToCardSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedCheckListToCardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart yorumu başarılı bir şekilde eklendi..
+        /// </summary>
+        public static string AddedCommentToCardSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedCommentToCardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} etiketi başarılı bir şekilde oluşturuldu..
+        /// </summary>
+        public static string AddedLabelSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedLabelSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} etiketi karta başarılı bir şekilde eklendi..
+        /// </summary>
+        public static string AddedLabelToCardSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedLabelToCardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} listesi başarılı bir şekilde oluşturuldu..
         /// </summary>
         public static string AddedListSuccessfully {
@@ -124,11 +160,74 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kart başarılı bir şekilde oluşturuldu..
+        /// </summary>
+        public static string CreatedCardSuccessfully {
+            get {
+                return ResourceManager.GetString("CreatedCardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano kartlarına kontrol listesi eklemek için yetkiniz bulunmamaktadır. .
+        /// </summary>
+        public static string DoNotHavePermissionForAddCardCheckList {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForAddCardCheckList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano kartlarına kullanıcı atamak için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForAssigningUserToCard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForAssigningUserToCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} panosu için üye davet yetkiniz bulunmamaktadır..
         /// </summary>
         public static string DoNotHavePermissionForBoardInviting {
             get {
                 return ResourceManager.GetString("DoNotHavePermissionForBoardInviting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano için kart oluşturma yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForCreatingCard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForCreatingCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano kartlarının yorumlarını düzenlemek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForEditCardComment {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForEditCardComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano kartlarının açıklamasını düzenlemek için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForEditCardDescription {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForEditCardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pano için bu kartın tarihini düzenleme yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForEditDateCard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForEditDateCard", resourceCulture);
             }
         }
         
@@ -174,6 +273,24 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string EditedBoardSuccessfully {
             get {
                 return ResourceManager.GetString("EditedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart günleri başarılı bir şekilde güncellendi..
+        /// </summary>
+        public static string EditedCardDateSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedCardDateSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart açıklaması başarılı bir şekilde değiştirildi..
+        /// </summary>
+        public static string EditedCardDescriptionSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedCardDescriptionSuccessfully", resourceCulture);
             }
         }
         

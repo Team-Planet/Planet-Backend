@@ -33,7 +33,7 @@ namespace Planet.Infrastructure.Services.Cryptography
         {
             string str = GenerateRandomString();
 
-            return str.Replace("+", "").Replace("=","").Replace("/", "");
+            return str.Replace("+", "").Replace("=", "").Replace("/", "");
         }
 
         private string Hash(string password, byte[] saltBytes)
@@ -100,7 +100,7 @@ namespace Planet.Infrastructure.Services.Cryptography
                 {
                     using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        using(var outputStream = new MemoryStream())
+                        using (var outputStream = new MemoryStream())
                         {
                             cryptoStream.CopyTo(outputStream);
 

@@ -24,7 +24,7 @@ namespace Planet.Infrastructure.Services.Caching
 
         public T RetrieveItem<T>(string key)
         {
-            if(_memoryCache.TryGetValue(key, out T value))
+            if (_memoryCache.TryGetValue(key, out T value))
             {
                 return value;
             }

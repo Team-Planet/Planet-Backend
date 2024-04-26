@@ -46,6 +46,20 @@ namespace Planet.Domain.Cards
             IsDeleted = isDeleted;
         }
 
+        private Card(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate) : base(id)
+        {
+            Title = title;
+            OwnerId = ownerId;
+            ListId = listId;
+            CreatedDate = createdDate;
+            Description = CardDescription.Create(string.Empty);
+        }
+
+        public static Card Create(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate)
+        {
+            return new Card(id, listId, title, ownerId, createdDate);
+        }
+
         public static Card Create(
             Guid id,
             CardTitle title,
@@ -60,5 +74,32 @@ namespace Planet.Domain.Cards
             return new Card(id, title, description, ownerId, listId, createdDate, assignedToId, order, isDeleted);
         }
 
+        public void ChangeCardDescription(CardDescription description)
+        {
+            Description = description;
+        }
+        public void AddLabel(CardLabel label)
+        {
+            _labels.Add(label);
+        }
+        public void ChangeDate(CardDates date)
+        {
+            Dates = date;
+        }
+
+        public void AddComment(CardComment cardComment)
+        {
+            _comments.Add(cardComment);
+        }
+
+        public void AddCheckList(CardCheckList cardCheckList)
+        {
+            _checkLists.Add(cardCheckList);
+        }
+
+        public void AssignUser(Guid userId)
+        {
+            AssignedToId = userId;
+        }
     }
 }

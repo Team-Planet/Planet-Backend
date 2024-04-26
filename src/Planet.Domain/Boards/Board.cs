@@ -1,5 +1,4 @@
 ﻿using Planet.Domain.SharedKernel;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Planet.Domain.Boards
 {
@@ -72,7 +71,7 @@ namespace Planet.Domain.Boards
             DateTime createdDate,
             Guid ownerId)
         {
-            var board =  new Board(id, title, description, modules, createdDate, ownerId);
+            var board = new Board(id, title, description, modules, createdDate, ownerId);
             var boardMember = BoardMember.Create(ownerId, board.Id, BoardPermissions.All, createdDate, true);
             board.AddMember(boardMember);
 
@@ -106,6 +105,11 @@ namespace Planet.Domain.Boards
         public void RemoveMember(BoardMember member)
         {
             _members.Remove(member);
+        }
+
+        public void AddLabel(BoardLabel label)
+        {
+            _labels.Add(label);
         }
     }
 }

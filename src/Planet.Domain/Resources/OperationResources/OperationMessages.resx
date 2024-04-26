@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddedCheckListToCardSuccessfully" xml:space="preserve">
+    <value>Kontrol listesi başarılı bir şekilde eklendi.</value>
+  </data>
+  <data name="AddedCommentToCardSuccessfully" xml:space="preserve">
+    <value>Kart yorumu başarılı bir şekilde eklendi.</value>
+  </data>
+  <data name="AddedLabelSuccessfully" xml:space="preserve">
+    <value>{0} etiketi başarılı bir şekilde oluşturuldu.</value>
+  </data>
+  <data name="AddedLabelToCardSuccessfully" xml:space="preserve">
+    <value>{0} etiketi karta başarılı bir şekilde eklendi.</value>
+  </data>
   <data name="AddedListSuccessfully" xml:space="preserve">
     <value>{0} listesi başarılı bir şekilde oluşturuldu.</value>
   </data>
@@ -138,8 +150,29 @@
   <data name="CreatedBoardSuccessfully" xml:space="preserve">
     <value>{0} panosu başarılı bir şekilde oluşturuldu.</value>
   </data>
+  <data name="CreatedCardSuccessfully" xml:space="preserve">
+    <value>Kart başarılı bir şekilde oluşturuldu.</value>
+  </data>
+  <data name="DoNotHavePermissionForAddCardCheckList" xml:space="preserve">
+    <value>Pano kartlarına kontrol listesi eklemek için yetkiniz bulunmamaktadır. </value>
+  </data>
+  <data name="DoNotHavePermissionForAssigningUserToCard" xml:space="preserve">
+    <value>Pano kartlarına kullanıcı atamak için yetkiniz bulunmamaktadır.</value>
+  </data>
   <data name="DoNotHavePermissionForBoardInviting" xml:space="preserve">
     <value>{0} panosu için üye davet yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForCreatingCard" xml:space="preserve">
+    <value>Pano için kart oluşturma yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForEditCardComment" xml:space="preserve">
+    <value>Pano kartlarının yorumlarını düzenlemek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForEditCardDescription" xml:space="preserve">
+    <value>Pano kartlarının açıklamasını düzenlemek için yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="DoNotHavePermissionForEditDateCard" xml:space="preserve">
+    <value>Pano için bu kartın tarihini düzenleme yetkiniz bulunmamaktadır.</value>
   </data>
   <data name="DoNotHavePermissionForEditingBoard" xml:space="preserve">
     <value>Pano özelliklerini değiştirmek için yetkiniz bulunmamaktadır.</value>
@@ -155,6 +188,12 @@
   </data>
   <data name="EditedBoardSuccessfully" xml:space="preserve">
     <value>Pano özellikleri başarılı bir şekilde değiştirildi.</value>
+  </data>
+  <data name="EditedCardDateSuccessfully" xml:space="preserve">
+    <value>Kart günleri başarılı bir şekilde güncellendi.</value>
+  </data>
+  <data name="EditedCardDescriptionSuccessfully" xml:space="preserve">
+    <value>Kart açıklaması başarılı bir şekilde değiştirildi.</value>
   </data>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Belirtilen e-posta adresi daha önce kullanılmış.</value>

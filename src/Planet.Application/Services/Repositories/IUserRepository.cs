@@ -4,6 +4,6 @@ namespace Planet.Application.Services.Repositories
 {
     public interface IUserRepository : IUserDomainRepository
     {
-        
+
     }
 }

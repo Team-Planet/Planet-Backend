@@ -1,5 +1,4 @@
-﻿using Planet.Domain.Resources;
-using Planet.Domain.Resources.ValidationResources;
+﻿using Planet.Domain.Resources.ValidationResources;
 using Planet.Domain.SharedKernel;
 using System.Text.RegularExpressions;
 
@@ -33,7 +32,7 @@ namespace Planet.Domain.Users
 
             if (!IsInRange(email))
             {
-                throw new DomainException(ValidationCodes.Email_InvalidLength, 
+                throw new DomainException(ValidationCodes.Email_InvalidLength,
                     string.Format(ValidationMessages.Email_InvalidLength, MinLength, MaxLength));
             }
 
