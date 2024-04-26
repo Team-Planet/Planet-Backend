@@ -87,5 +87,20 @@ namespace Planet.Domain.Cards
         {
             Dates = date;
         }
+
+        public void AddComment(CardComment cardComment)
+        {
+            _comments.Add(cardComment);
+        }
+
+        public void AddCheckList(CardCheckList cardCheckList)
+        {
+            _checkLists.Add(cardCheckList);
+        }
+
+        public void AssignUser(Guid userId)
+        {
+            AssignedToId = userId;
+        }
     }
 }

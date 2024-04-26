@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Planet.Application.Features.Cards.Commands.AddCardCheckList;
+using Planet.Application.Features.Cards.Commands.AddCardComment;
 using Planet.Application.Features.Cards.Commands.AddLabel;
+using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditDescription;
@@ -43,6 +46,30 @@ namespace Planet.WebApi.Controllers
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> EditCardDate(EditDateCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddCardComment(AddCardCommentCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddCardCheckList(AddCardCheckListCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AssignUser(AssignUserCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
 
