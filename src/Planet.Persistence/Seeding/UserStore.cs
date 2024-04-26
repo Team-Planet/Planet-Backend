@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Planet.Application.Services.Cryptography;
+﻿using Planet.Application.Services.Cryptography;
 using Planet.Domain.Users;
 
 namespace Planet.Persistence.Seeding
@@ -127,7 +126,7 @@ namespace Planet.Persistence.Seeding
                 .RuleFor(u => u.Salt, f => globalSalt)
                 .RuleFor(u => u.FirstName, f => FirstName.Create(f.Name.FirstName()))
                 .RuleFor(u => u.LastName, f => LastName.Create(f.Name.LastName()))
-                .RuleFor(u => u.Email, (f,u) => Email.Create(f.Internet.Email(u.FirstName.Value, u.LastName.Value).ToLower()))
+                .RuleFor(u => u.Email, (f, u) => Email.Create(f.Internet.Email(u.FirstName.Value, u.LastName.Value).ToLower()))
                 .RuleFor(u => u.CreatedDate, f => DateTime.Now)
                 .RuleFor(u => u.IsActive, f => f.Random.Bool(0.9f));
 

@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Planet.Domain.SharedKernel
+﻿namespace Planet.Domain.SharedKernel
 {
     public abstract class Entity : IEquatable<Entity>
     {
@@ -27,12 +25,12 @@ namespace Planet.Domain.SharedKernel
 
         public override bool Equals(object obj)
         {
-            if(obj is null )
+            if (obj is null)
             {
                 return false;
             }
 
-            if(obj is not Entity entity)
+            if (obj is not Entity entity)
             {
                 return false;
             }
@@ -47,7 +45,7 @@ namespace Planet.Domain.SharedKernel
 
         public bool Equals(Entity other)
         {
-            if(other is null)
+            if (other is null)
             {
                 return false;
             }
@@ -55,9 +53,9 @@ namespace Planet.Domain.SharedKernel
             return other.Id == Id;
         }
 
-        public static bool operator==(Entity a, Entity b)
+        public static bool operator ==(Entity a, Entity b)
         {
-            if(a is null || b is null)
+            if (a is null || b is null)
             {
                 return false;
             }
@@ -65,7 +63,7 @@ namespace Planet.Domain.SharedKernel
             return a.Id == b.Id;
         }
 
-        public static bool operator!=(Entity a, Entity b)
+        public static bool operator !=(Entity a, Entity b)
         {
             if (a is null || b is null)
             {

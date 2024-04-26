@@ -1,5 +1,4 @@
 ﻿using Planet.Domain.SharedKernel;
-using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
 
 namespace Planet.Persistence.Repositories

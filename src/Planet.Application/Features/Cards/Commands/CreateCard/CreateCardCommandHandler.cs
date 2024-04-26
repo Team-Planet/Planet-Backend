@@ -25,7 +25,7 @@ namespace Planet.Application.Features.Cards.Commands.CreateCard
 
         public override async Task<CreateCardResponse> Handle(CreateCardCommand request, CancellationToken cancellationToken)
         {
-            if(!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, request.ListId))
+            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, request.ListId))
             {
                 return Response.Failure<CreateCardResponse>(OperationMessages.DoNotHavePermissionForCreatingCard);
             }

@@ -1,5 +1,4 @@
 ﻿using Planet.Domain.SharedKernel;
-using System.Collections.Generic;
 
 namespace Planet.Domain.Cards
 {
@@ -75,7 +74,7 @@ namespace Planet.Domain.Cards
             return new Card(id, title, description, ownerId, listId, createdDate, assignedToId, order, isDeleted);
         }
 
-        public void ChangeCardDescription (CardDescription description)
+        public void ChangeCardDescription(CardDescription description)
         {
             Description = description;
         }

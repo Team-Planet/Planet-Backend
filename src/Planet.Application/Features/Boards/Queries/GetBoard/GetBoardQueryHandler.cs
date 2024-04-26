@@ -22,7 +22,7 @@ namespace Planet.Application.Features.Boards.Queries.GetBoard
             var userId = _userService.GetUserId();
             bool hasPermission = await _boardRepository.HasPermissionAsync(BoardPermissions.View, request.BoardId, userId);
 
-            if(!hasPermission)
+            if (!hasPermission)
             {
                 return Response.Failure<GetBoardResponse>(OperationMessages.DoNotHavePermissionForViewingBoard);
             }

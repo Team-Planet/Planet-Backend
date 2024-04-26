@@ -1,5 +1,4 @@
 ﻿using IdentityModel;
-using MediatR;
 using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;

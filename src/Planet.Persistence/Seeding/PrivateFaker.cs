@@ -42,6 +42,6 @@ namespace Planet.Persistence.Seeding
             base.RuleFor(propertyName, setter);
             return this;
         }
-        
+
     }
 }

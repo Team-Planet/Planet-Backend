@@ -1,16 +1,10 @@
-﻿using MediatR.Wrappers;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
 using Planet.Domain.Cards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
 {
@@ -34,7 +28,7 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
             {
                 return Response.Failure<AddCardCheckListResponse>(OperationMessages.DoNotHavePermissionForAddCardCheckList);
             }
-            var id = Guid.NewGuid();          
+            var id = Guid.NewGuid();
             var cardId = request.CardId;
             var title = CardTitle.Create(request.Title);
             var card = await _cardRepository.FindAsync(cardId);
@@ -43,20 +37,21 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
             card.AddCheckList(cardCheckList);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
+
             return Response.SuccessWithBody<AddCardCheckListResponse>(new
             {
                 CardId = cardId,
-                Title = title.Value
+                Title = title.Value,
+                CheckListId = cardCheckList.Id
             }, OperationMessages.AddedCheckListToCardSuccessfully);
         }
-        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
+
+        private Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
         {
             var userId = _userService.GetUserId();
-            var card = await _cardRepository.FindAsync(cardId);
-            var listId = card.ListId;
-            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
+            return _boardRepository.HasPermissionAsync(permission, cardId, userId);
         }
 
     }
-    
+
 }

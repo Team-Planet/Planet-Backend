@@ -29,7 +29,7 @@ namespace Planet.Application.Features.Boards.Commands.RemoveMember
                 return Response.Failure<RemoveMemberResponse>(OperationMessages.BoardNotFound);
             }
 
-            if(!HasPermissionToRemoveMember(board))
+            if (!HasPermissionToRemoveMember(board))
             {
                 return Response.Failure<RemoveMemberResponse>(OperationMessages.DoNotHavePermissionForManagingBoardMembers);
             }

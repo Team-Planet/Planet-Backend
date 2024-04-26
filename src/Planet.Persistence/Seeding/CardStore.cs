@@ -1,7 +1,5 @@
 ﻿using Planet.Domain.Boards;
 using Planet.Domain.Cards;
-using System;
-using System.Security.Cryptography;
 
 namespace Planet.Persistence.Seeding
 {

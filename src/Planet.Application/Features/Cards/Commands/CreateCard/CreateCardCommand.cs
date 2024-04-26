@@ -6,5 +6,5 @@ namespace Planet.Application.Features.Cards.Commands.CreateCard
     {
         public string Title { get; init; }
         public Guid ListId { get; init; }
-    }   
+    }
 }

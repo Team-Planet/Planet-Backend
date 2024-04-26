@@ -46,9 +46,7 @@ namespace Planet.Application.Features.Cards.Commands.EditCardDescription
         private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
         {
             var userId = _userService.GetUserId();
-            var list = await _cardRepository.FindAsync(cardId);
-            var listId = list.ListId;
-            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
+            return await _boardRepository.HasPermissionAsync(permission, cardId, userId);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Planet.Domain.Boards
         public Guid BoardId { get; private set; }
         public BoardTitle Title { get; private set; }
         public int Order { get; private set; }
-        private BoardList(): base(Guid.Empty) { }
+        private BoardList() : base(Guid.Empty) { }
 
         private BoardList(
             Guid id,

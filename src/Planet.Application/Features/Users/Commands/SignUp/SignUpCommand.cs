@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 
 namespace Planet.Application.Features.Users.Commands.SignUp
 {

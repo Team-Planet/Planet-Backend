@@ -1,5 +1,4 @@
 ﻿using Planet.Application.Common;
-using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;

@@ -31,6 +31,6 @@ namespace Planet.Domain.Cards
         }
 
 
-    } 
-    
+    }
+
 }

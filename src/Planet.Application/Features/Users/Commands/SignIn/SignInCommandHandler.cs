@@ -26,7 +26,7 @@ namespace Planet.Application.Features.Users.Commands.SignIn
         }
 
         public override async Task<SignInResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
-           {
+        {
             var user = await _userRepository.FindByEmailAsync(request.Email);
 
             if (user is null)

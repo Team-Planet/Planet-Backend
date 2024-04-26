@@ -1,16 +1,9 @@
-﻿using MediatR.Wrappers;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
-using Planet.Domain.Cards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Application.Features.Cards.Commands.AssignUser
 {
@@ -35,6 +28,11 @@ namespace Planet.Application.Features.Cards.Commands.AssignUser
             {
                 return Response.Failure<AssignUserResponse>(OperationMessages.DoNotHavePermissionForAssigningUserToCard);
             }
+
+            /*
+             *  Atanan kullanıcının board'a üyeliği var mı?
+             */
+
             var cardId = request.CardId;
             var card = await _cardRepository.FindAsync(cardId);
 
@@ -47,9 +45,7 @@ namespace Planet.Application.Features.Cards.Commands.AssignUser
         private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
         {
             var userId = _userService.GetUserId();
-            var card = await _cardRepository.FindAsync(cardId);
-            var listId = card.ListId;
-            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
+            return await _boardRepository.HasPermissionAsync(permission, cardId, userId);
         }
     }
 }
