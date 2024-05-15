@@ -7,6 +7,7 @@ using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditDescription;
+using Planet.Application.Features.Cards.Queries.GetCardInfo;
 namespace Planet.WebApi.Controllers
 {
     [Route("[controller]")]
@@ -63,6 +64,14 @@ namespace Planet.WebApi.Controllers
         public async Task<IActionResult> AddCardCheckList(AddCardCheckListCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetCardInfo ([FromQuery]GetCardInfoQuery query, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(query, cancellationToken);
 
             return Ok(response);
         }

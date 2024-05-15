@@ -2,7 +2,7 @@
 
 namespace Planet.Application.Features.Boards.Queries.GetBoard
 {
-    public sealed class GetBoardQuery : CommandBase<GetBoardResponse>
+    public sealed class GetBoardQuery : QueryBase<GetBoardResponse>
     {
         public Guid BoardId { get; init; }
     }
