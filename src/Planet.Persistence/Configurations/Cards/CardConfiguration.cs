@@ -4,7 +4,7 @@ using Planet.Domain.Boards;
 using Planet.Domain.Cards;
 using Planet.Domain.Users;
 
-namespace Planet.Persistence.Configurations
+namespace Planet.Persistence.Configurations.Cards
 {
     internal class CardConfiguration : IEntityTypeConfiguration<Card>
     {

@@ -1,7 +1,6 @@
 ﻿using Planet.Application.Common;
-using Planet.Application.Features.Cards.Commands.EditCardDescription;
 
-namespace Planet.Application.Features.Cards.Commands.EditDescription
+namespace Planet.Application.Features.Cards.Commands.EditCardDescription
 {
     public class EditCardDescriptionCommand : CommandBase<EditCardDescriptionResponse>
     {

@@ -5,8 +5,9 @@ using Planet.Application.Features.Cards.Commands.AddCardComment;
 using Planet.Application.Features.Cards.Commands.AddLabel;
 using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
+using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
-using Planet.Application.Features.Cards.Commands.EditDescription;
+using Planet.Application.Features.Cards.Queries.GetListCards;
 namespace Planet.WebApi.Controllers
 {
     [Route("[controller]")]
@@ -71,6 +72,14 @@ namespace Planet.WebApi.Controllers
         public async Task<IActionResult> AssignUser(AssignUserCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetListCards([FromQuery] GetListCardsQuery query, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(query, cancellationToken);
 
             return Ok(response);
         }

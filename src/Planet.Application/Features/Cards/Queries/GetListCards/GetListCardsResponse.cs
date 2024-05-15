@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planet.Application.Features.Cards.Queries
+namespace Planet.Application.Features.Cards.Queries.GetListCards
 {
-    public sealed class GetCardsResponse : ResponseBase { }
+    public sealed class GetListCardsResponse : ResponseBase { }
 }

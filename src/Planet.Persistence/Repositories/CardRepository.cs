@@ -9,7 +9,7 @@ using Planet.Application.Services.SqlConnection;
 using Planet.Domain.Cards;
 using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
-using Planet.Application.Features.Cards.Queries.GetCards;
+using Planet.Application.Features.Cards.Queries.GetListCards;
 
 namespace Planet.Persistence.Repositories
 {
@@ -34,30 +34,48 @@ namespace Planet.Persistence.Repositories
             return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Pagination<CardListModel>> GetCardsAsync(GetCardsQuery query, Guid listId)
+        public async Task<Pagination<ListCardModel>> GetListCardsAsync(GetListCardsQuery query)
         {
             var parameters = new DynamicParameters();
             parameters.AddDynamicParams(query);
-            parameters.Add("@ListId", listId);
 
             string sql = @"
-            SELECT c.Id, C.title, c.[Order], u.Id UserId, u.FirstName, u.LastName
-            FROM Planet.dbo.Cards c Left Join Planet.dbo.Users u ON u.Id = c.AssignedToId
+            SELECT COUNT(*)
+            FROM Cards c
+            WHERE c.ListId = @ListId
+
+            SELECT c.Id, C.title, c.[Order], u.Id UserId, u.FirstName + ' ' + u.LastName FullName
+            FROM Cards c LEFT JOIN Users u ON u.Id = c.AssignedToId
             WHERE c.ListId = @ListId
             ORDER BY c.[Order] ASC
+            OFFSET @PageSize * (@CurrentPage - 1) ROWS
+            FETCH NEXT @PageSize ROWS ONLY
 
-            SELECT bl.Title, bl.ColorCode, cl.CardId From Planet.dbo.CardLabels cl
-            Inner Join Planet.dbo.BoardLabels bl ON bl.Id = cl.BoardLabelId
-            WHERE cl.CardId IN(SELECT c.Id from Planet.dbo.Cards c WHERE c.ListId = @ListId)";
+            SELECT bl.Title, bl.ColorCode, cl.CardId FROM CardLabels cl
+            INNER JOIN BoardLabels bl ON bl.Id = cl.BoardLabelId
+            WHERE cl.CardId IN(
+	            SELECT c.Id
+	            FROM Cards c LEFT JOIN Users u ON u.Id = c.AssignedToId
+	            WHERE c.ListId = @ListId
+	            ORDER BY c.[Order] ASC
+	            OFFSET @PageSize * (@CurrentPage - 1) ROWS
+	            FETCH NEXT @PageSize ROWS ONLY
+            )";
 
 
             using var connection = _sqlConnectionFactory.GetConnection();
             var gridReader = await connection.QueryMultipleAsync(sql, parameters);
 
             int recordCount = await gridReader.ReadFirstOrDefaultAsync<int>();
-            var items = await gridReader.ReadAsync<CardListModel>();
+            var items = await gridReader.ReadAsync<ListCardModel>();
+            var labels = await gridReader.ReadAsync<ListCardLabel>();
+            
+            foreach(var item in items)
+            {
+                item.Labels = labels.Where(l => item.Id == l.CardId).ToList();
+            }
 
-            return new Pagination<UserBoardModel>
+            return new Pagination<ListCardModel>
             {
                 CurrentPage = query.CurrentPage,
                 PageSize = query.PageSize,
