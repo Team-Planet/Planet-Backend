@@ -69,7 +69,7 @@ namespace Planet.WebApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetCardInfo ([FromQuery]GetCardInfoQuery query, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetCardInfo([FromQuery] GetCardInfoQuery query, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(query, cancellationToken);
 

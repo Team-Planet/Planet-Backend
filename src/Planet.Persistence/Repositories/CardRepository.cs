@@ -39,14 +39,13 @@ namespace Planet.Persistence.Repositories
         {
             string sql = @"
             SELECT c.Title, c.Description,
-            c.ListId, c.OwnerId, c.AssignedToId,
+            c.ListId, c.OwnerId, c.AssignedToId, c.StartDate, c.EndDate,
             c.CreatedDate, c.IsDeleted, c.[Order] FROM Cards c
             WHERE c.Id = @CardId
 
             SELECT ccl.Id, ccl.Title, ccli.Id as ItemId, ccli.Content, ccli.IsChecked FROM CardCheckLists ccl
-            INNER JOIN Cards c ON c.Id = ccl.CardId
             INNER JOIN CardCheckListItems ccli ON ccli.CheckListId = ccl.Id
-            WHERE c.Id = @CardId
+            WHERE ccl.CardId = @CardId
 
             SELECT bl.Id, bl.Title, bl.ColorCode, bl.IsActive FROM CardLabels cl
             INNER JOIN BoardLabels bl ON bl.Id = cl.BoardLabelId
@@ -61,7 +60,30 @@ namespace Planet.Persistence.Repositories
 
             var gridReader = await connection.QueryMultipleAsync(sql, new { CardId = cardId });
             var cardModel = await gridReader.ReadFirstOrDefaultAsync<CardModel>();
-            cardModel.CheckLists = (await gridReader.ReadAsync<CardCheckListModel>()).ToList();
+            var cardCheckLists = (await gridReader.ReadAsync<CardCheckListQueryModel>()).ToList();
+
+            var cardCheckListGrouping = cardCheckLists.GroupBy(x => x.Id);
+
+            foreach(var group in cardCheckListGrouping)
+            {
+                var checkListItems = group.Select(x => new CardCheckListItemModel
+                {
+                    Content = x.Content,
+                    Title = x.Title,
+                    IsChecked = x.IsChecked
+                });
+
+                var cardCheckList = group.First();
+
+                cardModel.CheckLists.Add(new CardCheckListModel
+                {
+                    CardId = cardId,
+                    Items = checkListItems.ToList(),
+                    Title = cardCheckList.Title
+                });
+            }
+
+
             cardModel.Labels = (await gridReader.ReadAsync<CardLabelModel>()).ToList();
             cardModel.Comments = (await gridReader.ReadAsync<CardCommentModel>()).ToList();
 

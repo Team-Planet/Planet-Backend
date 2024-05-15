@@ -11,7 +11,8 @@ namespace Planet.Application.Models.Cards
     public sealed class CardModel
     {
         public string Title { get; set; }
-        public DateTime Dates { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Description { get; set; }
         public Guid ListId { get; set; }
         public Guid OwnerId { get; set; }
@@ -27,16 +28,27 @@ namespace Planet.Application.Models.Cards
     {
         public Guid CardId { get; set; }
         public string Title { get; set; }
-        public List<CardCheckListItem> Items { get; set; } = new();
+        public List<CardCheckListItemModel> Items { get; set; } = new();
     }
+
+    public sealed class CardCheckListQueryModel
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public Guid ItemId { get; set; }
+        public string Content { get; set; }
+        public bool IsChecked { get; set; }
+    }
+
     public sealed class CardCheckListItemModel
     {
         public string Title { get; set; }
         public string Content { get; set; }
+        public bool IsChecked { get; set; }
     }
     public sealed class CardLabelModel
     {
-        public string Color { get; set; }
+        public string ColorCode { get; set; }
         public string Title { get; set; }
     }
     public sealed class CardCommentModel
