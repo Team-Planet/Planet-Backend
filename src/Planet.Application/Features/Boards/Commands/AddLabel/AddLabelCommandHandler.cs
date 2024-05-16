@@ -5,7 +5,7 @@ using Planet.Domain.Boards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 
-namespace Planet.Application.Features.Boards.Commands.CreateLabel
+namespace Planet.Application.Features.Boards.Commands.AddLabel
 {
     internal class AddLabelCommandHandler : RequestHandlerBase<AddLabelCommand, AddLabelResponse>
     {
