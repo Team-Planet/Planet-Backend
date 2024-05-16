@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Boards.Commands.AcceptInvitation;
+using Planet.Application.Features.Boards.Commands.AddLabel;
 using Planet.Application.Features.Boards.Commands.AddList;
 using Planet.Application.Features.Boards.Commands.CreateBoard;
-using Planet.Application.Features.Boards.Commands.CreateLabel;
 using Planet.Application.Features.Boards.Commands.EditBoard;
 using Planet.Application.Features.Boards.Commands.InviteMember;
 using Planet.Application.Features.Boards.Commands.RemoveList;
