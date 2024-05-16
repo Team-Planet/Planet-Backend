@@ -7,7 +7,6 @@ using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
 using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
-using Planet.Application.Features.Cards.Commands.EditDescription;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
 
