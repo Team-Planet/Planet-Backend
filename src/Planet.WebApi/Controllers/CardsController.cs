@@ -70,10 +70,10 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetCardInfo([FromQuery] GetCardInfoQuery query, CancellationToken cancellationToken = default)
+        [HttpGet("{cardId}")]
+        public async Task<IActionResult> GetCardInfo(Guid cardId, CancellationToken cancellationToken = default)
         {
-            var response = await _mediator.Send(query, cancellationToken);
+            var response = await _mediator.Send(new GetCardInfoQuery() { CardId = cardId}, cancellationToken);
 
             return Ok(response);
         }
