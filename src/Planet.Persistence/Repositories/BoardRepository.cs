@@ -130,7 +130,6 @@ namespace Planet.Persistence.Repositories
 
             using var connection = _sqlConnectionFactory.GetConnection();
             var permissions = await connection.QueryFirstOrDefaultAsync<BoardPermissions?>(sql, new { UserId = userId, ListId = listId });
-
             return permissions?.HasFlag(permissions) ?? false;
         }
     }

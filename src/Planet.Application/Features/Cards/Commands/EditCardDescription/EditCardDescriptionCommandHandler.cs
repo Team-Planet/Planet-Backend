@@ -1,4 +1,5 @@
 ﻿using Planet.Application.Common;
+using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
@@ -24,13 +25,13 @@ namespace Planet.Application.Features.Cards.Commands.EditCardDescription
         }
         public override async Task<EditCardDescriptionResponse> Handle(EditCardDescriptionCommand request, CancellationToken cancellationToken)
         {
-            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, request.CardId))
+            var cardId = request.CardId;
+            var card = await _cardRepository.FindAsync(cardId);
+            var listId = card.ListId;
+            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, listId))
             {
                 return Response.Failure<EditCardDescriptionResponse>(OperationMessages.DoNotHavePermissionForEditCardDescription);
             }
-
-            var cardId = request.CardId;
-            var card = await _cardRepository.FindAsync(cardId);
             var description = CardDescription.Create(request.Description);
             card.ChangeCardDescription(description);
 
@@ -42,10 +43,10 @@ namespace Planet.Application.Features.Cards.Commands.EditCardDescription
                 Description = description.Value
             }, OperationMessages.EditedCardDescriptionSuccessfully);
         }
-        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
+        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid listId)
         {
             var userId = _userService.GetUserId();
-            return await _boardRepository.HasPermissionAsync(permission, cardId, userId);
+            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
         }
     }
 }
