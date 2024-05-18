@@ -7,6 +7,7 @@ using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
 using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
+using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
@@ -38,6 +39,15 @@ namespace Planet.WebApi.Controllers
             var response = await _mediator.Send(command, cancellationToken);
 
             return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> EditTitle(EditTitleCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+
         }
 
         [HttpPost("[action]")]

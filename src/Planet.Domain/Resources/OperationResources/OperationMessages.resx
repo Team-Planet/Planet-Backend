@@ -204,6 +204,9 @@
   <data name="EditedCardDescriptionSuccessfully" xml:space="preserve">
     <value>Kart açıklaması başarılı bir şekilde değiştirildi.</value>
   </data>
+  <data name="EditedCardTitleSuccessfully" xml:space="preserve">
+    <value>Kart başlığı başarılı bir şekilde değiştirildi.</value>
+  </data>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Belirtilen e-posta adresi daha önce kullanılmış.</value>
   </data>
