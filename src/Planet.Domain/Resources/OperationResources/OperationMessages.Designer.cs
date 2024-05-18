@@ -259,6 +259,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kart taşıma işlemi için yetkiniz bulunmamaktadır..
+        /// </summary>
+        public static string DoNotHavePermissionForMovingCard {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForMovingCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Panoyu görüntülemek için yetkiniz bulunmamaktadır..
         /// </summary>
         public static string DoNotHavePermissionForViewingBoard {
@@ -327,6 +336,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string JoinedBoardSuccessfully {
             get {
                 return ResourceManager.GetString("JoinedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart başarılı bir şekilde taşındı.
+        /// </summary>
+        public static string MovedCardSuccessfully {
+            get {
+                return ResourceManager.GetString("MovedCardSuccessfully", resourceCulture);
             }
         }
         

@@ -35,6 +35,7 @@ namespace Planet.Persistence.Repositories
             return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
         }
 
+
         public async Task<Pagination<ListCardModel>> GetListCardsAsync(GetListCardsQuery query)
         {
             var parameters = new DynamicParameters();
