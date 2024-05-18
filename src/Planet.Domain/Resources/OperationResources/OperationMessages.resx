@@ -135,6 +135,9 @@
   <data name="BoardInvitationUrlCreatedSuccessfully" xml:space="preserve">
     <value>Pano davet bağlantısı oluşturuldu. Bağlantıyı paylaşarak panonuza üyeleri davet edebilirsiniz.</value>
   </data>
+  <data name="BoardLabelNotFound" xml:space="preserve">
+    <value>Atanmak istenen etiket bulunamadı!</value>
+  </data>
   <data name="BoardListNotFound" xml:space="preserve">
     <value>Pano listesi bulunamadı.</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="CanNotRemoveBoardOwner" xml:space="preserve">
     <value>Pano sahibi üyelikten çıkarılamaz.</value>
+  </data>
+  <data name="CardNotFound" xml:space="preserve">
+    <value>Kart bulunamadı!</value>
   </data>
   <data name="CreatedBoardSuccessfully" xml:space="preserve">
     <value>{0} panosu başarılı bir şekilde oluşturuldu.</value>

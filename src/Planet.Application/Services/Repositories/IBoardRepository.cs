@@ -12,5 +12,8 @@ namespace Planet.Application.Services.Repositories
         Task<bool> HasPermissionForListAsync(BoardPermissions permission, Guid listId, Guid userId);
         Task<BoardModel> GetBoardAsync(Guid boardId);
         Task<bool> HasBoardListAnyCard(Guid listId);
+        Task<bool> HasBoardLabelAsync(Guid boardId, Guid boardLabelId);
+        Task<Guid?> GetBoardIdByBoardListId(Guid listId);
+        Task<Guid?> GetBoardIdByCardId(Guid cardId);
     }
 }

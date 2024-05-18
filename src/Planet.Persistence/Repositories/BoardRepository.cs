@@ -7,6 +7,8 @@ using Planet.Application.Services.Repositories;
 using Planet.Application.Services.SqlConnection;
 using Planet.Domain.Boards;
 using Planet.Persistence.Contexts;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace Planet.Persistence.Repositories
 {
@@ -61,6 +63,29 @@ namespace Planet.Persistence.Repositories
             return boardModel;
         }
 
+        public async Task<Guid?> GetBoardIdByBoardListId(Guid listId)
+        {
+            string sql = @"
+            SELECT b.Id FROM BoardLists bl
+            INNER JOIN Board b ON b.Id = bl.BoardId
+            WHERE bl.Id = @ListId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+            return await connection.QueryFirstOrDefaultAsync<Guid?>(sql, new { ListId = listId });
+        }
+
+        public async Task<Guid?> GetBoardIdByCardId(Guid cardId) {
+            string sql = @"
+            SELECT bl.BoardId FROM Cards c
+            INNER JOIN BoardLists bl ON bl.Id = c.ListId
+            WHERE c.Id = @CardId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+            return await connection.QueryFirstOrDefaultAsync<Guid?>(sql, new { CardId = cardId });
+        }
+
         public async Task<Pagination<UserBoardModel>> GetUserBoardsAsync(GetUserBoardsQuery query, Guid userId)
         {
             var parameters = new DynamicParameters();
@@ -94,6 +119,17 @@ namespace Planet.Persistence.Repositories
                 Items = items.ToList()
             };
 
+        }
+
+        public async Task<bool> HasBoardLabelAsync(Guid boardId, Guid boardLabelId)
+        {
+            string sql = @"
+            SELECT COUNT(*) FROM BoardLabels
+            WHERE Id = @BoardLabelId AND BoardId = @BoardId
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+            return (await connection.QueryFirstOrDefaultAsync<int>(sql, new {BoardLabelId = boardLabelId, BoardId = boardId})) > 0;
         }
 
         public async Task<bool> HasBoardListAnyCard(Guid listId)

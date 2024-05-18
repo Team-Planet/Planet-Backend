@@ -115,6 +115,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atanmak istenen etiket bulunamadı!.
+        /// </summary>
+        public static string BoardLabelNotFound {
+            get {
+                return ResourceManager.GetString("BoardLabelNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pano listesi bulunamadı..
         /// </summary>
         public static string BoardListNotFound {
@@ -147,6 +156,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string CanNotRemoveBoardOwner {
             get {
                 return ResourceManager.GetString("CanNotRemoveBoardOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart bulunamadı!.
+        /// </summary>
+        public static string CardNotFound {
+            get {
+                return ResourceManager.GetString("CardNotFound", resourceCulture);
             }
         }
         
