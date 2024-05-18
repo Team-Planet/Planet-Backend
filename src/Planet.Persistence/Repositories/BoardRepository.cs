@@ -47,6 +47,7 @@ namespace Planet.Persistence.Repositories
             
             SELECT bli.Id, bli.Title, bli.[Order] FROM BoardLists bli
             WHERE bli.BoardId = @BoardId
+            ORDER BY bli.[Order] ASC
             ";
 
             using var connection = _sqlConnectionFactory.GetConnection();

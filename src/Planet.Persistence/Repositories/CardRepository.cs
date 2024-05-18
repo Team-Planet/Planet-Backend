@@ -105,6 +105,7 @@ namespace Planet.Persistence.Repositories
             SELECT bl.Id, bl.Title, bl.ColorCode, bl.IsActive FROM CardLabels cl
             INNER JOIN BoardLabels bl ON bl.Id = cl.BoardLabelId
             WHERE cl.CardId = @CardId
+            ORDER BY bl.Title ASC
 
             SELECT cc.Id, cc.Content, u.Id as UserId, CONCAT(u.FirstName,' ',u.LastName) as FullName FROM CardComments cc
             INNER JOIN Users u ON u.Id = cc.UserId
