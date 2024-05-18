@@ -189,6 +189,9 @@
   <data name="DoNotHavePermissionForManagingBoardMembers" xml:space="preserve">
     <value>Pano üyelerini yönetmek için yetkiniz bulunmamaktadır.</value>
   </data>
+  <data name="DoNotHavePermissionForMovingCard" xml:space="preserve">
+    <value>Kart taşıma işlemi için yetkiniz bulunmamaktadır.</value>
+  </data>
   <data name="DoNotHavePermissionForViewingBoard" xml:space="preserve">
     <value>Panoyu görüntülemek için yetkiniz bulunmamaktadır.</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="JoinedBoardSuccessfully" xml:space="preserve">
     <value>{0} panosuna başarılı bir şekilde katıldınız.</value>
+  </data>
+  <data name="MovedCardSuccessfully" xml:space="preserve">
+    <value>Kart başarılı bir şekilde taşındı</value>
   </data>
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>Parolanız başarılı bir şekilde değiştirildi.</value>
