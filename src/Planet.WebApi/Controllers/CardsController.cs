@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Cards.Commands.AddCardCheckList;
 using Planet.Application.Features.Cards.Commands.AddCardComment;
@@ -16,6 +17,7 @@ namespace Planet.WebApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class CardsController : ControllerBase
     {
         private readonly IMediator _mediator;

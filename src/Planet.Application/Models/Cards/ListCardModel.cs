@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public int Order { get; set; }
+        public double Order { get; set; }
         public Guid? UserId { get; set; }
         public string FullName { get; set; }
         public List<ListCardLabel> Labels { get; set; } = new();
