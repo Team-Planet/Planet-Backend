@@ -11,7 +11,7 @@ namespace Planet.Domain.Cards
         public Guid OwnerId { get; private set; }
         public Guid? AssignedToId { get; private set; }
         public DateTime CreatedDate { get; private set; }
-        public int Order { get; private set; }
+        public double Order { get; private set; }
         public bool IsDeleted { get; private set; }
 
         public IReadOnlyList<CardCheckList> CheckLists => _checkLists?.ToList();

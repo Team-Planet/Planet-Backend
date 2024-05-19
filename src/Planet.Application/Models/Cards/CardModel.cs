@@ -18,7 +18,7 @@ namespace Planet.Application.Models.Cards
         public Guid OwnerId { get; set; }
         public Guid? AssignedToId { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int Order { get; private set; }
+        public double Order { get; private set; }
         public bool IsDeleted { get; set; }
         public List<CardCheckListModel> CheckLists { get; set; } = new();
         public List<CardLabelModel> Labels { get; set; } = new();
