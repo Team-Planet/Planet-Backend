@@ -78,6 +78,10 @@ namespace Planet.Domain.Cards
         {
             Description = description;
         }
+        public void ChangeCardTitle(CardTitle title)
+        {
+            Title = title;
+        }
         public void AddLabel(CardLabel label)
         {
             _labels.Add(label);
