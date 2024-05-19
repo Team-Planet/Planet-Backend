@@ -106,7 +106,7 @@ namespace Planet.Domain.Cards
             AssignedToId = userId;
         }
 
-        public void MoveToList(Guid newListId, int newOrder)
+        public void MoveToList(Guid newListId, double newOrder)
         {
             ListId = newListId;
             Order = newOrder;

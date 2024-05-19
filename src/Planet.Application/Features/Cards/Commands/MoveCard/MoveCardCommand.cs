@@ -11,6 +11,6 @@ namespace Planet.Application.Features.Cards.Commands.MoveTo
     {
         public Guid CardId { get; init; }
         public Guid NewListId { get; init; }
-        public int NewOrder { get; init; }
+        public double NewOrder { get; init; }
     }
 }
