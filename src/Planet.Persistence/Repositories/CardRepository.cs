@@ -99,6 +99,16 @@ namespace Planet.Persistence.Repositories
             c.CreatedDate, c.IsDeleted, c.[Order] FROM Cards c
             WHERE c.Id = @CardId
 
+            SELECT u.Id, u.FirstName + ' ' + u.LastName FullName,
+            CASE
+                WHEN c.OwnerId = u.Id THEN 1
+                WHEN c.AssignedToId = u.Id THEN 2
+                ELSE 0
+            END Type
+            FROM Users u
+            INNER JOIN Cards c ON c.AssignedToId = u.Id OR c.OwnerId = u.Id
+            WHERE c.Id = @CardId
+
             SELECT ccl.Id, ccl.Title, ccli.Id as ItemId, ccli.Content, ccli.IsChecked FROM CardCheckLists ccl
             INNER JOIN CardCheckListItems ccli ON ccli.CheckListId = ccl.Id
             WHERE ccl.CardId = @CardId
@@ -117,6 +127,8 @@ namespace Planet.Persistence.Repositories
 
             var gridReader = await connection.QueryMultipleAsync(sql, new { CardId = cardId });
             var cardModel = await gridReader.ReadFirstOrDefaultAsync<CardModel>();
+            cardModel.Users = (await gridReader.ReadAsync<CardUserModel>()).ToList();
+
             var cardCheckLists = (await gridReader.ReadAsync<CardCheckListQueryModel>()).ToList();
 
             var cardCheckListGrouping = cardCheckLists.GroupBy(x => x.Id);

@@ -15,14 +15,13 @@ namespace Planet.Application.Models.Cards
         public DateTime? EndDate { get; set; }
         public string Description { get; set; }
         public Guid ListId { get; set; }
-        public Guid OwnerId { get; set; }
-        public Guid? AssignedToId { get; set; }
         public DateTime CreatedDate { get; set; }
         public double Order { get; private set; }
         public bool IsDeleted { get; set; }
         public List<CardCheckListModel> CheckLists { get; set; } = new();
         public List<CardLabelModel> Labels { get; set; } = new();
         public List<CardCommentModel> Comments { get; set; } = new();
+        public List<CardUserModel> Users { get; set; } = new();
     }
     public sealed class CardCheckListModel
     {
@@ -56,5 +55,19 @@ namespace Planet.Application.Models.Cards
         public Guid UserId { get; set; }
         public string FullName { get; set; }
         public string Content { get; set; }
+    }
+
+    public sealed class CardUserModel
+    {
+        public Guid Id { get; set; }
+        public string FullName { get; set; }
+        public CardUserType Type { get; set; }
+    }
+
+    public enum CardUserType
+    {
+        None = 0,
+        Owner = 1,
+        Assignee = 2,
     }
 }

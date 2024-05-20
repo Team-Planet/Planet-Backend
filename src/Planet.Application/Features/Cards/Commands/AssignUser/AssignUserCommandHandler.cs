@@ -24,17 +24,18 @@ namespace Planet.Application.Features.Cards.Commands.AssignUser
 
         public override async Task<AssignUserResponse> Handle(AssignUserCommand request, CancellationToken cancellationToken)
         {
-            if (!await HasPermissionAsync(BoardPermissions.AssignCard, request.CardId))
+            var cardId = request.CardId;
+            var card = await _cardRepository.FindAsync(cardId);
+
+            if(card == null)
+            {
+                return Response.Failure<AssignUserResponse>(OperationMessages.CardNotFound);
+            }
+
+            if (!await HasPermissionAsync(BoardPermissions.AssignCard, card.ListId))
             {
                 return Response.Failure<AssignUserResponse>(OperationMessages.DoNotHavePermissionForAssigningUserToCard);
             }
-
-            /*
-             *  Atanan kullanıcının board'a üyeliği var mı?
-             */
-
-            var cardId = request.CardId;
-            var card = await _cardRepository.FindAsync(cardId);
 
             card.AssignUser(request.UserId);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -42,10 +43,10 @@ namespace Planet.Application.Features.Cards.Commands.AssignUser
             return Response.Success<AssignUserResponse>();
         }
 
-        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
+        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid listId)
         {
             var userId = _userService.GetUserId();
-            return await _boardRepository.HasPermissionAsync(permission, cardId, userId);
+            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
         }
     }
 }

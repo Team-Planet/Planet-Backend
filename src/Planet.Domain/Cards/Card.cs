@@ -101,7 +101,7 @@ namespace Planet.Domain.Cards
             _checkLists.Add(cardCheckList);
         }
 
-        public void AssignUser(Guid userId)
+        public void AssignUser(Guid? userId)
         {
             AssignedToId = userId;
         }
