@@ -14,13 +14,13 @@ namespace Planet.Domain.Cards
         public double Order { get; private set; }
         public bool IsDeleted { get; private set; }
 
-        public IReadOnlyList<CardCheckList> CheckLists => _checkLists?.ToList();
-        public IReadOnlyList<CardLabel> Labels => _labels?.ToList();
-        public IReadOnlyList<CardComment> Comments => _comments?.ToList();
+        public IReadOnlyCollection<CardCheckList> CheckLists => _checkLists?.ToList();
+        public IReadOnlyCollection<CardLabel> Labels => _labels?.ToList();
+        public IReadOnlyCollection<CardComment> Comments => _comments?.ToList();
 
-        private IList<CardCheckList> _checkLists = new List<CardCheckList>();
-        private IList<CardLabel> _labels = new List<CardLabel>();
-        private IList<CardComment> _comments = new List<CardComment>();
+        private HashSet<CardCheckList> _checkLists = new HashSet<CardCheckList>();
+        private HashSet<CardLabel> _labels = new HashSet<CardLabel>();
+        private HashSet<CardComment> _comments = new HashSet<CardComment>();
 
         private Card() : base(Guid.Empty) { }
 
@@ -86,6 +86,12 @@ namespace Planet.Domain.Cards
         {
             _labels.Add(label);
         }
+
+        public void RemoveLabel(CardLabel label)
+        {
+            _labels.Remove(label);
+        }
+
         public void ChangeDate(CardDates date)
         {
             Dates = date;

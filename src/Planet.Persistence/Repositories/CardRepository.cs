@@ -113,7 +113,7 @@ namespace Planet.Persistence.Repositories
             INNER JOIN CardCheckListItems ccli ON ccli.CheckListId = ccl.Id
             WHERE ccl.CardId = @CardId
 
-            SELECT bl.Id, bl.Title, bl.ColorCode, bl.IsActive FROM CardLabels cl
+            SELECT cl.CardId CardId, bl.Id BoardLabelId, bl.Title, bl.ColorCode, bl.IsActive FROM CardLabels cl
             INNER JOIN BoardLabels bl ON bl.Id = cl.BoardLabelId
             WHERE cl.CardId = @CardId
             ORDER BY bl.Title ASC
