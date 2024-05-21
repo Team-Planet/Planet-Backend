@@ -77,7 +77,7 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("Comments/Add")]
         public async Task<IActionResult> AddCardComment(AddCardCommentCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
@@ -85,7 +85,7 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("CheckLists/Add")]
         public async Task<IActionResult> AddCardCheckList(AddCardCheckListCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
