@@ -49,6 +49,8 @@ namespace Planet.Application.Models.Cards
     {
         public string ColorCode { get; set; }
         public string Title { get; set; }
+        public Guid CardId { get; set; }
+        public Guid BoardLabelId { get; set; }
     }
     public sealed class CardCommentModel
     {
