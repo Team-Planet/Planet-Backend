@@ -10,6 +10,7 @@ using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
+using Planet.Application.Features.Cards.Commands.RemoveLabel;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
 
@@ -52,13 +53,22 @@ namespace Planet.WebApi.Controllers
 
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> AddLabelToCard(AddLabelCommand command, CancellationToken cancellationToken = default)
+        [HttpPost("Labels/Add")]
+        public async Task<IActionResult> AddLabel(AddLabelCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
 
             return Ok(response);
         }
+
+        [HttpPost("Labels/Remove")]
+        public async Task<IActionResult> RemoveLabel(RemoveLabelCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
         [HttpPost("[action]")]
         public async Task<IActionResult> EditCardDate(EditDateCommand command, CancellationToken cancellationToken = default)
         {

@@ -183,6 +183,9 @@
   <data name="DoNotHavePermissionForEditingBoard" xml:space="preserve">
     <value>Pano özelliklerini değiştirmek için yetkiniz bulunmamaktadır.</value>
   </data>
+  <data name="DoNotHavePermissionForEditingCard" xml:space="preserve">
+    <value>Kartı düzenleme yetkiniz bulunmamaktadır!</value>
+  </data>
   <data name="DoNotHavePermissionForManagingBoardLists" xml:space="preserve">
     <value>Pano listelerini düzenlemek için yetkiniz bulunmamaktadır.</value>
   </data>
