@@ -24,14 +24,17 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
         }
         public override async Task<AddCardCheckListResponse> Handle(AddCardCheckListCommand request, CancellationToken cancellationToken)
         {
-            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, request.CardId))
+            var cardId = request.CardId;
+            var card = await _cardRepository.FindAsync(cardId);
+            var listId = card.ListId;
+            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, listId))
             {
                 return Response.Failure<AddCardCheckListResponse>(OperationMessages.DoNotHavePermissionForAddCardCheckList);
             }
             var id = Guid.NewGuid();
-            var cardId = request.CardId;
+            
             var title = CardTitle.Create(request.Title);
-            var card = await _cardRepository.FindAsync(cardId);
+            
 
             var cardCheckList = CardCheckList.Create(id, cardId, title);
             card.AddCheckList(cardCheckList);
@@ -46,10 +49,10 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
             }, OperationMessages.AddedCheckListToCardSuccessfully);
         }
 
-        private Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
+        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid listId)
         {
             var userId = _userService.GetUserId();
-            return _boardRepository.HasPermissionAsync(permission, cardId, userId);
+            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
         }
 
     }

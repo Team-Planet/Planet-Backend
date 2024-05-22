@@ -24,16 +24,17 @@ namespace Planet.Application.Features.Cards.Commands.AddCardComment
         }
         public override async Task<AddCardCommentResponse> Handle(AddCardCommentCommand request, CancellationToken cancellationToken)
         {
-            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, request.CardId))
+            var cardId = request.CardId;
+            var card = await _cardRepository.FindAsync(cardId);
+            var listId = card.ListId;
+            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, listId))
             {
                 return Response.Failure<AddCardCommentResponse>(OperationMessages.DoNotHavePermissionForEditCardComment);
             }
             var id = Guid.NewGuid();
             var userId = _userService.GetUserId();
-            var cardId = request.CardId;
+            
             var comment = CardCommentContent.Create(request.Comment);
-            var card = await _cardRepository.FindAsync(cardId);
-
             var cardComment = CardComment.Create(id, userId, comment, cardId);
             card.AddComment(cardComment);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -45,10 +46,10 @@ namespace Planet.Application.Features.Cards.Commands.AddCardComment
                 CommentId = cardComment.Id
             }, OperationMessages.AddedCommentToCardSuccessfully);
         }
-        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid cardId)
+        private async Task<bool> HasPermissionAsync(BoardPermissions permission, Guid listId)
         {
             var userId = _userService.GetUserId();
-            return await _boardRepository.HasPermissionAsync(permission, cardId, userId);
+            return await _boardRepository.HasPermissionForListAsync(permission, listId, userId);
         }
 
     }
