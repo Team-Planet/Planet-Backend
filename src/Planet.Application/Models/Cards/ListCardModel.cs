@@ -15,5 +15,6 @@
         public Guid CardId { get; set; }
         public string Title { get; set; }
         public string ColorCode { get; set; }
+        public Guid BoardLabelId { get; set; }
     }
 }

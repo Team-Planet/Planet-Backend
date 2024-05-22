@@ -53,7 +53,7 @@ namespace Planet.Persistence.Repositories
             OFFSET @PageSize * (@CurrentPage - 1) ROWS
             FETCH NEXT @PageSize ROWS ONLY
 
-            SELECT bl.Title, bl.ColorCode, cl.CardId FROM CardLabels cl
+            SELECT bl.Title, bl.ColorCode, cl.CardId, bl.BoardLabelId FROM CardLabels cl
             INNER JOIN BoardLabels bl ON bl.Id = cl.BoardLabelId
             WHERE cl.CardId IN(
 	            SELECT c.Id
