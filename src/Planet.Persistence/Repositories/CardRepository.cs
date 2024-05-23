@@ -46,7 +46,7 @@ namespace Planet.Persistence.Repositories
             FROM Cards c
             WHERE c.ListId = @ListId
 
-            SELECT c.Id, C.title, c.[Order], u.Id UserId, u.FirstName + ' ' + u.LastName FullName
+            SELECT c.Id, c.ListId, c.Title, c.[Order], u.Id UserId, u.FirstName + ' ' + u.LastName FullName
             FROM Cards c LEFT JOIN Users u ON u.Id = c.AssignedToId
             WHERE c.ListId = @ListId
             ORDER BY c.[Order] ASC
