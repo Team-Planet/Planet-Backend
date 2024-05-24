@@ -117,5 +117,36 @@ namespace Planet.Domain.Cards
             ListId = newListId;
             Order = newOrder;
         }
+
+        public void RemoveCheckList(Guid checkListId)
+        {
+            var checkList = _checkLists.FirstOrDefault(c => c.Id == checkListId);
+            _checkLists.Remove(checkList);
+        }
+
+        public void EditCheckListTitle(Guid checkListId, CardTitle title)
+        {
+            var checkList = _checkLists.FirstOrDefault(c => c.Id == checkListId);
+            checkList?.ChangeTitle(title);
+        }
+
+        public void EditCardCheckListItem(Guid checkListId, Guid cardCheckListItemId, string content, bool isChecked)
+        {
+            var checkList = _checkLists.FirstOrDefault(cl => cl.Id == checkListId);
+            checkList?.EditItem(cardCheckListItemId, content, isChecked);
+        }
+
+        public void AddCardCheckListItem(CardCheckListItem item)
+        {
+            var checkList = _checkLists.FirstOrDefault(cl => cl.Id == item.CheckListId);
+            checkList?.AddItem(item);
+        }
+
+        public void RemoveCardCheckListItem(Guid checkListId, Guid cardCheckListItemId)
+        {
+            var checkList = _checkLists.FirstOrDefault(cl => cl.Id == checkListId);
+            checkList?.RemoveItem(cardCheckListItemId);
+        }
+
     }
 }

@@ -28,5 +28,26 @@ namespace Planet.Domain.Cards
         {
             return new CardCheckList(id, cardId, cardTitle);
         }
+
+        public void ChangeTitle(CardTitle title)
+        {
+            CardTitle = title;
+        }
+
+        public void AddItem(CardCheckListItem item)
+        {
+            _items.Add(item);
+        }
+
+        public void RemoveItem(Guid itemId)
+        {
+            _items.Remove(_items.FirstOrDefault(i => i.Id == itemId));
+        }
+
+        public void EditItem(Guid itemId, string content, bool isChecked)
+        {
+            var item = _items.FirstOrDefault(i => i.Id == itemId);
+            item.Edit(content, isChecked);
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace Planet.Application.Features.Cards.Commands.AssignUser
             var cardId = request.CardId;
             var card = await _cardRepository.FindAsync(cardId);
 
-            if(card == null)
+            if (card == null)
             {
                 return Response.Failure<AssignUserResponse>(OperationMessages.CardNotFound);
             }

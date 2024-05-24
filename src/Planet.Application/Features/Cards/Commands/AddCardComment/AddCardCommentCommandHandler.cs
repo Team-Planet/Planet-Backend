@@ -33,7 +33,7 @@ namespace Planet.Application.Features.Cards.Commands.AddCardComment
             }
             var id = Guid.NewGuid();
             var userId = _userService.GetUserId();
-            
+
             var comment = CardCommentContent.Create(request.Comment);
             var cardComment = CardComment.Create(id, userId, comment, cardId);
             card.AddComment(cardComment);

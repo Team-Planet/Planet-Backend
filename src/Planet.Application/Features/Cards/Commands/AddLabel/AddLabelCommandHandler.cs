@@ -29,7 +29,7 @@ namespace Planet.Application.Features.Cards.Commands.AddLabel
             var boardLabelId = request.BoardLabelId;
             var card = await _cardRepository.FindAsync(cardId);
 
-            if(card == null)
+            if (card == null)
             {
                 return Response.Failure<AddLabelResponse>(OperationMessages.CardNotFound);
             }

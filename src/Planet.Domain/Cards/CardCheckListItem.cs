@@ -27,5 +27,11 @@ namespace Planet.Domain.Cards
             return new CardCheckListItem(id, content, isChecked, checkListId);
         }
 
+        public void Edit(string content, bool isChecked)
+        {
+            Content = CardCheckListItemContent.Create(content);
+            IsChecked = isChecked;
+        }
+
     }
 }

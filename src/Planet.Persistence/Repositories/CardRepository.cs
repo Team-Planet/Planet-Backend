@@ -1,16 +1,12 @@
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Planet.Application.Common;
-using Planet.Application.Features.Boards.Queries.GetUserBoards;
-using Planet.Application.Models.Boards;
+using Planet.Application.Features.Cards.Queries.GetListCards;
 using Planet.Application.Models.Cards;
 using Planet.Application.Services.Repositories;
 using Planet.Application.Services.SqlConnection;
 using Planet.Domain.Cards;
-using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
-using System.Collections.Immutable;
-using Planet.Application.Features.Cards.Queries.GetListCards;
 
 namespace Planet.Persistence.Repositories
 {
@@ -19,7 +15,7 @@ namespace Planet.Persistence.Repositories
         private readonly PlanetContext _context;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public CardRepository(PlanetContext context , ISqlConnectionFactory sqlConnectionFactory)
+        public CardRepository(PlanetContext context, ISqlConnectionFactory sqlConnectionFactory)
         {
             _context = context;
             _sqlConnectionFactory = sqlConnectionFactory;
@@ -32,7 +28,11 @@ namespace Planet.Persistence.Repositories
 
         public Task<Card> FindAsync(Guid id)
         {
-            return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
+            return _context.Cards.
+                Include(c => c.CheckLists).ThenInclude(cl => cl.Items).AsSplitQuery().
+                Include(c => c.Labels).
+                Include(c => c.Comments).
+                SingleOrDefaultAsync(c => c.Id == id);
         }
 
 
@@ -71,8 +71,8 @@ namespace Planet.Persistence.Repositories
             int recordCount = await gridReader.ReadFirstOrDefaultAsync<int>();
             var items = await gridReader.ReadAsync<ListCardModel>();
             var labels = await gridReader.ReadAsync<ListCardLabel>();
-            
-            foreach(var item in items)
+
+            foreach (var item in items)
             {
                 item.Labels = labels.Where(l => item.Id == l.CardId).ToList();
             }
@@ -133,12 +133,12 @@ namespace Planet.Persistence.Repositories
 
             var cardCheckListGrouping = cardCheckLists.GroupBy(x => x.Id);
 
-            foreach(var group in cardCheckListGrouping)
+            foreach (var group in cardCheckListGrouping)
             {
                 var checkListItems = group.Select(x => new CardCheckListItemModel
                 {
+                    Id = x.ItemId,
                     Content = x.Content,
-                    Title = x.Title,
                     IsChecked = x.IsChecked
                 });
 
@@ -146,6 +146,7 @@ namespace Planet.Persistence.Repositories
 
                 cardModel.CheckLists.Add(new CardCheckListModel
                 {
+                    Id = cardCheckList.Id,
                     CardId = cardId,
                     Items = checkListItems.ToList(),
                     Title = cardCheckList.Title

@@ -2,14 +2,19 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Cards.Commands.AddCardCheckList;
+using Planet.Application.Features.Cards.Commands.AddCardCheckListItem;
 using Planet.Application.Features.Cards.Commands.AddCardComment;
 using Planet.Application.Features.Cards.Commands.AddLabel;
 using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
+using Planet.Application.Features.Cards.Commands.EditCardCheckListItem;
+using Planet.Application.Features.Cards.Commands.EditCardCheckListTitle;
 using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
+using Planet.Application.Features.Cards.Commands.RemoveCardCheckList;
+using Planet.Application.Features.Cards.Commands.RemoveCardCheckListItem;
 using Planet.Application.Features.Cards.Commands.RemoveLabel;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
@@ -93,10 +98,50 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("CheckLists/Edit")]
+        public async Task<IActionResult> EditCardCheckListTitle(EditCardCheckListTitleCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Remove")]
+        public async Task<IActionResult> RemoveCardCheckList(RemoveCardCheckListCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Items/Remove")]
+        public async Task<IActionResult> RemoveCardCheckListItem(RemoveCardCheckListItemCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Items/Add")]
+        public async Task<IActionResult> AddCardCheckListItem(AddCardCheckListItemCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Items/Edit")]
+        public async Task<IActionResult> EditCardCheckListItem(EditCardCheckListItemCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
         [HttpGet("{cardId}")]
         public async Task<IActionResult> GetCardInfo(Guid cardId, CancellationToken cancellationToken = default)
         {
-            var response = await _mediator.Send(new GetCardInfoQuery() { CardId = cardId}, cancellationToken);
+            var response = await _mediator.Send(new GetCardInfoQuery() { CardId = cardId }, cancellationToken);
 
             return Ok(response);
         }

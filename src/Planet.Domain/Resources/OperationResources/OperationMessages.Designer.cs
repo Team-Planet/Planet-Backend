@@ -61,6 +61,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Listeye eleman başarılı bir şekilde eklendi..
+        /// </summary>
+        public static string AddedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedCardCheckListItemSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrol listesi başarılı bir şekilde eklendi..
         /// </summary>
         public static string AddedCheckListToCardSuccessfully {
@@ -169,6 +178,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrol listesi bulunamadı. .
+        /// </summary>
+        public static string CheckListNotFound {
+            get {
+                return ResourceManager.GetString("CheckListNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} panosu başarılı bir şekilde oluşturuldu..
         /// </summary>
         public static string CreatedBoardSuccessfully {
@@ -219,6 +237,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string DoNotHavePermissionForCreatingCard {
             get {
                 return ResourceManager.GetString("DoNotHavePermissionForCreatingCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontrol listesi başlığını düzenlemek için yetkiniz bulunmamaktadır. .
+        /// </summary>
+        public static string DoNotHavePermissionForEditCardCheckListTitle {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForEditCardCheckListTitle", resourceCulture);
             }
         }
         
@@ -295,6 +322,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kart kontrol listesini kaldırmak için yetkiniz bulunmamaktadır. .
+        /// </summary>
+        public static string DoNotHavePermissionForRemoveCardCheckList {
+            get {
+                return ResourceManager.GetString("DoNotHavePermissionForRemoveCardCheckList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Panoyu görüntülemek için yetkiniz bulunmamaktadır..
         /// </summary>
         public static string DoNotHavePermissionForViewingBoard {
@@ -309,6 +345,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string EditedBoardSuccessfully {
             get {
                 return ResourceManager.GetString("EditedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste elemanı başarılı bir şekilde güncellendi..
+        /// </summary>
+        public static string EditedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedCardCheckListItemSuccessfully", resourceCulture);
             }
         }
         
@@ -336,6 +381,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string EditedCardTitleSuccessfully {
             get {
                 return ResourceManager.GetString("EditedCardTitleSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontrol listesi başlığı başarılı bir şekilde değiştirildi. .
+        /// </summary>
+        public static string EditedCheckListTitleSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedCheckListTitleSuccessfully", resourceCulture);
             }
         }
         
@@ -426,6 +480,24 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string RemovedBoardMemberSuccessfully {
             get {
                 return ResourceManager.GetString("RemovedBoardMemberSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste elemanı başarılı bir şekilde kaldırıldı..
+        /// </summary>
+        public static string RemovedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("RemovedCardCheckListItemSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kart kontrol listesi başarılı bir şekilde kaldırıldı. .
+        /// </summary>
+        public static string RemovedCheckListFromCardSuccessfully {
+            get {
+                return ResourceManager.GetString("RemovedCheckListFromCardSuccessfully", resourceCulture);
             }
         }
         
