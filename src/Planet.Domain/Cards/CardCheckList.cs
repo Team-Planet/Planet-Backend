@@ -28,5 +28,10 @@ namespace Planet.Domain.Cards
         {
             return new CardCheckList(id, cardId, cardTitle);
         }
+
+        public void ChangeTitle ( CardTitle title )
+        {
+            CardTitle = title;
+        }
     }
 }

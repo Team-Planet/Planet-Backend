@@ -11,8 +11,10 @@ using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
 using Planet.Application.Features.Cards.Commands.RemoveLabel;
+using Planet. Application.Features.Cards.Commands.EditCardCheckListTitle;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
+using Planet.Application.Features.Cards.Commands.RemoveCardCheckList;
 
 namespace Planet.WebApi.Controllers
 {
@@ -87,6 +89,22 @@ namespace Planet.WebApi.Controllers
 
         [HttpPost("CheckLists/Add")]
         public async Task<IActionResult> AddCardCheckList(AddCardCheckListCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Edit")]
+        public async Task<IActionResult> EditCardCheckListTitle(EditCardCheckListTitleCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("CheckLists/Remove")]
+        public async Task<IActionResult> RemoveCardCheckList(RemoveCardCheckListCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
 

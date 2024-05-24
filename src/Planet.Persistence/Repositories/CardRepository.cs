@@ -32,7 +32,11 @@ namespace Planet.Persistence.Repositories
 
         public Task<Card> FindAsync(Guid id)
         {
-            return _context.Cards.SingleOrDefaultAsync(c => c.Id == id);
+            return _context.Cards.
+                Include(c => c.CheckLists).ThenInclude(cl => cl.Items).AsSplitQuery().
+                Include(c => c.Labels).
+                Include(c => c.Comments).
+                SingleOrDefaultAsync(c => c.Id == id);
         }
 
 
