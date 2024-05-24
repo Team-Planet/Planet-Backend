@@ -110,7 +110,7 @@ namespace Planet.Persistence.Repositories
             WHERE c.Id = @CardId
 
             SELECT ccl.Id, ccl.Title, ccli.Id as ItemId, ccli.Content, ccli.IsChecked FROM CardCheckLists ccl
-            INNER JOIN CardCheckListItems ccli ON ccli.CheckListId = ccl.Id
+            LEFT JOIN CardCheckListItems ccli ON ccli.CheckListId = ccl.Id
             WHERE ccl.CardId = @CardId
 
             SELECT cl.CardId CardId, bl.Id BoardLabelId, bl.Title, bl.ColorCode, bl.IsActive FROM CardLabels cl
@@ -135,9 +135,9 @@ namespace Planet.Persistence.Repositories
 
             foreach (var group in cardCheckListGrouping)
             {
-                var checkListItems = group.Select(x => new CardCheckListItemModel
+                var checkListItems = group.Where(x => x.ItemId != null).Select(x => new CardCheckListItemModel
                 {
-                    Id = x.ItemId,
+                    Id = x.ItemId ?? Guid.Empty,
                     Content = x.Content,
                     IsChecked = x.IsChecked
                 });

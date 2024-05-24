@@ -27,7 +27,7 @@
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public Guid ItemId { get; set; }
+        public Guid? ItemId { get; set; }
         public string Content { get; set; }
         public bool IsChecked { get; set; }
     }
