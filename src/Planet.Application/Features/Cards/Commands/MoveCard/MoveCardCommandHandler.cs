@@ -4,11 +4,6 @@ using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Planet.Application.Features.Cards.Commands.MoveTo
 {
     internal class MoveCardCommandHandler : RequestHandlerBase<MoveCardCommand, MoveCardResponse>

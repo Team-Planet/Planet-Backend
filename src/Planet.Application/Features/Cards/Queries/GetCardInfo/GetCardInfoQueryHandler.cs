@@ -1,14 +1,6 @@
-﻿using MediatR.Wrappers;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
-using Planet.Domain.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Application.Features.Cards.Queries.GetCardInfo
 {

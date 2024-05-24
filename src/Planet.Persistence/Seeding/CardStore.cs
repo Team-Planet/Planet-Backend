@@ -440,7 +440,7 @@ namespace Planet.Persistence.Seeding
                     var memberId = memberGroup[f.Random.Number(0, memberGroup.Count - 1)].UserId;
                     return f.Random.Bool(0.75f) ? memberId : null;
                 })
-                .RuleFor(c => c.Order, f => f.Random.Double()*Math.Pow(2, 10))
+                .RuleFor(c => c.Order, f => f.Random.Double() * Math.Pow(2, 10))
                 .RuleFor(c => c.IsDeleted, f => f.Random.Bool(0.05f))
                 .RuleFor("_labels", (f, c) =>
                 {

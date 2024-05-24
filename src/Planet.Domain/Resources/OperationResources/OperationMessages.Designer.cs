@@ -484,6 +484,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Liste elemanı başarılı bir şekilde kaldırıldı..
+        /// </summary>
+        public static string RemovedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("RemovedCardCheckListItemSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kart kontrol listesi başarılı bir şekilde kaldırıldı. .
         /// </summary>
         public static string RemovedCheckListFromCardSuccessfully {

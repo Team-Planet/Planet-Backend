@@ -32,9 +32,9 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckList
                 return Response.Failure<AddCardCheckListResponse>(OperationMessages.DoNotHavePermissionForAddCardCheckList);
             }
             var id = Guid.NewGuid();
-            
+
             var title = CardTitle.Create(request.Title);
-            
+
 
             var cardCheckList = CardCheckList.Create(id, cardId, title);
             card.AddCheckList(cardCheckList);

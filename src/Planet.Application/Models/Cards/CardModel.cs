@@ -1,12 +1,4 @@
-﻿using Planet.Domain.Cards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Planet.Application.Models.Cards.CardCheckListItemModel;
-
-namespace Planet.Application.Models.Cards
+﻿namespace Planet.Application.Models.Cards
 {
     public sealed class CardModel
     {

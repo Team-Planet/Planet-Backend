@@ -7,8 +7,6 @@ using Planet.Application.Services.Repositories;
 using Planet.Application.Services.SqlConnection;
 using Planet.Domain.Boards;
 using Planet.Persistence.Contexts;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 namespace Planet.Persistence.Repositories
 {
@@ -75,7 +73,8 @@ namespace Planet.Persistence.Repositories
             return await connection.QueryFirstOrDefaultAsync<Guid?>(sql, new { ListId = listId });
         }
 
-        public async Task<Guid?> GetBoardIdByCardId(Guid cardId) {
+        public async Task<Guid?> GetBoardIdByCardId(Guid cardId)
+        {
             string sql = @"
             SELECT bl.BoardId FROM Cards c
             INNER JOIN BoardLists bl ON bl.Id = c.ListId
@@ -129,7 +128,7 @@ namespace Planet.Persistence.Repositories
             ";
 
             using var connection = _sqlConnectionFactory.GetConnection();
-            return (await connection.QueryFirstOrDefaultAsync<int>(sql, new {BoardLabelId = boardLabelId, BoardId = boardId})) > 0;
+            return (await connection.QueryFirstOrDefaultAsync<int>(sql, new { BoardLabelId = boardLabelId, BoardId = boardId })) > 0;
         }
 
         public async Task<bool> HasBoardListAnyCard(Guid listId)

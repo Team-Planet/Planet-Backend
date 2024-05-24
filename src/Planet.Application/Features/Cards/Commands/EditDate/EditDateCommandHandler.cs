@@ -5,7 +5,6 @@ using Planet.Domain.Boards;
 using Planet.Domain.Cards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System.Collections.Generic;
 
 namespace Planet.Application.Features.Cards.Commands.EditDate
 {
@@ -28,13 +27,13 @@ namespace Planet.Application.Features.Cards.Commands.EditDate
             var cardId = request.CardId;
             var card = await _cardRepository.FindAsync(cardId);
             var listId = card.ListId;
-            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard,listId))
+            if (!await HasPermissionAsync(BoardPermissions.CreateAndEditCard, listId))
             {
                 return Response.Failure<EditDateResponse>(OperationMessages.DoNotHavePermissionForEditDateCard);
             }
-            
-            var startDate = request.startDate;
-            var endDate = request.endDate; 
+
+            var startDate = request.StartDate;
+            var endDate = request.EndDate;
             var cardDate = CardDates.Create(startDate, endDate);
             card.ChangeDate(cardDate);
             await _unitOfWork.SaveChangesAsync();

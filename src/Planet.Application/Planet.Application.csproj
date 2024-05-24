@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Planet.Domain\Planet.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Cards\Commands\EditCardCheckListItem\" />
-    <Folder Include="Features\Cards\Commands\RemoveCardCheckListItem\" />
-  </ItemGroup>
-
 </Project>

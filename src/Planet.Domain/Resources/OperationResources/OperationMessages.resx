@@ -258,6 +258,9 @@
   <data name="RemovedBoardMemberSuccessfully" xml:space="preserve">
     <value>Pano üyesi başarılı bir şekilde panodan kaldırıldı.</value>
   </data>
+  <data name="RemovedCardCheckListItemSuccessfully" xml:space="preserve">
+    <value>Liste elemanı başarılı bir şekilde kaldırıldı.</value>
+  </data>
   <data name="RemovedCheckListFromCardSuccessfully" xml:space="preserve">
     <value>Kart kontrol listesi başarılı bir şekilde kaldırıldı. </value>
   </data>

@@ -6,15 +6,15 @@ using Planet.Application.Features.Cards.Commands.AddCardComment;
 using Planet.Application.Features.Cards.Commands.AddLabel;
 using Planet.Application.Features.Cards.Commands.AssignUser;
 using Planet.Application.Features.Cards.Commands.CreateCard;
+using Planet.Application.Features.Cards.Commands.EditCardCheckListTitle;
 using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
+using Planet.Application.Features.Cards.Commands.RemoveCardCheckList;
 using Planet.Application.Features.Cards.Commands.RemoveLabel;
-using Planet. Application.Features.Cards.Commands.EditCardCheckListTitle;
 using Planet.Application.Features.Cards.Queries.GetCardInfo;
 using Planet.Application.Features.Cards.Queries.GetListCards;
-using Planet.Application.Features.Cards.Commands.RemoveCardCheckList;
 
 namespace Planet.WebApi.Controllers
 {
@@ -114,7 +114,7 @@ namespace Planet.WebApi.Controllers
         [HttpGet("{cardId}")]
         public async Task<IActionResult> GetCardInfo(Guid cardId, CancellationToken cancellationToken = default)
         {
-            var response = await _mediator.Send(new GetCardInfoQuery() { CardId = cardId}, cancellationToken);
+            var response = await _mediator.Send(new GetCardInfoQuery() { CardId = cardId }, cancellationToken);
 
             return Ok(response);
         }

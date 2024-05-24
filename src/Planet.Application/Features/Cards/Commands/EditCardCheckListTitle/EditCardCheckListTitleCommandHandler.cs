@@ -1,16 +1,10 @@
-﻿using MediatR.Wrappers;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
 using Planet.Domain.Cards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Planet.Application.Features.Cards.Commands.EditCardCheckListTitle
 {
@@ -43,7 +37,7 @@ namespace Planet.Application.Features.Cards.Commands.EditCardCheckListTitle
                 return Response.Failure<EditCardCheckListTitleResponse>(OperationMessages.DoNotHavePermissionForEditCardCheckListTitle);
             }
 
-            card.EditCheckListTitle(request.CheckListId,CardTitle.Create(request.NewTitle));
+            card.EditCheckListTitle(request.CheckListId, CardTitle.Create(request.NewTitle));
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Response.SuccessWithBody<EditCardCheckListTitleResponse>(new

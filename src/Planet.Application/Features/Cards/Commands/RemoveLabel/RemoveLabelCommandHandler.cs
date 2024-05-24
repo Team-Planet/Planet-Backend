@@ -1,5 +1,4 @@
-﻿using MediatR.Wrappers;
-using Planet.Application.Common;
+﻿using Planet.Application.Common;
 using Planet.Application.Services.Authentication;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
@@ -29,12 +28,12 @@ namespace Planet.Application.Features.Cards.Commands.RemoveLabel
             var userId = _userService.GetUserId();
             var card = await _cardRepository.FindAsync(request.CardId);
 
-            if(card == null)
+            if (card == null)
             {
                 return Response.Failure<RemoveLabelResponse>(OperationMessages.CardNotFound);
             }
 
-            if(!await _boardRepository.HasPermissionForListAsync(BoardPermissions.CreateAndEditCard, card.ListId, userId))
+            if (!await _boardRepository.HasPermissionForListAsync(BoardPermissions.CreateAndEditCard, card.ListId, userId))
             {
                 return Response.Failure<RemoveLabelResponse>(OperationMessages.DoNotHavePermissionForEditingCard);
             }
