@@ -34,7 +34,7 @@ namespace Planet.Application.Features.Cards.Commands.CreateCard
             var ownerId = _userService.GetUserId();
             var createdDate = DateTime.Now;
             var title = CardTitle.Create(request.Title);
-            var card = Card.Create(cardId, request.ListId, title, ownerId, createdDate);
+            var card = Card.Create(cardId, request.ListId, title, ownerId, createdDate, request.Order);
 
             await _cardRepository.CreateAsync(card);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

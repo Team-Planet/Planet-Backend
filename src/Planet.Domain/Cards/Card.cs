@@ -46,18 +46,19 @@ namespace Planet.Domain.Cards
             IsDeleted = isDeleted;
         }
 
-        private Card(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate) : base(id)
+        private Card(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate, double order) : base(id)
         {
             Title = title;
             OwnerId = ownerId;
             ListId = listId;
             CreatedDate = createdDate;
             Description = CardDescription.Create(string.Empty);
+            Order = order;
         }
 
-        public static Card Create(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate)
+        public static Card Create(Guid id, Guid listId, CardTitle title, Guid ownerId, DateTime createdDate, double order)
         {
-            return new Card(id, listId, title, ownerId, createdDate);
+            return new Card(id, listId, title, ownerId, createdDate, order);
         }
 
         public static Card Create(
