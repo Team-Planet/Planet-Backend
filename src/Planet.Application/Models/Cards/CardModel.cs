@@ -25,6 +25,7 @@ namespace Planet.Application.Models.Cards
     }
     public sealed class CardCheckListModel
     {
+        public Guid Id { get; set; }
         public Guid CardId { get; set; }
         public string Title { get; set; }
         public List<CardCheckListItemModel> Items { get; set; } = new();
@@ -41,7 +42,7 @@ namespace Planet.Application.Models.Cards
 
     public sealed class CardCheckListItemModel
     {
-        public string Title { get; set; }
+        public Guid Id { get; set; }
         public string Content { get; set; }
         public bool IsChecked { get; set; }
     }

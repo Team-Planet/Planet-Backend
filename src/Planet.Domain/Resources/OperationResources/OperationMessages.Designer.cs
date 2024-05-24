@@ -61,6 +61,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Listeye eleman başarılı bir şekilde eklendi..
+        /// </summary>
+        public static string AddedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("AddedCardCheckListItemSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrol listesi başarılı bir şekilde eklendi..
         /// </summary>
         public static string AddedCheckListToCardSuccessfully {
@@ -336,6 +345,15 @@ namespace Planet.Domain.Resources.OperationResources {
         public static string EditedBoardSuccessfully {
             get {
                 return ResourceManager.GetString("EditedBoardSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste elemanı başarılı bir şekilde güncellendi..
+        /// </summary>
+        public static string EditedCardCheckListItemSuccessfully {
+            get {
+                return ResourceManager.GetString("EditedCardCheckListItemSuccessfully", resourceCulture);
             }
         }
         

@@ -141,8 +141,8 @@ namespace Planet.Persistence.Repositories
             {
                 var checkListItems = group.Select(x => new CardCheckListItemModel
                 {
+                    Id = x.ItemId,
                     Content = x.Content,
-                    Title = x.Title,
                     IsChecked = x.IsChecked
                 });
 
@@ -150,6 +150,7 @@ namespace Planet.Persistence.Repositories
 
                 cardModel.CheckLists.Add(new CardCheckListModel
                 {
+                    Id = cardCheckList.Id,
                     CardId = cardId,
                     Items = checkListItems.ToList(),
                     Title = cardCheckList.Title
