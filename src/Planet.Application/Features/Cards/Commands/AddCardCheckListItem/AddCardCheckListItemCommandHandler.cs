@@ -49,7 +49,7 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckListItem
             return Response.SuccessWithBody<AddCardCheckListItemResponse>(new
             {
                 request.CheckListId,
-                request.CheckListItemId,
+                checkListItemId,
                 request.Content,
                 IsChecked = false
             }, OperationMessages.EditedCardCheckListItemSuccessfully);

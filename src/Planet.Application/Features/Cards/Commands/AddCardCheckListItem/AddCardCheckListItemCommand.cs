@@ -6,7 +6,6 @@ namespace Planet.Application.Features.Cards.Commands.AddCardCheckListItem
     {
         public Guid CardId { get; init; }
         public Guid CheckListId { get; init; }
-        public Guid CheckListItemId { get; init; }
         public string Content { get; init; }
     }
 }
