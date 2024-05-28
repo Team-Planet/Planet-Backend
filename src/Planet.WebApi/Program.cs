@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Planet.Application;
@@ -97,6 +98,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<BoardHub>("/Hubs/Board");
+app.MapHub<BoardHub>("/Hubs/Board", options => options.Transports = HttpTransportType.WebSockets);
 
 app.Run();
