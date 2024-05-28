@@ -65,7 +65,7 @@ namespace Planet.Persistence.Repositories
         {
             string sql = @"
             SELECT b.Id FROM BoardLists bl
-            INNER JOIN Board b ON b.Id = bl.BoardId
+            INNER JOIN Boards b ON b.Id = bl.BoardId
             WHERE bl.Id = @ListId
             ";
 

@@ -1,4 +1,5 @@
-﻿using Planet.Domain.SharedKernel;
+﻿using Planet.Domain.Cards.DomainEvents;
+using Planet.Domain.SharedKernel;
 
 namespace Planet.Domain.Cards
 {
@@ -115,8 +116,19 @@ namespace Planet.Domain.Cards
 
         public void MoveToList(Guid newListId, double newOrder)
         {
+            var cardMovedDomainEvent = new CardMovedDomainEvent
+            {
+                CardId = Id,
+                NewListId = newListId,
+                NewOrder = newOrder,
+                OldOrder = Order,
+                OldListId = ListId
+            };
+
             ListId = newListId;
             Order = newOrder;
+
+            RaiseDomainEvent(cardMovedDomainEvent);
         }
 
         public void RemoveCheckList(Guid checkListId)
