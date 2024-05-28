@@ -1,6 +1,8 @@
-﻿namespace Planet.Domain.SharedKernel
+﻿using MediatR;
+
+namespace Planet.Domain.SharedKernel
 {
-    public interface IDomainEvent
+    public interface IDomainEvent : INotification
     {
     }
 }
