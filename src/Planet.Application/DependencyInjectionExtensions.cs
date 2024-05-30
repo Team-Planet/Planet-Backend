@@ -13,11 +13,6 @@ namespace Planet.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddValidatorsFromAssembly(typeof(SignUpCommandValidator).Assembly);
-            services.AddMediatR(config =>
-            {
-                config.RegisterServicesFromAssembly(typeof(SignInCommand).Assembly);
-                config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            });
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
