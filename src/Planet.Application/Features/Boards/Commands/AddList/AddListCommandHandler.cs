@@ -1,6 +1,7 @@
 ﻿using Planet.Application.Common;
 using Planet.Application.Services.Repositories;
 using Planet.Domain.Boards;
+using Planet.Domain.Cards;
 using Planet.Domain.Resources.OperationResources;
 using Planet.Domain.SharedKernel;
 
@@ -29,7 +30,11 @@ namespace Planet.Application.Features.Boards.Commands.AddList
             board.AddList(boardList);
             await _unitOfWork.SaveChangesAsync();
 
-            return Response.SuccessWithMessage<AddListResponse>(OperationMessages.AddedListSuccessfully);
+            return Response.SuccessWithBody<AddListResponse>(new
+            {
+                ListId = listId,
+                Title = title.Value,
+            }, OperationMessages.AddedListSuccessfully);
         }
 
     }
