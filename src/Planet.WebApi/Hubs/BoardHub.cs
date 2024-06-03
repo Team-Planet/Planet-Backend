@@ -9,6 +9,11 @@ namespace Planet.WebApi.Hubs
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, $"BOARD[{boardId}]");
         }
+
+        public async Task LeaveBoardGroup(string boardId)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, $"BOARD[{boardId}]");
+        }
     }
 
     public interface IBoardClient
