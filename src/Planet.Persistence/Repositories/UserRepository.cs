@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
+using Planet.Application.Models.Users;
 using Planet.Application.Services.Repositories;
+using Planet.Application.Services.SqlConnection;
 using Planet.Domain.Users;
 using Planet.Persistence.Contexts;
 
@@ -8,10 +11,12 @@ namespace Planet.Persistence.Repositories
     public sealed class UserRepository : IUserRepository
     {
         private readonly PlanetContext _context;
+        private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public UserRepository(PlanetContext context)
+        public UserRepository(PlanetContext context, ISqlConnectionFactory sqlConnectionFactory)
         {
             _context = context;
+            _sqlConnectionFactory = sqlConnectionFactory;
         }
 
         public async Task CreateAsync(User user)
@@ -27,6 +32,32 @@ namespace Planet.Persistence.Repositories
         public Task<User> FindByEmailAsync(string email)
         {
             return _context.Users.SingleOrDefaultAsync(u => u.Email.Value == email);
+        }
+
+        public async Task<Dictionary<string, int>> GetUserStatistics(Guid userId)
+        {
+            string sql = @"
+            SELECT
+                (SELECT COUNT(*) FROM BoardMembers WHERE UserId = @UserId) AS BoardMemberCount,
+                (SELECT COUNT(*) FROM CardComments WHERE UserId = @UserId) AS CardCommentCount,
+                (SELECT COUNT(*) FROM Cards WHERE OwnerId = @UserId) AS CardOwnerCount,
+                (SELECT COUNT(*) FROM Cards WHERE AssignedToId = @UserId) AS CardAssignedCount;
+            ";
+
+            using var connection = _sqlConnectionFactory.GetConnection();
+
+            var gridReader = await connection.QueryMultipleAsync(sql, new { UserId = userId });
+            var statisticModel = await gridReader.ReadFirstOrDefaultAsync<UserStatisticsModel>();
+
+            Dictionary<string, int> statistics = new Dictionary<string, int>
+            {
+                { "BoardMemberCount",  statisticModel.BoardMemberCount},
+                { "CardCommentCount", statisticModel.CardCommentCount },
+                { "CardOwnerCount", statisticModel.CardOwnerCount },
+                { "CardAssignedCount", statisticModel.CardAssignedCount }
+            };
+
+            return statistics;
         }
     }
 }

@@ -7,14 +7,10 @@ namespace Planet.Application.Features.Cards.Queries.GetCardInfo
     public sealed class GetCardInfoQueryHandler : RequestHandlerBase<GetCardInfoQuery, GetCardInfoResponse>
     {
         private readonly ICardRepository _cardRepository;
-        private readonly IUserService _userService;
-        private readonly IBoardRepository _boardRepository;
 
-        public GetCardInfoQueryHandler(ICardRepository cardRepository, IUserService userService, IBoardRepository boardRepository)
+        public GetCardInfoQueryHandler(ICardRepository cardRepository)
         {
             _cardRepository = cardRepository;
-            _userService = userService;
-            _boardRepository = boardRepository;
         }
 
         public async override Task<GetCardInfoResponse> Handle(GetCardInfoQuery request, CancellationToken cancellationToken)
