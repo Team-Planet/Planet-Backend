@@ -46,7 +46,8 @@ namespace Planet.Application.Features.Cards.Commands.RemoveCard
                 return Response.Failure<RemoveCardResponse>(OperationMessages.DoNotHavePermissionForEditingCard);
             }
 
-            card.Remove(request.CardId);
+            card.Remove();
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Response.Success<RemoveCardResponse>();

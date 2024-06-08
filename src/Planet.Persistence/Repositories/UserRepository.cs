@@ -34,7 +34,7 @@ namespace Planet.Persistence.Repositories
             return _context.Users.SingleOrDefaultAsync(u => u.Email.Value == email);
         }
 
-        public async Task<Dictionary<string, int>> GetUserStatistics(Guid userId)
+        public async Task<UserStatisticsModel> GetUserStatistics(Guid userId)
         {
             string sql = @"
             SELECT
@@ -46,18 +46,7 @@ namespace Planet.Persistence.Repositories
 
             using var connection = _sqlConnectionFactory.GetConnection();
 
-            var gridReader = await connection.QueryMultipleAsync(sql, new { UserId = userId });
-            var statisticModel = await gridReader.ReadFirstOrDefaultAsync<UserStatisticsModel>();
-
-            Dictionary<string, int> statistics = new Dictionary<string, int>
-            {
-                { "BoardMemberCount",  statisticModel.BoardMemberCount},
-                { "CardCommentCount", statisticModel.CardCommentCount },
-                { "CardOwnerCount", statisticModel.CardOwnerCount },
-                { "CardAssignedCount", statisticModel.CardAssignedCount }
-            };
-
-            return statistics;
+            return await connection.QueryFirstOrDefaultAsync<UserStatisticsModel>(sql, new {UserId = userId});
         }
     }
 }

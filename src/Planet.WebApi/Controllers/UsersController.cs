@@ -5,7 +5,7 @@ using Planet.Application.Features.Users.Commands.ChangePassword;
 using Planet.Application.Features.Users.Commands.SignIn;
 using Planet.Application.Features.Users.Commands.SignInRefresh;
 using Planet.Application.Features.Users.Commands.SignUp;
-using Planet.Application.Features.Users.Queries.GetUserIstatistics;
+using Planet.Application.Features.Users.Queries.GetUserStatistics;
 
 namespace Planet.WebApi.Controllers
 {
@@ -56,10 +56,10 @@ namespace Planet.WebApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> GetUserStatistics(GetUserStatisticsQuery query, CancellationToken cancellationToken)
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUserStatistics(CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(query, cancellationToken);
+            var response = await _mediator.Send(new GetUserStatisticsQuery(), cancellationToken);
 
             return Ok(response);
         }
