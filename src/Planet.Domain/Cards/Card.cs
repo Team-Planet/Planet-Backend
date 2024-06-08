@@ -161,5 +161,9 @@ namespace Planet.Domain.Cards
             checkList?.RemoveItem(cardCheckListItemId);
         }
 
+        public void Remove()
+        {
+           IsDeleted = true;
+        }
     }
 }

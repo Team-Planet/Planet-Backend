@@ -13,6 +13,7 @@ using Planet.Application.Features.Cards.Commands.EditCardDescription;
 using Planet.Application.Features.Cards.Commands.EditDate;
 using Planet.Application.Features.Cards.Commands.EditTitle;
 using Planet.Application.Features.Cards.Commands.MoveTo;
+using Planet.Application.Features.Cards.Commands.RemoveCard;
 using Planet.Application.Features.Cards.Commands.RemoveCardCheckList;
 using Planet.Application.Features.Cards.Commands.RemoveCardCheckListItem;
 using Planet.Application.Features.Cards.Commands.RemoveLabel;
@@ -164,6 +165,14 @@ namespace Planet.WebApi.Controllers
 
         [HttpPost("[action]")]
         public async Task<IActionResult> MoveCard(MoveCardCommand command, CancellationToken cancellationToken = default)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RemoveCard(RemoveCardCommand command, CancellationToken cancellationToken = default)
         {
             var response = await _mediator.Send(command, cancellationToken);
 
