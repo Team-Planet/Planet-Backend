@@ -6,14 +6,14 @@ namespace Planet.Domain.Boards
     {
         public Guid BoardId { get; private set; }
         public BoardTitle Title { get; private set; }
-        public int Order { get; private set; }
+        public decimal Order { get; private set; }
         private BoardList() : base(Guid.Empty) { }
 
         private BoardList(
             Guid id,
             Guid boardId,
             BoardTitle title,
-            int order) : base(id)
+            decimal order) : base(id)
         {
             BoardId = boardId;
             Title = title;
@@ -23,7 +23,7 @@ namespace Planet.Domain.Boards
             Guid id,
             Guid boardId,
             BoardTitle title,
-            int order)
+            decimal order)
         {
             return new BoardList(id, boardId, title, order);
         }

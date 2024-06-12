@@ -6,6 +6,6 @@ namespace Planet.Application.Features.Boards.Commands.AddList
     {
         public Guid BoardId { get; init; }
         public string Title { get; init; }
-        public int Order { get; init; }
+        public decimal Order { get; init; }
     }
 }
