@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Planet.Application.Features.Boards.Commands.AcceptInvitation;
 using Planet.Application.Features.Boards.Commands.AddLabel;
 using Planet.Application.Features.Boards.Commands.AddList;
+using Planet.Application.Features.Boards.Commands.BoardListEdit;
 using Planet.Application.Features.Boards.Commands.CreateBoard;
 using Planet.Application.Features.Boards.Commands.EditBoard;
 using Planet.Application.Features.Boards.Commands.InviteMember;
@@ -60,6 +61,14 @@ namespace Planet.WebApi.Controllers
 
         [HttpPost("Lists/Remove")]
         public async Task<IActionResult> RemoveList(RemoveListCommand command, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(response);
+        }
+
+        [HttpPost("Lists/Edit")]
+        public async Task<IActionResult> EditList(BoardListEditCommand command, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(command, cancellationToken);
 

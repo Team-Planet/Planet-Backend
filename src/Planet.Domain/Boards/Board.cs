@@ -1,4 +1,5 @@
 ﻿using Planet.Domain.SharedKernel;
+using System.Net;
 
 namespace Planet.Domain.Boards
 {
@@ -110,6 +111,12 @@ namespace Planet.Domain.Boards
         public void AddLabel(BoardLabel label)
         {
             _labels.Add(label);
+        }
+
+        public void EditList(Guid listId, BoardTitle title, decimal order)
+        {
+            var list = _lists.FirstOrDefault(x => x.Id == listId);
+            list?.Edit(title, order);
         }
     }
 }

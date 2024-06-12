@@ -141,6 +141,9 @@
   <data name="BoardLabelNotFound" xml:space="preserve">
     <value>Atanmak istenen etiket bulunamadı!</value>
   </data>
+  <data name="BoardListEditedSuccesfully" xml:space="preserve">
+    <value>Pano listesi başarıyla düzenlendi. </value>
+  </data>
   <data name="BoardListNotFound" xml:space="preserve">
     <value>Pano listesi bulunamadı.</value>
   </data>

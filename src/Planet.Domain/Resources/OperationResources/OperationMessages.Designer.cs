@@ -133,6 +133,15 @@ namespace Planet.Domain.Resources.OperationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pano listesi başarıyla düzenlendi. .
+        /// </summary>
+        public static string BoardListEditedSuccesfully {
+            get {
+                return ResourceManager.GetString("BoardListEditedSuccesfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pano listesi bulunamadı..
         /// </summary>
         public static string BoardListNotFound {
