@@ -1,4 +1,5 @@
 ﻿using Planet.Domain.SharedKernel;
+using System.Xml.Schema;
 
 namespace Planet.Domain.Boards
 {
@@ -26,6 +27,12 @@ namespace Planet.Domain.Boards
             decimal order)
         {
             return new BoardList(id, boardId, title, order);
+        }
+
+        public void Edit(BoardTitle title, decimal order)
+        {
+            Title = title;
+            Order = order;
         }
     }
 }
