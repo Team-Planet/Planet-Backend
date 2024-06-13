@@ -127,13 +127,13 @@
     <value>Kart yorumu başarılı bir şekilde eklendi.</value>
   </data>
   <data name="AddedLabelSuccessfully" xml:space="preserve">
-    <value>{0} etiketi başarılı bir şekilde oluşturuldu.</value>
+    <value>Etiket başarılı bir şekilde oluşturuldu.</value>
   </data>
   <data name="AddedLabelToCardSuccessfully" xml:space="preserve">
-    <value>{0} etiketi karta başarılı bir şekilde eklendi.</value>
+    <value>Etiket karta başarılı bir şekilde eklendi.</value>
   </data>
   <data name="AddedListSuccessfully" xml:space="preserve">
-    <value>{0} listesi başarılı bir şekilde oluşturuldu.</value>
+    <value>Liste başarılı bir şekilde oluşturuldu.</value>
   </data>
   <data name="BoardInvitationUrlCreatedSuccessfully" xml:space="preserve">
     <value>Pano davet bağlantısı oluşturuldu. Bağlantıyı paylaşarak panonuza üyeleri davet edebilirsiniz.</value>
@@ -163,7 +163,7 @@
     <value>Kontrol listesi bulunamadı. </value>
   </data>
   <data name="CreatedBoardSuccessfully" xml:space="preserve">
-    <value>{0} panosu başarılı bir şekilde oluşturuldu.</value>
+    <value>Pano başarılı bir şekilde oluşturuldu.</value>
   </data>
   <data name="CreatedCardSuccessfully" xml:space="preserve">
     <value>Kart başarılı bir şekilde oluşturuldu.</value>
@@ -175,7 +175,7 @@
     <value>Pano kartlarına kullanıcı atamak için yetkiniz bulunmamaktadır.</value>
   </data>
   <data name="DoNotHavePermissionForBoardInviting" xml:space="preserve">
-    <value>{0} panosu için üye davet yetkiniz bulunmamaktadır.</value>
+    <value>Pano için üye davet yetkiniz bulunmamaktadır.</value>
   </data>
   <data name="DoNotHavePermissionForCreatingCard" xml:space="preserve">
     <value>Pano için kart oluşturma yetkiniz bulunmamaktadır.</value>
@@ -241,7 +241,7 @@
     <value>Davet bağlantısı artık geçerli değil.</value>
   </data>
   <data name="JoinedBoardSuccessfully" xml:space="preserve">
-    <value>{0} panosuna başarılı bir şekilde katıldınız.</value>
+    <value>Panoya başarılı bir şekilde katıldınız.</value>
   </data>
   <data name="MovedCardSuccessfully" xml:space="preserve">
     <value>Kart başarılı bir şekilde taşındı</value>
