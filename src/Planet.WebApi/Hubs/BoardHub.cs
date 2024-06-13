@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Planet.Domain.Boards.DomainEvents;
 using Planet.Domain.Cards.DomainEvents;
 
 namespace Planet.WebApi.Hubs
@@ -19,5 +20,8 @@ namespace Planet.WebApi.Hubs
     public interface IBoardClient
     {
         Task ReceiveCardMovedEvent(CardMovedDomainEvent @event);
+        Task ReceiveCardTitleChangedEvent(CardTitleChangedDomainEvent @event);
+        Task ReceiveBoardListTitleChangedEvent(BoardListTitleChangedDomainEvent @event);
+        Task ReceiveBoardListOrderChangedEvent(BoardListOrderChangedDomainEvent @event);
     }
 }

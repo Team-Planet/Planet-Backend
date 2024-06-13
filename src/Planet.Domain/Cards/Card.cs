@@ -83,6 +83,12 @@ namespace Planet.Domain.Cards
         public void ChangeCardTitle(CardTitle title)
         {
             Title = title;
+
+            RaiseDomainEvent(new CardTitleChangedDomainEvent
+            {
+                CardId = Id,
+                Title = title.Value
+            });
         }
         public void AddLabel(CardLabel label)
         {

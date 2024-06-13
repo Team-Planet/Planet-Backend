@@ -52,12 +52,8 @@ namespace Planet.Application.Features.Boards.Commands.InviteMember
             byte[] encryptedUrlParameter = _cryptographyService.Encrypt(_configuration["Invitation:Key"], urlParameter);
             string invitationKey = Base64Url.Encode(encryptedUrlParameter);
 
-            string host = _httpContextAccessor.HttpContext.Request.Host.Value;
-            string scheme = _httpContextAccessor.HttpContext.Request.Scheme;
 
-            string url = $"{scheme}://{host}/Boards/Members/Invitation/{invitationKey}";
-
-            return Response.SuccessWithBody<InviteMemberResponse>(new { InvitationUrl = url }, OperationMessages.BoardInvitationUrlCreatedSuccessfully);
+            return Response.SuccessWithBody<InviteMemberResponse>(new { Key = invitationKey }, OperationMessages.BoardInvitationUrlCreatedSuccessfully);
         }
     }
 }

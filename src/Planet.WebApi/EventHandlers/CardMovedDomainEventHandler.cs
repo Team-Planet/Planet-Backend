@@ -19,8 +19,8 @@ namespace Planet.WebApi.EventHandlers
 
         public async Task Handle(CardMovedDomainEvent notification, CancellationToken cancellationToken)
         {
-            var listId = await _boardRepository.GetBoardIdByBoardListId(notification.OldListId);
-            await _hubContext.Clients.Group($"BOARD[{listId}]").ReceiveCardMovedEvent(notification);
+            var boardId = await _boardRepository.GetBoardIdByBoardListId(notification.OldListId);
+            await _hubContext.Clients.Group($"BOARD[{boardId}]").ReceiveCardMovedEvent(notification);
         }
     }
 }

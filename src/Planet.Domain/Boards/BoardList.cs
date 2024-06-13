@@ -1,4 +1,5 @@
-﻿using Planet.Domain.SharedKernel;
+﻿using Planet.Domain.Boards.DomainEvents;
+using Planet.Domain.SharedKernel;
 using System.Xml.Schema;
 
 namespace Planet.Domain.Boards
@@ -31,6 +32,24 @@ namespace Planet.Domain.Boards
 
         public void Edit(BoardTitle title, decimal order)
         {
+            if (title != Title)
+            {
+                RaiseDomainEvent(new BoardListTitleChangedDomainEvent
+                {
+                    ListId = Id,
+                    Title = title.Value
+                });
+            }
+
+            if (order != Order)
+            {
+                RaiseDomainEvent(new BoardListOrderChangedDomainEvent
+                {
+                    ListId = Id,
+                    Order = order
+                });
+            }
+
             Title = title;
             Order = order;
         }
