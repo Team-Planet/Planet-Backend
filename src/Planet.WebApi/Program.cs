@@ -68,6 +68,7 @@ builder.Services.AddAuthentication(options =>
     };
     options.MapInboundClaims = false;
 });
+
 builder.Services.AddSignalR();
 
 builder.Services.AddMediatR(config =>
